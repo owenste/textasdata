@@ -6,7 +6,8 @@
   "year": 1986,
   "journal": "The Journal of Economic History",
   "doi": "10.1017/s0022050700046209",
-  "match": true
+  "match": true,
+  "first_page_match": true
  },
  {
   "ref": "Acemoglu & Robinson 2000",
@@ -15,7 +16,8 @@
   "year": 2000,
   "journal": "American Economic Review",
   "doi": "10.1257/aer.90.2.126",
-  "match": true
+  "match": true,
+  "first_page_match": true
  },
  {
   "ref": "Acemoglu & Robinson 2006",
@@ -24,7 +26,8 @@
   "year": 2006,
   "journal": "American Political Science Review",
   "doi": "10.1017/s0003055406062046",
-  "match": true
+  "match": true,
+  "first_page_match": true
  },
  {
   "ref": "Campbell 1979",
@@ -33,7 +36,8 @@
   "year": 1979,
   "journal": "Evaluation and Program Planning",
   "doi": "10.1016/0149-7189(79)90048-x",
-  "match": true
+  "match": true,
+  "first_page_match": true
  },
  {
   "ref": "Cohen & Levinthal 1990",
@@ -42,7 +46,8 @@
   "year": 1990,
   "journal": "Administrative Science Quarterly",
   "doi": "10.2307/2393553",
-  "match": false
+  "match": false,
+  "first_page_match": true
  },
  {
   "ref": "Comin & Mestieri 2018",
@@ -51,7 +56,8 @@
   "year": 2018,
   "journal": "American Economic Journal: Macroeconomics",
   "doi": "10.1257/mac.20150175",
-  "match": true
+  "match": true,
+  "first_page_match": true
  },
  {
   "ref": "DiMaggio & Powell 1983",
@@ -60,21 +66,28 @@
   "year": 1983,
   "journal": "American Sociological Review",
   "doi": "10.2307/2095101",
-  "match": false
+  "match": false,
+  "first_page_match": true
  },
  {
   "ref": "Doner, Ritchie & Slater 2005",
   "plan": "59(2): 327-361",
-  "status": "error: HTTP Error 429: Too Many Requests"
+  "crossref": "59(2): 327-361",
+  "year": 2005,
+  "journal": "International Organization",
+  "doi": "10.1017/s0020818305050113",
+  "match": true,
+  "first_page_match": true
  },
  {
   "ref": "Khan 2018",
   "plan": "117(469): 636-655",
-  "crossref": "117(469): 716-716",
-  "year": 2018,
+  "crossref": "117(469): 636-655",
+  "year": 2017,
   "journal": "African Affairs",
-  "doi": "10.1093/afraf/ady051",
-  "match": false
+  "doi": "10.1093/afraf/adx044",
+  "match": true,
+  "first_page_match": true
  },
  {
   "ref": "Kitschelt 1991",
@@ -83,7 +96,8 @@
   "year": 1991,
   "journal": "International Organization",
   "doi": "10.1017/s002081830003318x",
-  "match": true
+  "match": true,
+  "first_page_match": true
  },
  {
   "ref": "Kornai 1986",
@@ -92,7 +106,8 @@
   "year": 1986,
   "journal": "Kyklos",
   "doi": "10.1111/j.1467-6435.1986.tb01252.x",
-  "match": true
+  "match": true,
+  "first_page_match": true
  },
  {
   "ref": "Kornai, Maskin & Roland 2003",
@@ -101,7 +116,8 @@
   "year": 2003,
   "journal": "Journal of Economic Literature",
   "doi": "10.1257/jel.41.4.1095",
-  "match": true
+  "match": true,
+  "first_page_match": true
  },
  {
   "ref": "Lall 1992",
@@ -110,7 +126,8 @@
   "year": 1992,
   "journal": "World Development",
   "doi": "10.1016/0305-750x(92)90097-f",
-  "match": true
+  "match": true,
+  "first_page_match": true
  },
  {
   "ref": "Meyer & Rowan 1977",
@@ -119,7 +136,8 @@
   "year": 1977,
   "journal": "American Journal of Sociology",
   "doi": "10.1086/226550",
-  "match": true
+  "match": true,
+  "first_page_match": true
  },
  {
   "ref": "Pritchett, Woolcock & Andrews 2013",
@@ -128,11 +146,17 @@
   "year": 2013,
   "journal": "Journal of Development Studies",
   "doi": "10.1080/00220388.2012.709614",
-  "match": true
+  "match": true,
+  "first_page_match": true
  },
  {
   "ref": "Xu 2011",
   "plan": "49(4): 1076-1151",
-  "status": "error: HTTP Error 429: Too Many Requests"
+  "crossref": "49(4): 1076-1151",
+  "year": 2011,
+  "journal": "Journal of Economic Literature",
+  "doi": "10.1257/jel.49.4.1076",
+  "match": true,
+  "first_page_match": true
  }
 ]

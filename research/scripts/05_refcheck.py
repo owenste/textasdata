@@ -1,5 +1,5 @@
 """Check journal references in the research plan against Crossref metadata."""
-import json, urllib.parse, urllib.request
+import json, time, urllib.error, urllib.parse, urllib.request
 from pathlib import Path
 
 REFS = [
@@ -36,10 +36,16 @@ def query(title, key):
     yr = key.split()[-1]
     url = ("https://api.crossref.org/works?rows=3&query.bibliographic=" + urllib.parse.quote(title)
            + "&query.container-title=" + urllib.parse.quote(JOURNAL[key])
-           + f"&filter=from-pub-date:{yr},until-pub-date:{yr}")
+           + f"&filter=from-pub-date:{int(yr)-1},until-pub-date:{yr}")
     req = urllib.request.Request(url, headers={"User-Agent": "refcheck/0.1 (research pilot)"})
-    with urllib.request.urlopen(req, timeout=30) as r:
-        return json.load(r)["message"]["items"]
+    for attempt in range(4):
+        try:
+            with urllib.request.urlopen(req, timeout=30) as r:
+                return json.load(r)["message"]["items"]
+        except urllib.error.HTTPError as e:
+            if e.code != 429 or attempt == 3:
+                raise
+            time.sleep(5 * (attempt + 1))
 
 
 out = []
@@ -49,11 +55,17 @@ for key, title, plan in REFS:
     except Exception as e:  # network hiccup: record and continue
         out.append(dict(ref=key, plan=plan, status=f"error: {e}"))
         continue
-    best = next((i for i in items if i.get("title") and title.lower()[:30] in i["title"][0].lower()), items[0])
+    time.sleep(1.5)
+    first_page = plan.split(": ")[1].split("-")[0]
+    cands = [i for i in items if i.get("title") and title.lower()[:30] in i["title"][0].lower()] or items
+    # prefer the record whose first page matches (skips errata and reprints)
+    best = next((i for i in cands if str(i.get("page", "")).split("-")[0] == first_page), cands[0])
     got = f"{best.get('volume','?')}({best.get('issue','?')}): {best.get('page','?')}"
     yr = (best.get("issued", {}).get("date-parts") or [[None]])[0][0]
     out.append(dict(ref=key, plan=plan, crossref=got, year=yr, journal=(best.get("container-title") or ["?"])[0],
-                    doi=best.get("DOI"), match=plan.replace(" ", "") == got.replace(" ", "")))
+                    doi=best.get("DOI"), match=plan.replace(" ", "") == got.replace(" ", ""),
+                    # JSTOR-deposited records often carry only the first page
+                    first_page_match=str(best.get("page", "")).split("-")[0] == first_page))
     print(out[-1])
 Path(__file__).resolve().parents[1].joinpath("output", "refcheck.json").write_text(
     json.dumps(out, ensure_ascii=False, indent=1))
