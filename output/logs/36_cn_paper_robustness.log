@@ -1,0 +1,48 @@
+# 脚本: 36_cn_paper_robustness
+# 运行时间: 2026-09-23 17:39:37
+# Python: 3.11.15
+----------------------------------------------------------------------
+                       口径  D 1995  D 2023 只来自南北的比重 东亚：只来自南南的比重 其他区域：只来自南南的比重 南南覆盖最弱的领域  南南·政府采购   欧盟  其他北方   美国 中国·政府采购 南南/南北
+① 主设定（北方 23 国，国家等权，122 国）    2.47    4.67       5%          4%           46%      政府采购     0.42 2.04  1.50 0.67   0.00 / 1.00
+     ② 世行独立口径（只用世行编码，0/1）    1.44    4.52      18%          2%           45%      政府采购     0.30 2.09  1.36 0.66   0.00 / 1.00
+    ③ 严格口径（覆盖概率 ≥ 0.8 才算）    1.85    4.61       6%          3%           48%      政府采购     0.40 1.93  1.45 0.65   0.00 / 1.00
+  ④ 宽口径北方（1995 年全部高收入经济体）    2.47    4.67      19%          3%           19%      政府采购     0.37  NaN   NaN  NaN   0.00 / 1.00
+                   ⑤ 人口加权    1.74    5.22       6%          0%           52%      政府采购     0.41 0.82  3.05 0.33   0.00 / 1.00
+           ⑥ 剔除转型国家（93 国）    2.25    4.41       7%          4%           52%      政府采购     0.27 1.63  1.53 0.85   0.00 / 1.00
+  年份  国家数  D 与世行约束性条款数的相关  D 与 D_wbonly 的相关  Spearman（D 与条款数）
+2005  115            0.66              0.84              0.82
+2015  118            0.76              0.88              0.88
+2023  121            0.74              0.88              0.87
+ 国家   领域 DESTA 版本号                                                                                     协定     签署/生效  南北协定  覆盖概率  概率来源             对应世行协定
+CHN 政府采购       955                                                                          China Iceland 2013/2014  True  1.00    WB    Iceland - China
+VNM 政府采购       877                                                                             EC Vietnam 2019/2020  True  1.00    WB      EU - Viet Nam
+VNM 政府采购   —（世行独有）                                                                               WBID 281         —  True  1.00 WB-独有           WBID 281
+IDN 政府采购        65 Association of Southeast Asian Nations (ASEAN) Preferential Trading Arrangements (PTA) 1977/1977 False  0.51 DESTA                  —
+IDN 政府采购       495                                                                        Indonesia Japan 2007/2008  True  1.00    WB Japan - Indonesia 
+                                            协定     签署/生效  南北协定   概率来源                                                                    对应世行协定                        领域
+                       Andean Countries Brazil 1999/1999 False  DESTA                                                                         —                      技术标准
+                     Andean Countries MERCOSUR 2004/2005 False  DESTA                                                                         —                   投资、竞争政策
+                              Argentina Brazil 1986/1987 False  DESTA                                                                         —                      政府采购
+                              Bolivia MERCOSUR 1996/1997 False  DESTA                                                                         —              技术标准、投资、竞争政策
+                                 Brazil Mexico 2002/2003 False     WB                                                          Brazil - Mexico                       技术标准
+                                Chile MERCOSUR 1996/1996 False  DESTA                                                                         —           技术标准、投资、服务、竞争政策
+                 Chile MERCOSUR (consolidated) 2009/2011 False  DESTA                                                                         —           技术标准、投资、服务、竞争政策
+                                 Cuba MERCOSUR 2006/2007 False  DESTA                                                                         —                      技术标准
+                                India MERCOSUR 2004/2009 False     WB                                 Southern Common Market (MERCOSUR) - India                 技术标准、竞争政策
+                               Israel MERCOSUR 2007/2009 False  DESTA                                                                         —                      技术标准
+                                      MERCOSUR 1991/1991 False     WB                                         Southern Common Market (MERCOSUR) 技术标准、投资、服务、政府采购、竞争政策、知识产权
+                       MERCOSUR (consolidated) 1997/2005 False WB-母协定                                                                         — 技术标准、投资、服务、政府采购、竞争政策、知识产权
+                    MERCOSUR Bolivia accession 2015/2015 False WB-母协定                                                                         — 技术标准、投资、服务、政府采购、竞争政策、知识产权
+                                 MERCOSUR Peru 2005/2006 False  DESTA                                                                         —              技术标准、投资、竞争政策
+MERCOSUR Southern African Customs Union (SACU) 2004/2010 False  DESTA                                                                         —                      技术标准
+MERCOSUR Southern African Customs Union (SACU) 2008/2016 False     WB Southern Common Market (MERCOSUR) - Southern African Customs Union (SACU)                      技术标准
+                                      WBID 323         — False  WB-独有                                                                  WBID 323              技术标准、投资、竞争政策
+南方共同市场对应世行 WBID 21（Southern Common Market (MERCOSUR)）；LE：2 = 有法律约束力，1 = 无约束力，0 = 未涉及
+  领域  SPS  TBT  TRIMs  Investment  MovementofCapital  GATS  PublicProcurement  CompetitionPolicy  StateAid  STE  TRIPs  IPR
+技术标准  2.0  2.0    NaN         NaN                NaN   NaN                NaN                NaN       NaN  NaN    NaN  NaN
+  投资  NaN  NaN    2.0         0.0                2.0   NaN                NaN                NaN       NaN  NaN    NaN  NaN
+  服务  NaN  NaN    NaN         NaN                NaN   2.0                NaN                NaN       NaN  NaN    NaN  NaN
+政府采购  NaN  NaN    NaN         NaN                NaN   NaN                2.0                NaN       NaN  NaN    NaN  NaN
+竞争政策  NaN  NaN    NaN         NaN                NaN   NaN                NaN                2.0       2.0  2.0    NaN  NaN
+知识产权  NaN  NaN    NaN         NaN                NaN   NaN                NaN                NaN       NaN  NaN    2.0  2.0
+已保存 output/tables/tab26_cn_robustness.md、output/tables/tab27_cn_provenance.md
