@@ -1,0 +1,5 @@
+# 原始数据不进 git（GMD 有研究使用条款，且文件较大）；用 code/00_download_raw.py 重新下载
+data/raw/**
+!data/raw/README.md
+__pycache__/
+*.pyc

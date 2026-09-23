@@ -1,0 +1,64 @@
+# 脚本: 03_build_convergence
+# 运行时间: 2026-09-23 08:34:39
+# Python: 3.11.15
+----------------------------------------------------------------------
+1995 年世行收入分组分布（全部 GMD 国家）：
+inc_1995
+LM     65
+L      63
+H      48
+UM     28
+NaN    17
+..     14
+
+[剔除] 无 1995 年收入分组（多为当时不存在的国家或属地）：31 个
+   AIA, COK, CSK, CUW, FLK, GGY, GIB, GLP, GUF, JEY, MNE, MSR, MTQ, NIU, NRU, PLW, REU, SHN, SMR, SPM, SRB, SSD, SUN, SXM, TCA, TLS, TUV, VAT, VGB, WLF, XKX
+
+[剔除] 1995 年为高收入国家：48 个
+   ABW, AND, ANT, ARE, AUS, AUT, BEL, BHS, BMU, BRN, CAN, CHE, CYM, CYP, DEU, DNK, ESP, FIN, FRA, FRO, GBR, GRL, GUM, HKG, IRL, ISL, ISR, ITA, JPN, KOR, KWT, LIE, LUX, MAC, MCO, MNP, NCL, NLD, NOR, NZL, PRT, PYF, QAT, SGP, SWE, TWN, USA, VIR
+
+[剔除] 1995 年人口不足 100 万：31 个
+   ASM, ATG, BHR, BLZ, BRB, BTN, COM, CPV, DJI, DMA, FJI, FSM, GNQ, GRD, GUY, IMN, KIR, KNA, LCA, MDV, MHL, MLT, SLB, STP, SUR, SWZ, SYC, TON, VCT, VUT, WSM
+
+[剔除] 1995 或 2020 年人均实际 GDP 缺失：1 个
+   YUG
+
+[剔除] 无世行区域信息：0 个
+
+[剔除] 非主权属地（无独立缔约权）：2 个
+   PRI, PSE
+
+=> 最终样本：122 个发展中国家
+   AFG, AGO, ALB, ARG, ARM, AZE, BDI, BEN, BFA, BGD, BGR, BIH, BLR, BOL, BRA, BWA, CAF, CHL, CHN, CIV, CMR, COD, COG, COL, CRI, CUB, CZE, DOM, DZA, ECU, EGY, ERI, EST, ETH, GAB, GEO, GHA, GIN, GMB, GNB, GRC, GTM, HND, HRV, HTI, HUN, IDN, IND, IRN, IRQ, JAM, JOR, KAZ, KEN, KGZ, KHM, LAO, LBN, LBR, LBY, LKA, LSO, LTU, LVA, MAR, MDA, MDG, MEX, MKD, MLI, MMR, MNG, MOZ, MRT, MUS, MWI, MYS, NAM, NER, NGA, NIC, NPL, OMN, PAK, PAN, PER, PHL, PNG, POL, PRK, PRY, ROU, RUS, RWA, SAU, SDN, SEN, SLE, SLV, SOM, SVK, SVN, SYR, TCD, TGO, THA, TJK, TKM, TTO, TUN, TUR, TZA, UGA, UKR, URY, UZB, VEN, VNM, YEM, ZAF, ZMB, ZWE
+
+在两个协定数据库中都从未出现（深度记 0）的国家：[]
+
+已保存 data/clean/puzzle_cross_section.csv：122 行
+
+各区域样本数：
+region
+Sub-Saharan Africa                                   41
+Europe & Central Asia                                28
+Latin America & Caribbean                            22
+Middle East, North Africa, Afghanistan & Pakistan    15
+East Asia & Pacific                                  12
+South Asia                                            4
+
+重点国家：
+ISO3 inc_1995  rel_1995   conv  conv_2019  conv_pp  D_desta_bb_mean  D_desta_bb_2020  D_wb_bb_le_mean  D_wb_bb_le_2020
+ CHN        L      3.60 156.81     152.88    13.66             2.88              5.0             6.23             11.0
+ MAR       LM      4.13  24.62      30.52     1.15             4.96              6.0             8.54             12.0
+ MEX       UM     18.36 -16.58      -9.30    -2.80             6.00              6.0            12.00             12.0
+ POL       LM     13.57  60.22      59.60    11.21             6.00              6.0             7.85             12.0
+ TUR       LM     13.50  41.38      37.93     6.92             5.50              6.0             9.81             12.0
+ VNM        L      2.21  92.55      88.29     3.37             3.58              6.0             6.46             11.0
+
+收敛幅度 conv 描述统计：
+count    122.0
+mean      17.9
+std       50.7
+min     -151.2
+25%      -12.3
+50%       16.7
+75%       44.2
+max      156.8
