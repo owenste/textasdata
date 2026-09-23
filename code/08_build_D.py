@@ -240,6 +240,21 @@ D = D.set_index(["ISO3", "year"]).reindex(full).fillna(0).reset_index()
 # D 中由世行编码核实的部分占比（D_verified 是整数领域数，D 是期望值，二者之比封顶为 1）
 D["share_verified"] = np.where(D.D > 0, np.minimum(D.D_verified / D.D.where(D.D > 0), 1), np.nan)
 D.to_csv(CLEAN / "D_cy.csv", index=False)
+
+# ---------------------------------------------------------------------------
+# 供后续脚本复用的中间结果（不影响 D_cy.csv）：
+#   D_versions.csv       每个 DESTA 协定版本的内容来源与 6 领域约束力概率（主设定口径）
+#   D_dyad_spells.csv    国家对 × 协定版本的生效区间 [start, end)（已排除非对等安排）
+#   D_wb_content.csv     世行协定的 6 领域约束力（0/1），及是否已与 DESTA 对上
+#   D_calibration.csv    DESTA 执行力 enforce → 有约束力的概率（单调平滑后）
+# 用途：脚本 21（安慰剂深度）、脚本 24（国家对层面的深度，引力模型）
+# ---------------------------------------------------------------------------
+prob.assign(source=ver.source, base=ver.base).rename_axis("number").reset_index() \
+    .to_csv(CLEAN / "D_versions.csv", index=False)
+dy[["a", "b", "number", "start", "end"]].dropna(subset=["a", "b"]).to_csv(CLEAN / "D_dyad_spells.csv", index=False)
+wbdom.assign(matched=wbdom.index.isin(xw.loc[xw.matched, "WBID"])).rename_axis("WBID").reset_index() \
+    .to_csv(CLEAN / "D_wb_content.csv", index=False)
+p_mono.rename("p").rename_axis("enforce").reset_index().to_csv(CLEAN / "D_calibration.csv", index=False)
 print(f"\n已保存 {rel(CLEAN / 'D_cy.csv')}：{len(D):,} 行，{D.ISO3.nunique()} 个国家/地区，{min(YEARS)}–{max(YEARS)}")
 
 # ---------------------------------------------------------------------------

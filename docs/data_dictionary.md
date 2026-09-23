@@ -1,7 +1,6 @@
 # 数据字典
 
-> 随阶段推进逐步补充。当前版本：**阶段 A + B**（2026-09-23）。
-> 阶段 C 的 C/P/S 变量尚未构造，届时在此追加。
+> 随阶段推进逐步补充。当前版本：**阶段 A–E + 第一、二轮事前登记检验**（2026-09-23）。
 
 ## 0. 原始数据来源（`data/raw/`，只读，不进 git，用 `code/00_download_raw.py` 重新下载）
 
@@ -13,6 +12,9 @@
 | `wb_meta/` | 世行国家元数据 API；OGHIST 历史收入分组 | 2025-07-01 | 区域；1995 年收入分组 |
 | `larch/` | Mario Larch RTA 数据库（个别协定版） | 2024-07-12 | 阶段 B：EIA 协定数（复刻 Aizenman） |
 | `papers/` | Aizenman, Ito & Saadaoui (2026) NBER WP 35242 原文 PDF | 2026-05 | 阶段 B 对表基准（手动放入） |
+| `wdi/` | 世界银行 WDI API：大宗商品出口占比（4 个指标）；外资净流入占 GDP 比重（BX.KLT.DINV.WD.GD.ZS） | 2026-07-13 更新 | 异质性分组；第二轮登记 P5 |
+| `geo/` | IMF IMTS 双边出口；联合国大会投票理想点 | 2024-06 | GeoV/GeoC；第二轮登记 P6 |
+| 其他 | OECD FDI 限制指数、KAOPEN、Doing Business、BTI、Hanson-Sigman 国家能力、UNDP 受教育年限 | 见 `code/00_download_raw.py` | C、P 与控制变量 |
 
 ---
 
@@ -240,3 +242,34 @@
 | `type` | 先试后签 / 以签促改 / 无变化（规则见事前登记第 5 节） |
 | `dg` | 事件后 5 年平均增长 − 事件前 5 年平均增长 |
 | `db_pre`, `db_post`, `type_db` | 用 Doing Business 规则修订次数的同类分类（次要测量） |
+
+## 13. `data/clean/D_versions.csv` 等 —— 承诺深度 D 的中间结果（供双边分析复用）
+
+生成脚本：`code/08_build_D.py`（只额外保存，不影响 `D_cy.csv`，已核验逐字节一致）
+
+| 文件 | 1 行 = | 主要变量 |
+|---|---|---|
+| `D_versions.csv` | 1 个 DESTA 协定版本 | `number`（版本号）、6 个领域的约束力概率（`standards` … `iprs`）、`source`（WB / WB-母协定 / DESTA / uncoded：概率来自世行编码、世行母协定编码、DESTA 校准概率或无编码）、`base`（母协定号） |
+| `D_dyad_spells.csv` | 1 个国家对 × 协定版本的有效区间 | `a`、`b`（ISO3）、`number`、`start`（生效年）、`end`（退出年，9999 = 仍有效）；已排除 EU-ACP 非对等安排和未生效协定 |
+| `D_wb_content.csv` | 1 个世行 DTA 协定 | `WBID`、6 个领域是否有法律约束力（0/1）、`matched`（是否在 DESTA 中找到对应） |
+| `D_calibration.csv` | 1 个 DESTA enforce 档位 | `enforce`、`p`（该档位下「领域有法律约束力」的校准概率，单调平滑） |
+
+## 14. 第二轮登记检验的结果文件
+
+| 文件 | 生成脚本 | 内容 |
+|---|---|---|
+| `spec_curve.csv` | `22_spec_curve.py` | 144 个设定的 D、D² 系数、SE、p、拐点、N；`支持` = D² < 0 且 p < 0.05 |
+| `prereg2_family1.csv` | `21_placebo_equivalence.py` | 第一族（P1、P2、P3）原始 p 与 Holm 调整 p |
+| `prereg2_P5.csv` … `prereg2_P8.csv` | 23–26 | 各新预测的估计值、原始 p、方向是否正确 |
+| `prereg2_family2.csv` | `26_synth_control.py` | 第二族（P5、P6、P7a、P7b、P8）原始 p、Holm 调整 p、判定 |
+
+## 15. `data/clean/Dij_dyad_year.csv` —— 国家对-年度深度 D_ij（不进 git，由脚本 24 生成）
+
+| 变量 | 定义 |
+|---|---|
+| `p1`、`p2` | 国家对（ISO3，按字母排序，无方向） |
+| `year` | 年份，**已滞后一期**：第 t 行是 t−1 年的深度 |
+| `L_Dij` | 覆盖该国家对的全部生效协定，按领域取并集 1 − Π(1 − p) 后加总，0–6；概率规则与国家层面的 D 相同（世行约束力编码优先，DESTA 校准概率补充；世行独有协定按世行「Bilateral Information」时间线补入）。表中只有 D_ij > 0 的行，其余为 0 |
+
+**另：P5 的外资变量**不存为单独文件，由脚本 23 直接从 `data/raw/wdi/BX.KLT.DINV.WD.GD.ZS.json`（WDI 外资净流入占 GDP 比重，%）读入，在发展中国家 1990–2023 样本的第 1、99 百分位缩尾。
+**另：IMTS 单位**：`data/raw/geo/imts_exports_1990_2023.csv` 的 `exports_usd` 列实际是美元 × 10^6（脚本 19 的下载错误，已修正代码；见 `docs/results_vs_prereg2.md` 第五节第 7 条）。GeoV、GeoC 用份额，不受影响。

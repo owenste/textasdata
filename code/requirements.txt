@@ -6,3 +6,5 @@ linearmodels
 openpyxl
 pycountry
 tabulate
+scipy
+pyfixest>=0.60

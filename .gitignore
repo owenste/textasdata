@@ -7,3 +7,5 @@ __pycache__/
 data/clean/panel_aizenman.csv
 .venv_gmm/
 data/clean/panel_main.csv
+# 国家对-年度深度，可由 code/24 重新生成（约 3MB）
+data/clean/Dij_dyad_year.csv

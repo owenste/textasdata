@@ -25,15 +25,21 @@
 | `18_try_then_commit.py` | 登记 P4 | 先试后签 vs 以签促改 | `tab08`、`data/clean/p4_events.csv` |
 | `19_build_geo.py` | 登记第 6 节 | 下载 IMF 双边出口，构造 GeoV/GeoC，并做倒 U 形稳健性（约 3 分钟） | `data/clean/geo_cy.csv`、`tab09` |
 | `20_case_profiles.py` | 案例选择 | 重点国家的承诺校准画像（为过程追踪选案例） | `tab10`、`fig06_case_profiles.png` |
+| `21_placebo_equivalence.py` | 登记二 S1–S6 | 安慰剂（签而未生效）、前导项、等价性检验、MDE、Holm 第一族、区域×年份 FE（约 6 分钟） | `tab11`、`data/clean/prereg2_family1.csv` |
+| `22_spec_curve.py` | 登记二 S7 | 倒 U 形的设定曲线（144 个设定） | `tab12`、`fig07_spec_curve.png`、`data/clean/spec_curve.csv` |
+| `23_fdi_mechanism.py` | 登记二 P5 | 外资流入的倒 U 形（可信度机制） | `tab13` |
+| `24_bilateral_gravity.py` | 登记二 P6 | 国家对深度 D_ij 与 PPML 双边引力模型（约 1 分钟） | `tab14` |
+| `25_did2s_events.py` | 登记二 P7 | 两阶段 DiD（Gardner 2022）：首次 D ≥ 1、首次 D > 3.5 | `tab15`、`fig08_did2s.png` |
+| `26_synth_control.py` | 登记二 P8 + Holm 第二族 | 墨西哥、波兰 1994 合成控制；P5–P8 多重检验校正 | `tab16`、`fig09_synth.png`、`data/clean/prereg2_family2.csv` |
 
 ```bash
 pip install -r code/requirements.txt
-for s in 00 01 02 03 04 05 06 07 08 09 10 11 12 13 14 16 17 18 19 20; do python code/${s}_*.py; done
+for s in 00 01 02 03 04 05 06 07 08 09 10 11 12 13 14 16 17 18 19 20 21 22 23 24 25 26; do python code/${s}_*.py; done
 # 系统 GMM 需要 numpy<2 的独立环境：
 python -m venv .venv_gmm && .venv_gmm/bin/pip install "numpy<2" "pandas<2.2" scipy pydynpd prettytable tabulate pycountry
 .venv_gmm/bin/python code/15_system_gmm.py
 ```
 
 每个脚本的运行日志在 `output/logs/`。`utils.py` 是公用路径与日志工具。
-说明文档：`docs/data_dictionary.md`（数据字典）、`docs/progress_stageA.md`、`docs/progress_stageB.md`、`docs/progress_stageC.md`、`docs/progress_stageDE.md`（各阶段小结）；`docs/falsification_log.md`（证伪条件逐条核对）；`docs/theory_calibration.md`（承诺校准理论）、`docs/preregistration.md`（事前登记）、`docs/results_vs_prereg.md`（结果与登记对照）；`docs/C2_data_survey.md`（C2 数据可得性调研）。
+说明文档：`docs/data_dictionary.md`（数据字典）、`docs/progress_stageA.md`、`docs/progress_stageB.md`、`docs/progress_stageC.md`、`docs/progress_stageDE.md`（各阶段小结）；`docs/falsification_log.md`（证伪条件逐条核对）；`docs/theory_calibration.md`（承诺校准理论）、`docs/preregistration.md`（事前登记）、`docs/results_vs_prereg.md`（结果与登记对照）、`docs/preregistration2.md`（第二轮登记）、`docs/results_vs_prereg2.md`（第二轮结果对照）、`docs/progress_prereg2.md`（第二轮小结）；`docs/C2_data_survey.md`（C2 数据可得性调研）。
 阶段 B 需要原文 PDF 放在 `data/raw/papers/`（NBER 网站拒绝脚本下载）；附录 A 国家名单已抽取到 `data/clean/aizenman_appendixA_countries.json`。

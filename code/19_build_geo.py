@@ -53,8 +53,9 @@ if not EXP.exists():
             continue
         for attrs, body in re.findall(r"<Series ([^>]*)>(.*?)</Series>", s, flags=re.S):
             cp = re.search(r'COUNTERPART_COUNTRY="([^"]+)"', attrs).group(1)
-            sc = re.search(r'SCALE="(-?\d+)"', attrs)
-            scale = 10 ** int(sc.group(1)) if sc else 1
+            # 注：IMF 的 SCALE 属性只是说明性的，OBS_VALUE 本身已是美元。最初版本在这里乘了 10^SCALE，
+            # 使已下载文件中的数值统一偏大 10^6 倍；GeoV/GeoC 只用份额，不受影响；脚本 24 读入时已换回美元。
+            scale = 1
             for y, v in re.findall(r'TIME_PERIOD="(\d{4})" OBS_VALUE="([^"]+)"', body):
                 rows.append((iso, cp, int(y), float(v) * scale))
         if (k + 1) % 20 == 0:
