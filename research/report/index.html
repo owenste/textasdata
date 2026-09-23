@@ -1,0 +1,355 @@
+<title>技术模仿分化试研究</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#EEF1EF; --panel:#F8F9F8; --ink:#1B2230; --muted:#566070; --rule:#C3CAD0;
+  --pressure:#A2640F; --constraint:#276660; --faint:#8A949F;
+  --hl-p:rgba(162,100,15,.14); --hl-c:rgba(39,102,96,.08);
+  --serif:"Noto Serif SC","Songti SC","STSong","SimSun",serif;
+  --sans:"Noto Sans SC","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --paper:#141922; --panel:#1B212C; --ink:#E3E6EB; --muted:#9AA4B2; --rule:#313947;
+    --pressure:#E0A44A; --constraint:#62B3AA; --faint:#77818F;
+    --hl-p:rgba(224,164,74,.16); --hl-c:rgba(98,179,170,.10);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#141922; --panel:#1B212C; --ink:#E3E6EB; --muted:#9AA4B2; --rule:#313947;
+  --pressure:#E0A44A; --constraint:#62B3AA; --faint:#77818F;
+  --hl-p:rgba(224,164,74,.16); --hl-c:rgba(98,179,170,.10);
+}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:17px;line-height:1.85}
+a{color:var(--constraint)}
+a:focus-visible{outline:2px solid var(--pressure);outline-offset:3px}
+.wrap{max-width:74rem;margin:0 auto;padding-inline:1.25rem;display:grid;grid-template-columns:minmax(0,1fr)}
+@media (min-width:1040px){.wrap{grid-template-columns:12.5rem minmax(0,1fr);column-gap:3.5rem}}
+.toc{display:none}
+@media (min-width:1040px){
+  .toc{display:block;position:sticky;top:calc(env(safe-area-inset-top,0px) + 2.5rem);align-self:start;margin-top:10.5rem;font-family:var(--sans);font-size:.84rem;line-height:1.6}
+  .toc ol{list-style:none;margin:0;padding:0;border-left:1px solid var(--rule)}
+  .toc li a{display:block;padding:.3rem 0 .3rem .9rem;color:var(--muted);text-decoration:none}
+  .toc li a:hover{color:var(--ink)}
+}
+main{max-width:46rem;min-width:0;padding-bottom:5rem}
+header.hero{padding-block:4.5rem 2.2rem;border-bottom:1px solid var(--rule)}
+.kind{font-family:var(--sans);font-size:.9rem;color:var(--muted);margin:0 0 1.2rem}
+h1{font-weight:700;font-size:clamp(1.8rem,4.4vw,2.7rem);line-height:1.32;margin:0 0 1.4rem;text-wrap:balance}
+.lead{font-size:1.08rem;margin:0 0 1.4rem}
+.by{font-family:var(--sans);font-size:.88rem;color:var(--muted);margin:0}
+section{padding-top:3rem}
+h2{font-size:1.5rem;line-height:1.4;margin:0 0 1.1rem;text-wrap:balance}
+h3{font-size:1.1rem;line-height:1.5;margin:2rem 0 .6rem;font-weight:600}
+p{margin:0 0 1rem}
+.findings{list-style:none;margin:1.4rem 0 0;padding:0;display:grid;gap:.8rem}
+.findings li{display:grid;grid-template-columns:5.2rem minmax(0,1fr);gap:.8rem;padding:.9rem 1rem;background:var(--panel);border:1px solid var(--rule);border-radius:4px}
+.verdict{font-family:var(--sans);font-size:.78rem;font-weight:700;letter-spacing:.04em;padding:.15rem .5rem;border-radius:3px;align-self:start;text-align:center;border:1px solid currentColor}
+.v-no{color:var(--muted)} .v-part{color:var(--pressure)} .v-ok{color:var(--constraint)}
+.findings b{font-weight:600}
+.note{font-family:var(--sans);font-size:.86rem;color:var(--muted);line-height:1.7}
+.callout{margin:1.4rem 0;padding:1rem 1.2rem;border-left:3px solid var(--constraint);background:var(--hl-c)}
+.callout p:last-child{margin:0}
+figure{margin:1.8rem 0 2rem}
+.fig-body{background:var(--panel);border:1px solid var(--rule);border-radius:4px;padding:1rem}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+figcaption{font-family:var(--sans);font-size:.84rem;color:var(--muted);line-height:1.7;margin-top:.7rem}
+figcaption b{color:var(--ink);font-weight:500;margin-right:.4em}
+svg{max-width:100%;height:auto;display:block}
+svg text{font-family:var(--sans);fill:var(--ink)}
+svg .muted{fill:var(--muted)}
+svg .axis{stroke:var(--muted);stroke-width:1}
+svg .grid{stroke:var(--rule);stroke-width:1}
+svg .hit:hover circle{stroke:var(--ink)}
+table{border-collapse:collapse;width:100%;font-family:var(--sans);font-size:.85rem;line-height:1.6}
+th,td{text-align:left;vertical-align:top;padding:.5rem .6rem;border-bottom:1px solid var(--rule)}
+th{font-weight:500;color:var(--muted);white-space:nowrap}
+.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+td.num,th.num{text-align:right}
+.wide{min-width:40rem}
+.code{display:block;font-size:.75rem;color:var(--muted);font-family:ui-monospace,Menlo,Consolas,monospace}
+.why{color:var(--muted);min-width:16rem}
+.pips{display:inline-flex;gap:2px;margin-right:.4rem;vertical-align:middle}
+.pips i{display:block;width:.7rem;height:.35rem;background:var(--rule);border-radius:1px}
+.pips i.on{background:var(--constraint)}
+.status{font-family:var(--sans);font-size:.78rem;padding:.05rem .45rem;border-radius:3px;white-space:nowrap;border:1px solid currentColor}
+.s-done{color:var(--constraint)} .s-part{color:var(--pressure)} .s-todo{color:var(--muted)}
+details{margin:.6rem 0 1rem;font-family:var(--sans);font-size:.88rem}
+summary{cursor:pointer;color:var(--constraint)}
+.cases{list-style:none;padding:0;margin:0}
+.cases li{padding:.9rem 0;border-bottom:1px solid var(--rule)}
+.cases li:first-child{border-top:1px solid var(--rule)}
+.cases .h{font-weight:600}
+.cases .tag{font-family:var(--sans);font-size:.78rem;color:var(--pressure);margin-left:.5rem}
+.cases p{margin:.3rem 0 0;font-size:.95rem}
+.cases .src{font-family:var(--sans);font-size:.82rem;color:var(--muted)}
+ol.steps{padding-left:1.3rem} ol.steps li{margin-bottom:.6rem}
+pre{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.8rem;background:var(--panel);border:1px solid var(--rule);border-radius:4px;padding:.8rem 1rem;overflow-x:auto;line-height:1.6}
+.refs{font-size:.86rem;line-height:1.7;padding-left:0;list-style:none}
+.refs li{padding-left:2em;text-indent:-2em;margin-bottom:.4rem}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+<nav class="toc" aria-label="目录">
+<ol>
+<li><a href="#summary">摘要</a></li>
+<li><a href="#progress">本轮进度</a></li>
+<li><a href="#data">数据与变量构造</a></li>
+<li><a href="#coding">宽容度试编码</a></li>
+<li><a href="#m1">模型一检验</a></li>
+<li><a href="#steel">补充检验：钢铁工艺</a></li>
+<li><a href="#m2">模型二检验</a></li>
+<li><a href="#revise">对研究设计的修订</a></li>
+<li><a href="#cases">案例候选</a></li>
+<li><a href="#next">下一步</a></li>
+<li><a href="#files">文件与复现</a></li>
+</ol>
+</nav>
+
+<main>
+<header class="hero">
+<p class="kind">研究进展报告 · 第一轮试研究</p>
+<h1>外部竞争压力的传导与后发国家技术模仿的分化：首轮数据检验</h1>
+<p class="lead">本轮按研究大纲完成了第一学期的三项工作：技术宽容度编码手册与试编码、大样本面板的搭建，以及模型一和模型二的试运行。另外核对了参考文献，并整理了过程追踪的候选案例。结果中最重要的一点是模型一的预测没有得到支持，诊断显示问题主要出在测量上，而不是理论本身。据此对研究设计提出修订。</p>
+<p class="by">依据《外部竞争压力的传导与后发国家技术模仿的分化》研究大纲（周宜顺，2026年9月）执行 · 2026年9月23日</p>
+</header>
+
+<section id="summary">
+<h2>摘要</h2>
+<ul class="findings">
+<li><span class="verdict v-no">未获支持</span><span><b>模型一（宽容度 × 约束软化）。</b>在 148 个国家、22 项技术、6 万余个观测上，β 的点估计为 +0.015（SE 0.018），方向与预测相反，也不显著。11 种设定中只有剔除运输部门、剔除曾高度国有化国家两项转为负号，均不显著。</span></li>
+<li><span class="verdict v-part">方向一致</span><span><b>模型二（外部安全压力 → 约束软化）。</b>持久对抗出现之前国有化程度保持平稳，出现后 10 至 20 年逐步上升。连续变量设定中 θ 为正，p 约为 0.09，加入控制后不显著。</span></li>
+<li><span class="verdict v-part">截面明显</span><span><b>补充检验（钢铁工艺结构）。</b>国有化程度高的国家淘汰平炉明显更慢。按 1975 年国有化程度三等分，国有化程度最高的一组平炉钢占比为 47%，最低的一组为 22%。但在国家内部随时间的变化中，这一关系不显著。</span></li>
+<li><span class="verdict v-ok">已核实</span><span><b>参考文献。</b>大纲中 16 篇期刊文献的卷期页码经 Crossref 逐条核对，全部与原始记录一致。</span></li>
+</ul>
+<div class="callout">
+<p><b>核心诊断。</b>CHAT 数据库记录的是技术的<em>使用数量</em>，而软预算约束恰恰会推高数量，科尔奈称之为投资饥渴（Kornai 1980）。铁路和发电这类高宽容度网络技术在国有化程度上升时使用量反而增加，使 β 偏向正值。因此，模型一在目前的测量下检验的是“软约束是否扩大规模”，而不是“软约束是否阻碍掌握”。后者需要能力型的因变量，第八部分给出替代方案。</p>
+</div>
+</section>
+
+<section id="progress">
+<h2>本轮进度</h2>
+<p>下表对照大纲第七部分的进度安排，列出本轮完成的工作。</p>
+<div class="scroll">
+<table class="wide">
+<thead><tr><th>大纲任务</th><th>状态</th><th>本轮产出</th></tr></thead>
+<tbody>
+<tr><td>文献梳理与理论框架</td><td><span class="status s-part">部分完成</span></td><td>16 篇期刊文献的卷期页码已核实；新增科尔奈投资饥渴的论证环节，见第八部分</td></tr>
+<tr><td>宽容度编码手册与试编码</td><td><span class="status s-part">编码者 A 完成</span></td><td>编码手册 v0.1，55 项技术的试编码（核心 22 项、扩展 33 项），第二编码者空白表与 α 计算脚本</td></tr>
+<tr><td>面板数据与固定效应方法</td><td><span class="status s-done">完成</span></td><td>国家 × 技术 × 年份三维面板，三组高维固定效应，按国家聚类标准误</td></tr>
+<tr><td>大样本数据整理与检验</td><td><span class="status s-part">试运行</span></td><td>模型一 11 种设定、逐项剔除技术的检验；模型二连续变量设定与事件研究；钢铁工艺补充检验</td></tr>
+<tr><td>案例档案收集与过程追踪</td><td><span class="status s-todo">未开始</span></td><td>整理了 5 组候选案例，见第九部分</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section id="data">
+<h2>数据与变量构造</h2>
+<div class="scroll">
+<table class="wide">
+<thead><tr><th>变量</th><th>本轮采用的测量</th><th>来源</th><th>与大纲的差异</th></tr></thead>
+<tbody>
+<tr><td>使用强度 <i>Y</i><sub>ckt</sub></td><td>人均使用量取对数。技术 × 年份固定效应吸收前沿变化，因此等价于相对前沿国的使用强度</td><td>CHAT（Comin &amp; Hobijn 2009），NBER 公开版</td><td>一致</td></tr>
+<tr><td>技术宽容度 <i>Lat</i><sub>k</sub></td><td>三维度 0–2 分，总分 0–6</td><td>本轮试编码</td><td>尚无第二编码者，α 未计算</td></tr>
+<tr><td>约束软化 <i>Soft</i><sub>ct</sub></td><td>V-Dem 的经济国有化程度（v2clstown）取反后标准化</td><td>V-Dem（vdemdata 包）</td><td>大纲提出平均关税或国有部门比重。关税缺少长时段跨国数据，本轮先用国有化程度</td></tr>
+<tr><td>外部安全压力</td><td>按 Diehl &amp; Goertz（2000）规则从 MID 5.0 识别持久对抗：20 年内至少 6 次军事化争端。共识别 102 对</td><td>COW MID 5.0</td><td>大纲为 Colaresi 等（2007）战略竞争名单，该名单没有公开下载版本，本轮用替代规则</td></tr>
+<tr><td>后发国家</td><td>当年人均 GDP 低于美国的 50%</td><td>V-Dem 所收 Maddison 数据</td><td>大纲未给出操作化定义，本轮补充</td></tr>
+<tr><td>技术要素密集度</td><td>资本密集度 0–2 分，与宽容度一同编码</td><td>本轮试编码</td><td>一致</td></tr>
+</tbody>
+</table>
+</div>
+<p class="note">核心样本共 64,517 个国家—技术—年份观测，覆盖 148 个国家、22 项技术，时间为 1808–2002 年。约 67% 的观测属于后发国家。</p>
+</section>
+
+<section id="coding">
+<h2>宽容度试编码</h2>
+<p>按大纲的纳入标准，只编码由可识别组织承担的技术，农户或家庭分散采用的技术（拖拉机、化肥、电视、私人汽车、手机等）一律排除。赫希曼讨论的航空（0 分）和铁路线路（4 分）作为锚定案例，公路（6 分）在 CHAT 中没有对应指标，只用于校准刻度。下表为 22 项核心技术，33 项医疗与金融扩展技术见编码表文件。</p>
+<figure>
+<div class="scroll">
+<table class="wide">
+<thead><tr><th>技术</th><th>部门</th><th class="num">显现</th><th class="num">归责</th><th class="num">标准</th><th>总分</th><th>编码理由</th></tr></thead>
+<tbody>
+<tr><td>民航客运周转量<span class='code'>aviationpkm</span></td><td>运输</td><td class='num'>0</td><td class='num'>0</td><td class='num'>0</td><td><span class='pips' aria-label='总分 0'><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></span><span class='num'>0</span></td><td class='why'>赫希曼锚定案例：维护不善以事故或停飞迅速显现，可追溯到航空公司，适航标准国际通行</td></tr>
+<tr><td>民航货运周转量<span class='code'>aviationtkm</span></td><td>运输</td><td class='num'>0</td><td class='num'>0</td><td class='num'>0</td><td><span class='pips' aria-label='总分 0'><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></span><span class='num'>0</span></td><td class='why'>同上</td></tr>
+<tr><td>氧气顶吹转炉钢<span class='code'>steel_bof</span></td><td>钢铁</td><td class='num'>0</td><td class='num'>0</td><td class='num'>0</td><td><span class='pips' aria-label='总分 0'><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></span><span class='num'>0</span></td><td class='why'>单炉冶炼约20分钟，每炉成分即时化验，出格钢当场判废</td></tr>
+<tr><td>电弧炉钢<span class='code'>steel_eaf</span></td><td>钢铁</td><td class='num'>0</td><td class='num'>0</td><td class='num'>0</td><td><span class='pips' aria-label='总分 0'><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></span><span class='num'>0</span></td><td class='why'>单炉成分与温度即时检测，电极与炉衬故障直接停炉</td></tr>
+<tr><td>不锈钢<span class='code'>steel_stainless</span></td><td>钢铁</td><td class='num'>0</td><td class='num'>0</td><td class='num'>0</td><td><span class='pips' aria-label='总分 0'><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></span><span class='num'>0</span></td><td class='why'>合金成分与耐蚀性有严格国际标准，出格即判废</td></tr>
+<tr><td>环锭纺锭<span class='code'>spindle_ring</span></td><td>纺织</td><td class='num'>1</td><td class='num'>0</td><td class='num'>0</td><td><span class='pips' aria-label='总分 1'><i class="on"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></span><span class='num'>1</span></td><td class='why'>纱线支数与强力可检测，断头可见；锭速与断头率的效率损失逐步显现</td></tr>
+<tr><td>自动织机<span class='code'>loom_auto</span></td><td>纺织</td><td class='num'>1</td><td class='num'>0</td><td class='num'>0</td><td><span class='pips' aria-label='总分 1'><i class="on"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></span><span class='num'>1</span></td><td class='why'>布面疵点可检，停台可见；效率退化逐步显现</td></tr>
+<tr><td>蒸汽商船吨位<span class='code'>shipton_steam</span></td><td>运输</td><td class='num'>1</td><td class='num'>0</td><td class='num'>0</td><td><span class='pips' aria-label='总分 1'><i class="on"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></span><span class='num'>1</span></td><td class='why'>海上故障可见可归责，船级社标准明确；航速与油耗的缓慢退化较隐蔽</td></tr>
+<tr><td>内燃机商船吨位<span class='code'>shipton_motor</span></td><td>运输</td><td class='num'>1</td><td class='num'>0</td><td class='num'>0</td><td><span class='pips' aria-label='总分 1'><i class="on"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></span><span class='num'>1</span></td><td class='why'>同上</td></tr>
+<tr><td>机动商船吨位<span class='code'>shipton_steammotor</span></td><td>运输</td><td class='num'>1</td><td class='num'>0</td><td class='num'>0</td><td><span class='pips' aria-label='总分 1'><i class="on"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></span><span class='num'>1</span></td><td class='why'>同上</td></tr>
+<tr><td>平炉钢<span class='code'>steel_ohf</span></td><td>钢铁</td><td class='num'>1</td><td class='num'>0</td><td class='num'>0</td><td><span class='pips' aria-label='总分 1'><i class="on"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></span><span class='num'>1</span></td><td class='why'>冶炼周期长达数小时，操作者可中途修正；燃料效率低下长期隐藏</td></tr>
+<tr><td>走锭纺锭<span class='code'>spindle_mule</span></td><td>纺织</td><td class='num'>1</td><td class='num'>0</td><td class='num'>1</td><td><span class='pips' aria-label='总分 2'><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></span><span class='num'>2</span></td><td class='why'>纱线质量高度依赖纺工技能，标准化检测维度较少</td></tr>
+<tr><td>发电量<span class='code'>elecprod</span></td><td>能源</td><td class='num'>1</td><td class='num'>1</td><td class='num'>0</td><td><span class='pips' aria-label='总分 2'><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></span><span class='num'>2</span></td><td class='why'>停电可见，但拉闸限电常态化可被容忍；发电与输配责任需调查；热效率损失隐蔽；频率电压标准明确</td></tr>
+<tr><td>固定电话主线<span class='code'>telephone</span></td><td>通信</td><td class='num'>1</td><td class='num'>0</td><td class='num'>1</td><td><span class='pips' aria-label='总分 2'><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></span><span class='num'>2</span></td><td class='why'>断线用户即时察觉，运营者单一；通话质量与装机等待缺乏客观标准</td></tr>
+<tr><td>电报<span class='code'>telegram</span></td><td>通信</td><td class='num'>1</td><td class='num'>0</td><td class='num'>1</td><td><span class='pips' aria-label='总分 2'><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></span><span class='num'>2</span></td><td class='why'>线路中断可见；延误与错码难以系统测度</td></tr>
+<tr><td>酸性转炉钢<span class='code'>steel_acidbess</span></td><td>钢铁</td><td class='num'>1</td><td class='num'>0</td><td class='num'>1</td><td><span class='pips' aria-label='总分 2'><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></span><span class='num'>2</span></td><td class='why'>吹炼快但氮脆与含磷问题在使用数年后才显现（钢轨断裂史）</td></tr>
+<tr><td>碱性转炉钢<span class='code'>steel_basicbess</span></td><td>钢铁</td><td class='num'>1</td><td class='num'>0</td><td class='num'>1</td><td><span class='pips' aria-label='总分 2'><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></span><span class='num'>2</span></td><td class='why'>同上，托马斯钢质量依赖原料，检测维度有限</td></tr>
+<tr><td>铁路客运周转量<span class='code'>railpkm</span></td><td>运输</td><td class='num'>1</td><td class='num'>1</td><td class='num'>1</td><td><span class='pips' aria-label='总分 3'><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i><i class=""></i></span><span class='num'>3</span></td><td class='why'>事故可见，但延误与服务质量退化可长期容忍；责任分散于机务、工务、电务</td></tr>
+<tr><td>铁路货运周转量<span class='code'>railtkm</span></td><td>运输</td><td class='num'>1</td><td class='num'>1</td><td class='num'>1</td><td><span class='pips' aria-label='总分 3'><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i><i class=""></i></span><span class='num'>3</span></td><td class='why'>同上</td></tr>
+<tr><td>铁路营业里程<span class='code'>railline</span></td><td>运输</td><td class='num'>2</td><td class='num'>1</td><td class='num'>1</td><td><span class='pips' aria-label='总分 4'><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i></span><span class='num'>4</span></td><td class='why'>赫希曼锚定：线路维护可长期推迟，速度与正点率缓慢下降；路网共用，责任分散</td></tr>
+<tr><td>邮件<span class='code'>mail</span></td><td>通信</td><td class='num'>2</td><td class='num'>1</td><td class='num'>2</td><td><span class='pips' aria-label='总分 5'><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i></span><span class='num'>5</span></td><td class='why'>单件延误或遗失无从察觉，环节多责任分散，服务质量缺少客观标准</td></tr>
+<tr><td>医院床位<span class='code'>bed_hosp</span></td><td>医疗</td><td class='num'>2</td><td class='num'>2</td><td class='num'>2</td><td><span class='pips' aria-label='总分 6'><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span><span class='num'>6</span></td><td class='why'>医疗质量结果滞后且受病人构成干扰，床位数本身不带绩效信息</td></tr>
+</tbody>
+</table>
+</div>
+<figcaption><b>表1</b>核心技术的宽容度试编码（编码者 A）。显现、归责、标准三列分别为失败显现速度、失败可归责程度和性能标准明确程度，0 表示宽容度最低。</figcaption>
+</figure>
+<p>编码中暴露出一个结构性问题：核心样本的宽容度集中在低端，中位数只有 1.5，高宽容度一端只有铁路、邮政和医院床位。这削弱了交互项的识别力，也使结果容易受铁路一类技术左右。编码手册因此建议从 CHAT 以外补充高宽容度技术，例如公路里程、灌溉渠系和职业教育。</p>
+</section>
+
+<section id="m1">
+<h2>模型一检验：宽容度 × 约束软化</h2>
+<p>设定与大纲一致：<i>Y</i><sub>ckt</sub> = β(<i>Lat</i><sub>k</sub> × <i>Soft</i><sub>ct</sub>) + μ<sub>ck</sub> + δ<sub>ct</sub> + γ<sub>kt</sub> + ε<sub>ckt</sub>，标准误按国家聚类。“加入交互控制”在此基础上加入宽容度与人均 GDP 对数、宽容度与选举民主指数的交互，以及资本密集度与约束软化的交互，用来排除收入和政体沿宽容度维度产生的差异影响。</p>
+<figure>
+<div class="fig-body scroll"><svg viewBox="0 0 680 384" role="img" aria-label="模型一各设定下宽容度乘约束软化的系数及95%置信区间，全部跨越零"><rect x="250.0" y="26" width="203.0" height="314" style="fill:var(--hl-c)"/><text x="256.0" y="20" font-size="12" style="fill:var(--constraint)">研究计划预测的方向（β＜0）</text><line class="grid" x1="250.0" y1="26" x2="250.0" y2="340"/><text x="250.0" y="358" font-size="12" text-anchor="middle" class="muted">-0.08</text><line class="grid" x1="351.5" y1="26" x2="351.5" y2="340"/><text x="351.5" y="358" font-size="12" text-anchor="middle" class="muted">-0.04</text><line class="axis" x1="453.0" y1="26" x2="453.0" y2="340"/><text x="453.0" y="358" font-size="12" text-anchor="middle" class="muted">0</text><line class="grid" x1="554.5" y1="26" x2="554.5" y2="340"/><text x="554.5" y="358" font-size="12" text-anchor="middle" class="muted">+0.04</text><line class="grid" x1="656.0" y1="26" x2="656.0" y2="340"/><text x="656.0" y="358" font-size="12" text-anchor="middle" class="muted">+0.08</text><text x="453.0" y="378" font-size="12.5" text-anchor="middle">β（宽容度 × 约束软化），95% 置信区间</text><text x="238" y="55.0" font-size="12.5" text-anchor="end">核心技术，全样本</text><g class="hit"><title>核心技术，全样本：β = +0.013，SE = 0.017，p = 0.43，N = 63,100</title><rect x="250" y="34.0" width="406" height="34" fill="transparent"/><line x1="402.2" y1="51.0" x2="571.8" y2="51.0" stroke-width="2" style="stroke:var(--ink)"/><circle cx="487.0" cy="51.0" r="5" stroke-width="2" style="fill:var(--ink);stroke:var(--panel)"/></g><text x="238" y="89.0" font-size="12.5" text-anchor="end">加入交互控制</text><g class="hit"><title>加入交互控制：β = +0.015，SE = 0.017，p = 0.40，N = 61,738</title><rect x="250" y="68.0" width="406" height="34" fill="transparent"/><line x1="403.0" y1="85.0" x2="578.4" y2="85.0" stroke-width="2" style="stroke:var(--ink)"/><circle cx="490.7" cy="85.0" r="5" stroke-width="2" style="fill:var(--ink);stroke:var(--panel)"/></g><text x="238" y="123.0" font-size="12.5" text-anchor="end">后发国家（人均GDP&lt;美国50%）</text><g class="hit"><title>后发国家（人均GDP&lt;美国50%）：β = +0.030，SE = 0.017，p = 0.08，N = 44,537</title><rect x="250" y="102.0" width="406" height="34" fill="transparent"/><line x1="442.9" y1="119.0" x2="613.3" y2="119.0" stroke-width="2" style="stroke:var(--ink)"/><circle cx="528.1" cy="119.0" r="5" stroke-width="2" style="fill:var(--ink);stroke:var(--panel)"/></g><text x="238" y="157.0" font-size="12.5" text-anchor="end">1945年以后</text><g class="hit"><title>1945年以后：β = +0.016，SE = 0.014，p = 0.27，N = 45,769</title><rect x="250" y="136.0" width="406" height="34" fill="transparent"/><line x1="421.0" y1="153.0" x2="566.0" y2="153.0" stroke-width="2" style="stroke:var(--ink)"/><circle cx="493.5" cy="153.0" r="5" stroke-width="2" style="fill:var(--ink);stroke:var(--panel)"/></g><text x="238" y="191.0" font-size="12.5" text-anchor="end">含医疗与金融扩展技术</text><g class="hit"><title>含医疗与金融扩展技术：β = +0.016，SE = 0.017，p = 0.34，N = 67,892</title><rect x="250" y="170.0" width="406" height="34" fill="transparent"/><line x1="408.3" y1="187.0" x2="580.3" y2="187.0" stroke-width="2" style="stroke:var(--ink)"/><circle cx="494.3" cy="187.0" r="5" stroke-width="2" style="fill:var(--ink);stroke:var(--panel)"/></g><text x="238" y="225.0" font-size="12.5" text-anchor="end">剔除部门：运输</text><g class="hit"><title>剔除部门：运输：β = -0.026，SE = 0.017，p = 0.13，N = 30,715</title><rect x="250" y="204.0" width="406" height="34" fill="transparent"/><line x1="302.6" y1="221.0" x2="471.8" y2="221.0" stroke-width="2" style="stroke:var(--ink)"/><circle cx="387.2" cy="221.0" r="5" stroke-width="2" style="fill:var(--ink);stroke:var(--panel)"/></g><text x="238" y="259.0" font-size="12.5" text-anchor="end">剔除曾高度国有化国家</text><g class="hit"><title>剔除曾高度国有化国家：β = -0.007，SE = 0.030，p = 0.81，N = 49,965</title><rect x="250" y="238.0" width="406" height="34" fill="transparent"/><line x1="282.1" y1="255.0" x2="586.2" y2="255.0" stroke-width="2" style="stroke:var(--ink)"/><circle cx="434.2" cy="255.0" r="5" stroke-width="2" style="fill:var(--ink);stroke:var(--panel)"/></g><text x="238" y="293.0" font-size="12.5" text-anchor="end">剔除1989-1995转型期</text><g class="hit"><title>剔除1989-1995转型期：β = +0.020，SE = 0.018，p = 0.27，N = 56,395</title><rect x="250" y="272.0" width="406" height="34" fill="transparent"/><line x1="412.4" y1="289.0" x2="597.2" y2="289.0" stroke-width="2" style="stroke:var(--ink)"/><circle cx="504.8" cy="289.0" r="5" stroke-width="2" style="fill:var(--ink);stroke:var(--panel)"/></g><text x="238" y="327.0" font-size="12.5" text-anchor="end">剔除1989年以后</text><g class="hit"><title>剔除1989年以后：β = +0.030，SE = 0.020，p = 0.13，N = 54,083</title><rect x="250" y="306.0" width="406" height="34" fill="transparent"/><line x1="430.4" y1="323.0" x2="627.9" y2="323.0" stroke-width="2" style="stroke:var(--ink)"/><circle cx="529.2" cy="323.0" r="5" stroke-width="2" style="fill:var(--ink);stroke:var(--panel)"/></g></svg></div>
+<figcaption><b>图1</b>模型一主要设定下的 β 与 95% 置信区间，悬停可查看数值。阴影区为大纲预测的方向。除第一行外，各设定均加入交互控制。</figcaption>
+</figure>
+<details><summary>查看数值表</summary>
+<div class="scroll"><table class="wide"><thead><tr><th>设定</th><th class="num">β</th><th class="num">SE</th><th class="num">p</th><th class="num">N</th></tr></thead><tbody>
+<tr><td>核心技术，全样本</td><td class='num'>+0.013</td><td class='num'>0.017</td><td class='num'>0.43</td><td class='num'>63,100</td></tr>
+<tr><td>加入交互控制</td><td class='num'>+0.015</td><td class='num'>0.017</td><td class='num'>0.40</td><td class='num'>61,738</td></tr>
+<tr><td>后发国家（人均GDP&lt;美国50%）</td><td class='num'>+0.030</td><td class='num'>0.017</td><td class='num'>0.08</td><td class='num'>44,537</td></tr>
+<tr><td>1945年以后</td><td class='num'>+0.016</td><td class='num'>0.014</td><td class='num'>0.27</td><td class='num'>45,769</td></tr>
+<tr><td>含医疗与金融扩展技术</td><td class='num'>+0.016</td><td class='num'>0.017</td><td class='num'>0.34</td><td class='num'>67,892</td></tr>
+<tr><td>剔除部门：运输</td><td class='num'>-0.026</td><td class='num'>0.017</td><td class='num'>0.13</td><td class='num'>30,715</td></tr>
+<tr><td>剔除曾高度国有化国家</td><td class='num'>-0.007</td><td class='num'>0.030</td><td class='num'>0.81</td><td class='num'>49,965</td></tr>
+<tr><td>剔除1989-1995转型期</td><td class='num'>+0.020</td><td class='num'>0.018</td><td class='num'>0.27</td><td class='num'>56,395</td></tr>
+<tr><td>剔除1989年以后</td><td class='num'>+0.030</td><td class='num'>0.020</td><td class='num'>0.13</td><td class='num'>54,083</td></tr>
+</tbody></table></div>
+</details>
+<p>逐项剔除 22 项技术时，β 在 −0.011 与 +0.033 之间，没有一次在 5% 水平显著，因此零结果并非由个别技术造成。分维度看，失败显现速度、可归责程度和标准明确程度三个维度与约束软化的交互也都不显著。</p>
+
+<h3>为什么预测没有成立</h3>
+<p>按技术分别估计使用量对约束软化的斜率，可以看出问题所在。铁路客运周转量（+0.16）、铁路货运周转量（+0.21）和发电量（+0.14）在国有化程度上升时显著增加，民航（−0.15）和氧气顶吹转炉钢（−0.15）则下降。前三者宽容度较高，后两者宽容度最低。这一模式同大纲的逻辑并不矛盾：软约束下，高宽容度技术的<em>数量</em>可以扩张而<em>质量</em>无人察觉，这恰恰是赫希曼宽容度概念的含义。但 CHAT 只记录数量，因此只能看到扩张，看不到能力是否被掌握。</p>
+<p>第二个问题在代理变量上。约束软化指标在国家内部的变异只占总变异的 41%，而且主要来自古巴、匈牙利、阿尔巴尼亚、保加利亚、中国等国的社会主义国有化以及 1989 年后的转型。转型期的产出崩溃对铁路等网络技术冲击最大，与约束硬化同时发生，会把 β 推向正值。剔除曾高度国有化的国家后，β 变为 −0.007，方向转为预测方向，但估计精度不足以作出判断。此外，所有权并不等于预算约束：大纲把约束硬度定义为亏损是否补足、需求是否保障、是否存在竞争主体、支持是否以绩效为条件，国有企业在这些维度上可以有很大差异。</p>
+</section>
+
+<section id="steel">
+<h2>补充检验：钢铁工艺结构</h2>
+<p>为了绕开数量测量的问题，本轮在钢铁部门内部构造了一个更接近能力的指标：各国钢产量中平炉钢所占的比例。平炉是较为宽容的旧工艺，冶炼周期长、可以中途修正；氧气顶吹转炉和电炉则要求精确控制。能否及时淘汰平炉，反映的是生产单位是否在绩效压力下更新工艺，而不是产量大小。</p>
+<figure>
+<div class="fig-body scroll"><svg viewBox="0 0 680 300" role="img" aria-label="1970至2001年平炉钢占比，按国家平均国有化程度三分组：国有化程度高的一组淘汰平炉最慢"><line class="axis" x1="50" y1="260.0" x2="570" y2="260.0"/><text x="42" y="264.0" font-size="12" text-anchor="end" class="muted">0%</text><line class="grid" x1="50" y1="199.0" x2="570" y2="199.0"/><text x="42" y="203.0" font-size="12" text-anchor="end" class="muted">20%</text><line class="grid" x1="50" y1="138.0" x2="570" y2="138.0"/><text x="42" y="142.0" font-size="12" text-anchor="end" class="muted">40%</text><line class="grid" x1="50" y1="77.0" x2="570" y2="77.0"/><text x="42" y="81.0" font-size="12" text-anchor="end" class="muted">60%</text><line class="grid" x1="50" y1="16.0" x2="570" y2="16.0"/><text x="42" y="20.0" font-size="12" text-anchor="end" class="muted">80%</text><text x="50.0" y="278" font-size="12" text-anchor="middle" class="muted">1970</text><text x="217.7" y="278" font-size="12" text-anchor="middle" class="muted">1980</text><text x="385.5" y="278" font-size="12" text-anchor="middle" class="muted">1990</text><text x="553.2" y="278" font-size="12" text-anchor="middle" class="muted">2000</text><polyline fill="none" stroke-width="2" stroke-linejoin="round" style="stroke:var(--constraint)" points="50.0,147.2 66.8,151.8 83.5,173.3 100.3,177.8 117.1,185.2 133.9,192.3 150.6,202.7 167.4,218.3 184.2,223.6 201.0,225.8 217.7,228.6 234.5,234.3 251.3,244.6 268.1,254.7 284.8,256.6 301.6,257.8 318.4,258.4 335.2,259.0 351.9,258.5 368.7,258.8 385.5,259.2 419.0,259.7 435.8,259.6 452.6,260.0 469.4,260.0 486.1,260.0 502.9,260.0 519.7,260.0 536.5,260.0 553.2,260.0 570.0,260.0"/><circle cx="570.0" cy="260.0" r="4" stroke-width="2" style="fill:var(--constraint);stroke:var(--panel)"/><text x="580.0" y="274.0" font-size="12.5">约束较硬</text><g class="hit"><title>约束较硬，1970年：平炉钢占 37.0%</title><circle cx="50.0" cy="147.2" r="7" fill="transparent"/></g><g class="hit"><title>约束较硬，1971年：平炉钢占 35.5%</title><circle cx="66.8" cy="151.8" r="7" fill="transparent"/></g><g class="hit"><title>约束较硬，1972年：平炉钢占 28.4%</title><circle cx="83.5" cy="173.3" r="7" fill="transparent"/></g><g class="hit"><title>约束较硬，1973年：平炉钢占 26.9%</title><circle cx="100.3" cy="177.8" r="7" fill="transparent"/></g><g class="hit"><title>约束较硬，1974年：平炉钢占 24.5%</title><circle cx="117.1" cy="185.2" r="7" fill="transparent"/></g><g class="hit"><title>约束较硬，1975年：平炉钢占 22.2%</title><circle cx="133.9" cy="192.3" r="7" fill="transparent"/></g><g class="hit"><title>约束较硬，1976年：平炉钢占 18.8%</title><circle cx="150.6" cy="202.7" r="7" fill="transparent"/></g><g class="hit"><title>约束较硬，1977年：平炉钢占 13.7%</title><circle cx="167.4" cy="218.3" r="7" fill="transparent"/></g><g class="hit"><title>约束较硬，1978年：平炉钢占 11.9%</title><circle cx="184.2" cy="223.6" r="7" fill="transparent"/></g><g class="hit"><title>约束较硬，1979年：平炉钢占 11.2%</title><circle cx="201.0" cy="225.8" r="7" fill="transparent"/></g><g class="hit"><title>约束较硬，1980年：平炉钢占 10.3%</title><circle cx="217.7" cy="228.6" r="7" fill="transparent"/></g><g class="hit"><title>约束较硬，1981年：平炉钢占 8.4%</title><circle cx="234.5" cy="234.3" r="7" fill="transparent"/></g><g class="hit"><title>约束较硬，1982年：平炉钢占 5.1%</title><circle cx="251.3" cy="244.6" r="7" fill="transparent"/></g><g class="hit"><title>约束较硬，1983年：平炉钢占 1.8%</title><circle cx="268.1" cy="254.7" r="7" fill="transparent"/></g><g class="hit"><title>约束较硬，1984年：平炉钢占 1.1%</title><circle cx="284.8" cy="256.6" r="7" fill="transparent"/></g><g class="hit"><title>约束较硬，1985年：平炉钢占 0.7%</title><circle cx="301.6" cy="257.8" r="7" fill="transparent"/></g><g class="hit"><title>约束较硬，1986年：平炉钢占 0.5%</title><circle cx="318.4" cy="258.4" r="7" fill="transparent"/></g><g class="hit"><title>约束较硬，1987年：平炉钢占 0.3%</title><circle cx="335.2" cy="259.0" r="7" fill="transparent"/></g><g class="hit"><title>约束较硬，1988年：平炉钢占 0.5%</title><circle cx="351.9" cy="258.5" r="7" fill="transparent"/></g><g class="hit"><title>约束较硬，1989年：平炉钢占 0.4%</title><circle cx="368.7" cy="258.8" r="7" fill="transparent"/></g><g class="hit"><title>约束较硬，1990年：平炉钢占 0.3%</title><circle cx="385.5" cy="259.2" r="7" fill="transparent"/></g><g class="hit"><title>约束较硬，1992年：平炉钢占 0.1%</title><circle cx="419.0" cy="259.7" r="7" fill="transparent"/></g><g class="hit"><title>约束较硬，1993年：平炉钢占 0.1%</title><circle cx="435.8" cy="259.6" r="7" fill="transparent"/></g><g class="hit"><title>约束较硬，1994年：平炉钢占 0.0%</title><circle cx="452.6" cy="260.0" r="7" fill="transparent"/></g><g class="hit"><title>约束较硬，1995年：平炉钢占 0.0%</title><circle cx="469.4" cy="260.0" r="7" fill="transparent"/></g><g class="hit"><title>约束较硬，1996年：平炉钢占 0.0%</title><circle cx="486.1" cy="260.0" r="7" fill="transparent"/></g><g class="hit"><title>约束较硬，1997年：平炉钢占 0.0%</title><circle cx="502.9" cy="260.0" r="7" fill="transparent"/></g><g class="hit"><title>约束较硬，1998年：平炉钢占 0.0%</title><circle cx="519.7" cy="260.0" r="7" fill="transparent"/></g><g class="hit"><title>约束较硬，1999年：平炉钢占 0.0%</title><circle cx="536.5" cy="260.0" r="7" fill="transparent"/></g><g class="hit"><title>约束较硬，2000年：平炉钢占 0.0%</title><circle cx="553.2" cy="260.0" r="7" fill="transparent"/></g><g class="hit"><title>约束较硬，2001年：平炉钢占 0.0%</title><circle cx="570.0" cy="260.0" r="7" fill="transparent"/></g><polyline fill="none" stroke-width="2" stroke-linejoin="round" style="stroke:var(--faint)" points="50.0,106.9 66.8,110.9 83.5,118.2 100.3,123.7 117.1,126.3 133.9,134.5 150.6,149.2 167.4,155.8 184.2,170.8 201.0,182.3 217.7,206.1 234.5,226.3 251.3,228.6 268.1,231.3 284.8,232.8 301.6,236.6 318.4,238.7 335.2,239.4 351.9,240.9 368.7,244.3 385.5,246.8 419.0,225.3 435.8,225.4 452.6,223.1 469.4,226.7 486.1,224.8 502.9,229.7 519.7,233.3 536.5,236.2 553.2,237.9 570.0,238.3"/><circle cx="570.0" cy="238.3" r="4" stroke-width="2" style="fill:var(--faint);stroke:var(--panel)"/><text x="580.0" y="236.3" font-size="12.5">中间</text><g class="hit"><title>中间，1970年：平炉钢占 50.2%</title><circle cx="50.0" cy="106.9" r="7" fill="transparent"/></g><g class="hit"><title>中间，1971年：平炉钢占 48.9%</title><circle cx="66.8" cy="110.9" r="7" fill="transparent"/></g><g class="hit"><title>中间，1972年：平炉钢占 46.5%</title><circle cx="83.5" cy="118.2" r="7" fill="transparent"/></g><g class="hit"><title>中间，1973年：平炉钢占 44.7%</title><circle cx="100.3" cy="123.7" r="7" fill="transparent"/></g><g class="hit"><title>中间，1974年：平炉钢占 43.8%</title><circle cx="117.1" cy="126.3" r="7" fill="transparent"/></g><g class="hit"><title>中间，1975年：平炉钢占 41.1%</title><circle cx="133.9" cy="134.5" r="7" fill="transparent"/></g><g class="hit"><title>中间，1976年：平炉钢占 36.3%</title><circle cx="150.6" cy="149.2" r="7" fill="transparent"/></g><g class="hit"><title>中间，1977年：平炉钢占 34.2%</title><circle cx="167.4" cy="155.8" r="7" fill="transparent"/></g><g class="hit"><title>中间，1978年：平炉钢占 29.2%</title><circle cx="184.2" cy="170.8" r="7" fill="transparent"/></g><g class="hit"><title>中间，1979年：平炉钢占 25.5%</title><circle cx="201.0" cy="182.3" r="7" fill="transparent"/></g><g class="hit"><title>中间，1980年：平炉钢占 17.7%</title><circle cx="217.7" cy="206.1" r="7" fill="transparent"/></g><g class="hit"><title>中间，1981年：平炉钢占 11.1%</title><circle cx="234.5" cy="226.3" r="7" fill="transparent"/></g><g class="hit"><title>中间，1982年：平炉钢占 10.3%</title><circle cx="251.3" cy="228.6" r="7" fill="transparent"/></g><g class="hit"><title>中间，1983年：平炉钢占 9.4%</title><circle cx="268.1" cy="231.3" r="7" fill="transparent"/></g><g class="hit"><title>中间，1984年：平炉钢占 8.9%</title><circle cx="284.8" cy="232.8" r="7" fill="transparent"/></g><g class="hit"><title>中间，1985年：平炉钢占 7.7%</title><circle cx="301.6" cy="236.6" r="7" fill="transparent"/></g><g class="hit"><title>中间，1986年：平炉钢占 7.0%</title><circle cx="318.4" cy="238.7" r="7" fill="transparent"/></g><g class="hit"><title>中间，1987年：平炉钢占 6.8%</title><circle cx="335.2" cy="239.4" r="7" fill="transparent"/></g><g class="hit"><title>中间，1988年：平炉钢占 6.3%</title><circle cx="351.9" cy="240.9" r="7" fill="transparent"/></g><g class="hit"><title>中间，1989年：平炉钢占 5.1%</title><circle cx="368.7" cy="244.3" r="7" fill="transparent"/></g><g class="hit"><title>中间，1990年：平炉钢占 4.3%</title><circle cx="385.5" cy="246.8" r="7" fill="transparent"/></g><g class="hit"><title>中间，1992年：平炉钢占 11.4%</title><circle cx="419.0" cy="225.3" r="7" fill="transparent"/></g><g class="hit"><title>中间，1993年：平炉钢占 11.3%</title><circle cx="435.8" cy="225.4" r="7" fill="transparent"/></g><g class="hit"><title>中间，1994年：平炉钢占 12.1%</title><circle cx="452.6" cy="223.1" r="7" fill="transparent"/></g><g class="hit"><title>中间，1995年：平炉钢占 10.9%</title><circle cx="469.4" cy="226.7" r="7" fill="transparent"/></g><g class="hit"><title>中间，1996年：平炉钢占 11.5%</title><circle cx="486.1" cy="224.8" r="7" fill="transparent"/></g><g class="hit"><title>中间，1997年：平炉钢占 10.0%</title><circle cx="502.9" cy="229.7" r="7" fill="transparent"/></g><g class="hit"><title>中间，1998年：平炉钢占 8.7%</title><circle cx="519.7" cy="233.3" r="7" fill="transparent"/></g><g class="hit"><title>中间，1999年：平炉钢占 7.8%</title><circle cx="536.5" cy="236.2" r="7" fill="transparent"/></g><g class="hit"><title>中间，2000年：平炉钢占 7.3%</title><circle cx="553.2" cy="237.9" r="7" fill="transparent"/></g><g class="hit"><title>中间，2001年：平炉钢占 7.1%</title><circle cx="570.0" cy="238.3" r="7" fill="transparent"/></g><polyline fill="none" stroke-width="2" stroke-linejoin="round" style="stroke:var(--pressure)" points="50.0,66.6 66.8,59.7 83.5,64.9 100.3,67.8 117.1,89.1 133.9,96.0 150.6,101.7 167.4,109.2 184.2,107.9 201.0,112.1 217.7,117.1 234.5,120.5 251.3,129.0 268.1,130.7 284.8,137.6 301.6,138.5 318.4,141.5 335.2,145.5 351.9,147.0 368.7,149.4 385.5,152.9 419.0,148.8 435.8,164.9 452.6,174.2 469.4,175.9 486.1,170.4 502.9,173.0 519.7,176.6 536.5,206.6 553.2,223.3 570.0,225.0"/><circle cx="570.0" cy="225.0" r="4" stroke-width="2" style="fill:var(--pressure);stroke:var(--panel)"/><text x="580.0" y="221.0" font-size="12.5">约束较软</text><g class="hit"><title>约束较软，1970年：平炉钢占 63.4%</title><circle cx="50.0" cy="66.6" r="7" fill="transparent"/></g><g class="hit"><title>约束较软，1971年：平炉钢占 65.7%</title><circle cx="66.8" cy="59.7" r="7" fill="transparent"/></g><g class="hit"><title>约束较软，1972年：平炉钢占 64.0%</title><circle cx="83.5" cy="64.9" r="7" fill="transparent"/></g><g class="hit"><title>约束较软，1973年：平炉钢占 63.0%</title><circle cx="100.3" cy="67.8" r="7" fill="transparent"/></g><g class="hit"><title>约束较软，1974年：平炉钢占 56.0%</title><circle cx="117.1" cy="89.1" r="7" fill="transparent"/></g><g class="hit"><title>约束较软，1975年：平炉钢占 53.8%</title><circle cx="133.9" cy="96.0" r="7" fill="transparent"/></g><g class="hit"><title>约束较软，1976年：平炉钢占 51.9%</title><circle cx="150.6" cy="101.7" r="7" fill="transparent"/></g><g class="hit"><title>约束较软，1977年：平炉钢占 49.4%</title><circle cx="167.4" cy="109.2" r="7" fill="transparent"/></g><g class="hit"><title>约束较软，1978年：平炉钢占 49.9%</title><circle cx="184.2" cy="107.9" r="7" fill="transparent"/></g><g class="hit"><title>约束较软，1979年：平炉钢占 48.5%</title><circle cx="201.0" cy="112.1" r="7" fill="transparent"/></g><g class="hit"><title>约束较软，1980年：平炉钢占 46.9%</title><circle cx="217.7" cy="117.1" r="7" fill="transparent"/></g><g class="hit"><title>约束较软，1981年：平炉钢占 45.8%</title><circle cx="234.5" cy="120.5" r="7" fill="transparent"/></g><g class="hit"><title>约束较软，1982年：平炉钢占 43.0%</title><circle cx="251.3" cy="129.0" r="7" fill="transparent"/></g><g class="hit"><title>约束较软，1983年：平炉钢占 42.4%</title><circle cx="268.1" cy="130.7" r="7" fill="transparent"/></g><g class="hit"><title>约束较软，1984年：平炉钢占 40.1%</title><circle cx="284.8" cy="137.6" r="7" fill="transparent"/></g><g class="hit"><title>约束较软，1985年：平炉钢占 39.8%</title><circle cx="301.6" cy="138.5" r="7" fill="transparent"/></g><g class="hit"><title>约束较软，1986年：平炉钢占 38.8%</title><circle cx="318.4" cy="141.5" r="7" fill="transparent"/></g><g class="hit"><title>约束较软，1987年：平炉钢占 37.5%</title><circle cx="335.2" cy="145.5" r="7" fill="transparent"/></g><g class="hit"><title>约束较软，1988年：平炉钢占 37.1%</title><circle cx="351.9" cy="147.0" r="7" fill="transparent"/></g><g class="hit"><title>约束较软，1989年：平炉钢占 36.3%</title><circle cx="368.7" cy="149.4" r="7" fill="transparent"/></g><g class="hit"><title>约束较软，1990年：平炉钢占 35.1%</title><circle cx="385.5" cy="152.9" r="7" fill="transparent"/></g><g class="hit"><title>约束较软，1992年：平炉钢占 36.4%</title><circle cx="419.0" cy="148.8" r="7" fill="transparent"/></g><g class="hit"><title>约束较软，1993年：平炉钢占 31.2%</title><circle cx="435.8" cy="164.9" r="7" fill="transparent"/></g><g class="hit"><title>约束较软，1994年：平炉钢占 28.1%</title><circle cx="452.6" cy="174.2" r="7" fill="transparent"/></g><g class="hit"><title>约束较软，1995年：平炉钢占 27.6%</title><circle cx="469.4" cy="175.9" r="7" fill="transparent"/></g><g class="hit"><title>约束较软，1996年：平炉钢占 29.4%</title><circle cx="486.1" cy="170.4" r="7" fill="transparent"/></g><g class="hit"><title>约束较软，1997年：平炉钢占 28.5%</title><circle cx="502.9" cy="173.0" r="7" fill="transparent"/></g><g class="hit"><title>约束较软，1998年：平炉钢占 27.3%</title><circle cx="519.7" cy="176.6" r="7" fill="transparent"/></g><g class="hit"><title>约束较软，1999年：平炉钢占 17.5%</title><circle cx="536.5" cy="206.6" r="7" fill="transparent"/></g><g class="hit"><title>约束较软，2000年：平炉钢占 12.0%</title><circle cx="553.2" cy="223.3" r="7" fill="transparent"/></g><g class="hit"><title>约束较软，2001年：平炉钢占 11.5%</title><circle cx="570.0" cy="225.0" r="7" fill="transparent"/></g></svg></div>
+<figcaption><b>图2</b>曾使用平炉的 46 个国家的平炉钢占比，按各国 1960–2001 年平均国有化程度三等分。苏联、东欧、中国和主要拉美产钢国的数据从 1970 年开始，为避免样本构成变化造成的跳跃，图中从 1970 年画起。悬停可查看各年数值。</figcaption>
+</figure>
+<p>截面差异很明显：国有化程度高的一组直到 1990 年代仍有三成以上的钢来自平炉，国有化程度低的一组在 1985 年前后已基本淘汰平炉。但加入国家固定效应和年份固定效应、只利用国家内部随时间的变化后，系数方向虽然与预测一致，却不显著。</p>
+<div class="scroll"><table class="wide"><thead><tr><th>样本</th><th>因变量</th><th class="num">约束软化系数</th><th class="num">SE</th><th class="num">p</th><th class="num">国家数</th></tr></thead><tbody>
+<tr><td>全部有平炉的国家</td><td>转炉与电炉钢占比</td><td class='num'>-0.022</td><td class='num'>0.033</td><td class='num'>0.51</td><td class='num'>46</td></tr>
+<tr><td>全部有平炉的国家</td><td>平炉钢占比</td><td class='num'>+0.020</td><td class='num'>0.033</td><td class='num'>0.55</td><td class='num'>46</td></tr>
+<tr><td>后发国家</td><td>转炉与电炉钢占比</td><td class='num'>-0.016</td><td class='num'>0.038</td><td class='num'>0.68</td><td class='num'>36</td></tr>
+<tr><td>后发国家</td><td>平炉钢占比</td><td class='num'>+0.016</td><td class='num'>0.038</td><td class='num'>0.68</td><td class='num'>36</td></tr>
+</tbody></table></div>
+<p class="note">截面差异同时反映了计划经济体系、能源价格和设备更新周期等因素，不能直接解释为约束的作用。它的价值在于说明能力型指标能够呈现出数量指标看不到的分化，值得在第三章中系统构造。</p>
+</section>
+
+<section id="m2">
+<h2>模型二检验：外部安全压力与约束软化</h2>
+<p>设定为 <i>Soft</i><sub>ct</sub> = θ<i>Pressure</i><sub>ct</sub> + <i>X</i><sub>ct</sub> + λ<sub>c</sub> + τ<sub>t</sub> + <i>u</i><sub>ct</sub>，控制变量为人均 GDP 对数和选举民主指数，标准误按国家聚类，样本为 1816–2014 年的 195 个国家。</p>
+<div class="scroll"><table class="wide"><thead><tr><th>外部压力测量</th><th class="num">θ</th><th class="num">SE</th><th class="num">p</th><th class="num">N</th></tr></thead><tbody>
+<tr><td>活跃持久对抗数</td><td class='num'>+0.089</td><td class='num'>0.052</td><td class='num'>0.09</td><td class='num'>23,590</td></tr>
+<tr><td>活跃持久对抗数（含控制）</td><td class='num'>+0.059</td><td class='num'>0.048</td><td class='num'>0.22</td><td class='num'>19,904</td></tr>
+<tr><td>是否处于持久对抗</td><td class='num'>+0.103</td><td class='num'>0.113</td><td class='num'>0.36</td><td class='num'>23,590</td></tr>
+<tr><td>是否处于持久对抗（含控制）</td><td class='num'>+0.010</td><td class='num'>0.107</td><td class='num'>0.93</td><td class='num'>19,904</td></tr>
+<tr><td>过去五年军事化争端数</td><td class='num'>+0.019</td><td class='num'>0.012</td><td class='num'>0.09</td><td class='num'>23,590</td></tr>
+<tr><td>过去五年军事化争端数（含控制）</td><td class='num'>+0.013</td><td class='num'>0.010</td><td class='num'>0.22</td><td class='num'>19,904</td></tr>
+</tbody></table></div>
+<p>事件研究以各国首次进入持久对抗的年份为事件，要求事件前至少有 10 年观测，得到 67 个处理国和 114 个从未处理的对照国。</p>
+<figure>
+<div class="fig-body scroll"><svg viewBox="0 0 680 300" role="img" aria-label="首次持久对抗出现前后国有化程度的事件研究系数：之前平稳，十年后逐步上升"><line class="grid" x1="56" y1="218.9" x2="660" y2="218.9"/><text x="48" y="222.9" font-size="12" text-anchor="end" class="muted">-0.2</text><line class="axis" x1="56" y1="174.7" x2="660" y2="174.7"/><text x="48" y="178.7" font-size="12" text-anchor="end" class="muted">0.0</text><line class="grid" x1="56" y1="130.5" x2="660" y2="130.5"/><text x="48" y="134.5" font-size="12" text-anchor="end" class="muted">0.2</text><line class="grid" x1="56" y1="86.3" x2="660" y2="86.3"/><text x="48" y="90.3" font-size="12" text-anchor="end" class="muted">0.4</text><line class="grid" x1="56" y1="42.1" x2="660" y2="42.1"/><text x="48" y="46.1" font-size="12" text-anchor="end" class="muted">0.6</text><line x1="257.3" y1="20" x2="257.3" y2="252" stroke-dasharray="4 4" style="stroke:var(--pressure)"/><text x="263.3" y="32" font-size="12" style="fill:var(--ink)">持久对抗出现</text><polygon points="56.0,112.9 76.1,149.5 96.3,148.5 116.4,150.0 136.5,144.9 156.7,148.6 176.8,146.7 196.9,139.8 217.1,153.5 237.2,174.7 257.3,170.9 277.5,169.7 297.6,168.4 317.7,162.6 337.9,165.7 358.0,164.9 378.1,154.6 398.3,151.3 418.4,146.5 438.5,146.2 458.7,142.7 478.8,135.2 498.9,127.7 519.1,128.3 539.2,128.9 559.3,116.2 579.5,114.3 599.6,118.4 619.7,109.5 639.9,106.0 660.0,29.3 660.0,136.8 639.9,177.8 619.7,180.6 599.6,188.1 579.5,180.2 559.3,177.7 539.2,183.9 519.1,180.6 498.9,179.7 478.8,183.5 458.7,188.7 438.5,192.6 418.4,188.3 398.3,185.6 378.1,188.1 358.0,195.9 337.9,191.7 317.7,187.9 297.6,192.7 277.5,192.2 257.3,184.4 237.2,174.7 217.1,194.6 196.9,193.5 176.8,204.9 156.7,207.4 136.5,207.2 116.4,213.9 96.3,212.4 76.1,212.6 56.0,207.2" style="fill:var(--hl-p);stroke:none"/><polyline fill="none" stroke-width="2" style="stroke:var(--pressure)" points="56.0,160.1 76.1,181.1 96.3,180.5 116.4,181.9 136.5,176.0 156.7,178.0 176.8,175.8 196.9,166.7 217.1,174.1 237.2,174.7 257.3,177.6 277.5,181.0 297.6,180.5 317.7,175.2 337.9,178.7 358.0,180.4 378.1,171.3 398.3,168.5 418.4,167.4 438.5,169.4 458.7,165.7 478.8,159.4 498.9,153.7 519.1,154.4 539.2,156.4 559.3,147.0 579.5,147.3 599.6,153.2 619.7,145.1 639.9,141.9 660.0,83.0"/><g class="hit"><title>第 -10 年：+0.066（95% CI -0.147 至 +0.280）</title><rect x="47.0" y="20" width="18" height="232" fill="transparent"/><circle cx="56.0" cy="160.1" r="3.5" stroke-width="1.5" style="fill:var(--pressure);stroke:var(--panel)"/></g><g class="hit"><title>第 -9 年：-0.029（95% CI -0.172 至 +0.114）</title><rect x="67.1" y="20" width="18" height="232" fill="transparent"/><circle cx="76.1" cy="181.1" r="3.5" stroke-width="1.5" style="fill:var(--pressure);stroke:var(--panel)"/></g><g class="hit"><title>第 -8 年：-0.026（95% CI -0.171 至 +0.118）</title><rect x="87.3" y="20" width="18" height="232" fill="transparent"/><circle cx="96.3" cy="180.5" r="3.5" stroke-width="1.5" style="fill:var(--pressure);stroke:var(--panel)"/></g><g class="hit"><title>第 -7 年：-0.033（95% CI -0.178 至 +0.112）</title><rect x="107.4" y="20" width="18" height="232" fill="transparent"/><circle cx="116.4" cy="181.9" r="3.5" stroke-width="1.5" style="fill:var(--pressure);stroke:var(--panel)"/></g><g class="hit"><title>第 -6 年：-0.006（95% CI -0.147 至 +0.135）</title><rect x="127.5" y="20" width="18" height="232" fill="transparent"/><circle cx="136.5" cy="176.0" r="3.5" stroke-width="1.5" style="fill:var(--pressure);stroke:var(--panel)"/></g><g class="hit"><title>第 -5 年：-0.015（95% CI -0.148 至 +0.118）</title><rect x="147.7" y="20" width="18" height="232" fill="transparent"/><circle cx="156.7" cy="178.0" r="3.5" stroke-width="1.5" style="fill:var(--pressure);stroke:var(--panel)"/></g><g class="hit"><title>第 -4 年：-0.005（95% CI -0.137 至 +0.127）</title><rect x="167.8" y="20" width="18" height="232" fill="transparent"/><circle cx="176.8" cy="175.8" r="3.5" stroke-width="1.5" style="fill:var(--pressure);stroke:var(--panel)"/></g><g class="hit"><title>第 -3 年：+0.036（95% CI -0.085 至 +0.158）</title><rect x="187.9" y="20" width="18" height="232" fill="transparent"/><circle cx="196.9" cy="166.7" r="3.5" stroke-width="1.5" style="fill:var(--pressure);stroke:var(--panel)"/></g><g class="hit"><title>第 -2 年：+0.003（95% CI -0.090 至 +0.096）</title><rect x="208.1" y="20" width="18" height="232" fill="transparent"/><circle cx="217.1" cy="174.1" r="3.5" stroke-width="1.5" style="fill:var(--pressure);stroke:var(--panel)"/></g><g class="hit"><title>第 −1 年：参照期</title><rect x="228.2" y="20" width="18" height="232" fill="transparent"/><circle cx="237.2" cy="174.7" r="3.5" stroke-width="1.5" style="fill:var(--pressure);stroke:var(--panel)"/></g><g class="hit"><title>第 0 年：-0.013（95% CI -0.044 至 +0.017）</title><rect x="248.3" y="20" width="18" height="232" fill="transparent"/><circle cx="257.3" cy="177.6" r="3.5" stroke-width="1.5" style="fill:var(--pressure);stroke:var(--panel)"/></g><g class="hit"><title>第 1 年：-0.028（95% CI -0.079 至 +0.023）</title><rect x="268.5" y="20" width="18" height="232" fill="transparent"/><circle cx="277.5" cy="181.0" r="3.5" stroke-width="1.5" style="fill:var(--pressure);stroke:var(--panel)"/></g><g class="hit"><title>第 2 年：-0.026（95% CI -0.081 至 +0.029）</title><rect x="288.6" y="20" width="18" height="232" fill="transparent"/><circle cx="297.6" cy="180.5" r="3.5" stroke-width="1.5" style="fill:var(--pressure);stroke:var(--panel)"/></g><g class="hit"><title>第 3 年：-0.003（95% CI -0.060 至 +0.055）</title><rect x="308.7" y="20" width="18" height="232" fill="transparent"/><circle cx="317.7" cy="175.2" r="3.5" stroke-width="1.5" style="fill:var(--pressure);stroke:var(--panel)"/></g><g class="hit"><title>第 4 年：-0.018（95% CI -0.077 至 +0.041）</title><rect x="328.9" y="20" width="18" height="232" fill="transparent"/><circle cx="337.9" cy="178.7" r="3.5" stroke-width="1.5" style="fill:var(--pressure);stroke:var(--panel)"/></g><g class="hit"><title>第 5 年：-0.026（95% CI -0.096 至 +0.044）</title><rect x="349.0" y="20" width="18" height="232" fill="transparent"/><circle cx="358.0" cy="180.4" r="3.5" stroke-width="1.5" style="fill:var(--pressure);stroke:var(--panel)"/></g><g class="hit"><title>第 6 年：+0.015（95% CI -0.061 至 +0.091）</title><rect x="369.1" y="20" width="18" height="232" fill="transparent"/><circle cx="378.1" cy="171.3" r="3.5" stroke-width="1.5" style="fill:var(--pressure);stroke:var(--panel)"/></g><g class="hit"><title>第 7 年：+0.028（95% CI -0.049 至 +0.106）</title><rect x="389.3" y="20" width="18" height="232" fill="transparent"/><circle cx="398.3" cy="168.5" r="3.5" stroke-width="1.5" style="fill:var(--pressure);stroke:var(--panel)"/></g><g class="hit"><title>第 8 年：+0.033（95% CI -0.062 至 +0.127）</title><rect x="409.4" y="20" width="18" height="232" fill="transparent"/><circle cx="418.4" cy="167.4" r="3.5" stroke-width="1.5" style="fill:var(--pressure);stroke:var(--panel)"/></g><g class="hit"><title>第 9 年：+0.024（95% CI -0.081 至 +0.129）</title><rect x="429.5" y="20" width="18" height="232" fill="transparent"/><circle cx="438.5" cy="169.4" r="3.5" stroke-width="1.5" style="fill:var(--pressure);stroke:var(--panel)"/></g><g class="hit"><title>第 10 年：+0.041（95% CI -0.064 至 +0.145）</title><rect x="449.7" y="20" width="18" height="232" fill="transparent"/><circle cx="458.7" cy="165.7" r="3.5" stroke-width="1.5" style="fill:var(--pressure);stroke:var(--panel)"/></g><g class="hit"><title>第 11 年：+0.069（95% CI -0.040 至 +0.178）</title><rect x="469.8" y="20" width="18" height="232" fill="transparent"/><circle cx="478.8" cy="159.4" r="3.5" stroke-width="1.5" style="fill:var(--pressure);stroke:var(--panel)"/></g><g class="hit"><title>第 12 年：+0.095（95% CI -0.023 至 +0.212）</title><rect x="489.9" y="20" width="18" height="232" fill="transparent"/><circle cx="498.9" cy="153.7" r="3.5" stroke-width="1.5" style="fill:var(--pressure);stroke:var(--panel)"/></g><g class="hit"><title>第 13 年：+0.092（95% CI -0.027 至 +0.210）</title><rect x="510.1" y="20" width="18" height="232" fill="transparent"/><circle cx="519.1" cy="154.4" r="3.5" stroke-width="1.5" style="fill:var(--pressure);stroke:var(--panel)"/></g><g class="hit"><title>第 14 年：+0.083（95% CI -0.042 至 +0.207）</title><rect x="530.2" y="20" width="18" height="232" fill="transparent"/><circle cx="539.2" cy="156.4" r="3.5" stroke-width="1.5" style="fill:var(--pressure);stroke:var(--panel)"/></g><g class="hit"><title>第 15 年：+0.125（95% CI -0.014 至 +0.265）</title><rect x="550.3" y="20" width="18" height="232" fill="transparent"/><circle cx="559.3" cy="147.0" r="3.5" stroke-width="1.5" style="fill:var(--pressure);stroke:var(--panel)"/></g><g class="hit"><title>第 16 年：+0.124（95% CI -0.025 至 +0.273）</title><rect x="570.5" y="20" width="18" height="232" fill="transparent"/><circle cx="579.5" cy="147.3" r="3.5" stroke-width="1.5" style="fill:var(--pressure);stroke:var(--panel)"/></g><g class="hit"><title>第 17 年：+0.097（95% CI -0.061 至 +0.255）</title><rect x="590.6" y="20" width="18" height="232" fill="transparent"/><circle cx="599.6" cy="153.2" r="3.5" stroke-width="1.5" style="fill:var(--pressure);stroke:var(--panel)"/></g><g class="hit"><title>第 18 年：+0.134（95% CI -0.027 至 +0.295）</title><rect x="610.7" y="20" width="18" height="232" fill="transparent"/><circle cx="619.7" cy="145.1" r="3.5" stroke-width="1.5" style="fill:var(--pressure);stroke:var(--panel)"/></g><g class="hit"><title>第 19 年：+0.148（95% CI -0.014 至 +0.311）</title><rect x="630.9" y="20" width="18" height="232" fill="transparent"/><circle cx="639.9" cy="141.9" r="3.5" stroke-width="1.5" style="fill:var(--pressure);stroke:var(--panel)"/></g><g class="hit"><title>第 ≥20 年：+0.415（95% CI +0.172 至 +0.658）</title><rect x="651.0" y="20" width="18" height="232" fill="transparent"/><circle cx="660.0" cy="83.0" r="3.5" stroke-width="1.5" style="fill:var(--pressure);stroke:var(--panel)"/></g><text x="56.0" y="270" font-size="12" text-anchor="middle" class="muted">-10</text><text x="156.7" y="270" font-size="12" text-anchor="middle" class="muted">-5</text><text x="257.3" y="270" font-size="12" text-anchor="middle" class="muted">0</text><text x="358.0" y="270" font-size="12" text-anchor="middle" class="muted">5</text><text x="458.7" y="270" font-size="12" text-anchor="middle" class="muted">10</text><text x="559.3" y="270" font-size="12" text-anchor="middle" class="muted">15</text><text x="660.0" y="270" font-size="12" text-anchor="middle" class="muted">≥20</text><text x="358.0" y="292" font-size="12.5" text-anchor="middle">相对首次持久对抗出现的年份（参照期为 −1）</text></svg></div>
+<figcaption><b>图3</b>首次持久对抗出现前后，国有化程度（标准化，越高越软）的变化。阴影为 95% 置信区间，第 20 年及以后合并为一组，悬停可查看各年数值。</figcaption>
+</figure>
+<p>事件前的系数都在 ±0.07 之内，没有预先趋势。事件发生后的前五年没有变化，第 10 年起逐步上升，第 15 年约为 0.13 个标准差，20 年及以后为 0.42 个标准差且显著。事件前后合并比较的系数为 0.19（SE 0.12，p = 0.12）。</p>
+<p>这一结果与 H4 的方向一致，但有三点保留。第一，效应出现得很慢，更像长期对抗中逐步形成的战时经济体制，而不是大纲所设想的对战略性模仿单位的直接保护。第二，国有化程度是全经济的指标，不能区分战略部门和一般部门，而 H4 讨论的是战略性模仿单位。第三，处理时点交错时，双向固定效应估计可能有偏，正式分析应换用 Callaway &amp; Sant'Anna（2021）或 Sun &amp; Abraham（2021）的估计量。</p>
+</section>
+
+<section id="revise">
+<h2>对研究设计的修订建议</h2>
+<h3>一、在理论部分补入“数量扩张”环节</h3>
+<p>软预算约束同时产生两种效应：抑制对绩效的反应，以及推动数量扩张（Kornai 1980）。两者在高宽容度技术中叠加，结果是引进规模大而掌握程度低。这可以作为第二章的一个推论写入：<em>约束越软，高宽容度技术的使用数量与能力层级之间的背离越大</em>。这一推论可以用数据检验，也与大纲中“仅完成引进”这一层级的设计相呼应。</p>
+<h3>二、把大样本因变量从数量换成能力</h3>
+<div class="scroll"><table class="wide">
+<thead><tr><th>技术</th><th>能力型指标</th><th>候选来源</th></tr></thead>
+<tbody>
+<tr><td>钢铁</td><td>工艺结构（平炉、转炉、电炉占比），吨钢能耗</td><td>CHAT；世界钢铁协会统计年鉴</td></tr>
+<tr><td>电力</td><td>输配电损耗率</td><td>世界银行 WDI（EG.ELC.LOSS.ZS，1960 年起）</td></tr>
+<tr><td>铁路</td><td>机车可用率、每百万列车公里事故数</td><td>国际铁路联盟（UIC）统计</td></tr>
+<tr><td>民航</td><td>每百万架次事故率</td><td>Aviation Safety Network 数据库，ICAO 统计</td></tr>
+<tr><td>纺织</td><td>出口单价，用作质量代理</td><td>历史贸易统计，COMTRADE</td></tr>
+</tbody>
+</table></div>
+<h3>三、让约束硬度的测量贴近定义</h3>
+<p>大纲对约束硬度的定义包括五个维度，国有化程度只触及其中的所有权背景。大样本中可以考虑：国有企业净财政转移和国有企业亏损（World Bank 1995《Bureaucrats in Business》附表，覆盖 1978–1991 年），部门层面关税（Clemens &amp; Williamson 覆盖 1865–1950 年，WITS 覆盖 1988 年以后），以及出口导向程度。后者直接对应大纲所说的“出口市场作为功能性绩效检验”。</p>
+<h3>四、调整大样本在论文中的分量</h3>
+<p>试运行的结果印证了大纲第九部分所列的风险“大样本代理指标粗糙”。建议第二章的理论文章（2027 春投稿）不以大样本结果为主要证据，以案例和机制论证为主。大样本放在第三章，定位为描述总体模式并检验数量与能力背离的推论。</p>
+</section>
+
+<section id="cases">
+<h2>过程追踪的候选案例</h2>
+<p>以下候选依据二手文献初步筛选，按大纲的三类比较对设计分组。案例中关于约束安排的判断是初步的，<b>需在编码完成后依据档案核实</b>。</p>
+<ul class="cases">
+<li><span class="h">晚清洋务运动：江南制造局与轮船招商局（1865–1895）</span><span class="tag">国家内部技术对 · H1</span>
+<p>同一时期、同一批官员主导。制造局经费来自海关协饷，产品由军方指定调拨；招商局与外国轮船公司在长江航线上直接竞争，亏损有实际后果。两项技术的宽容度都较低，约束安排差异明显。</p>
+<p class="src">Kennedy 1978, <i>The Arms of Kiangnan</i>；Feuerwerker 1958, <i>China's Early Industrialization</i></p></li>
+<li><span class="h">明治日本：官营工厂处理前后（1880 年代）</span><span class="tag">同一项目前后比较 · H1</span>
+<p>松方财政期间政府出售大部分官营工厂，是一次可识别的约束硬化事件，可以比较同一工厂出售前后的工艺改进记录。</p>
+<p class="src">Smith 1955, <i>Political Change and Industrial Development in Japan: Government Enterprise, 1868–1880</i></p></li>
+<li><span class="h">韩国重化工业推进（1973–1979）</span><span class="tag">压力上升前后 · H4</span>
+<p>1971 年驻韩美军削减之后，政府以安全需要为由推进重化工业，大量发放政策性贷款，1979–1980 年出现产能过剩和结构调整。浦项制铁在同一时期以出口和成本标准接受考核，可以作为同一国家内部的对照。</p>
+<p class="src">Woo 1991, <i>Race to the Swift</i>；Stern et al. 1995, <i>Industrialization and the State: The Korean Heavy and Chemical Industry Drive</i>；Amsden 1989</p></li>
+<li><span class="h">巴西、印度、韩国的信息技术产业（1970–1990 年代）</span><span class="tag">跨国同技术对 · H1、H3</span>
+<p>同一技术在三国分别采取市场保留、国营主导和出口导向安排，是检验约束依据的现成比较。</p>
+<p class="src">Evans 1995, <i>Embedded Autonomy: States and Industrial Transformation</i></p></li>
+<li><span class="h">印度钢铁：国营钢厂与塔塔钢铁（1955–1990）</span><span class="tag">同国同技术 · H1</span>
+<p>技术相同、所在国家相同，所有制和约束安排不同。可与本报告第六部分平炉淘汰速度的数据对照。</p>
+<p class="src">二手文献待补充</p></li>
+</ul>
+</section>
+
+<section id="next">
+<h2>下一步（2026 年秋季学期剩余时间）</h2>
+<ol class="steps">
+<li><b>第二编码者独立编码。</b>使用空白编码表，完成后运行信度脚本。任一维度 α 低于 0.8 时修订定义。</li>
+<li><b>获取 Colaresi、Rasler 和 Thompson 的战略竞争名单</b>（书中附录），替换本轮基于 MID 的替代规则，并换用适合交错处理的事件研究估计量。</li>
+<li><b>构造两到三个能力型因变量</b>，优先选择电力输配损耗率和钢铁工艺结构，这两项数据现成、覆盖面广。</li>
+<li><b>补入科尔奈投资饥渴的论证</b>，写成第二章中数量与能力背离的推论。</li>
+<li><b>从五组候选中选出两组</b>，评估档案可得性。晚清与明治两组的二手研究最为充分，建议优先考虑。</li>
+</ol>
+</section>
+
+<section id="files">
+<h2>文件与复现</h2>
+<p>全部代码、编码表和结果表已提交到仓库 <code>owenste/textasdata</code> 的 <code>claude/youthful-albattani-6c49pr</code> 分支，位于 <code>research/</code> 目录。原始数据可以用脚本重新下载，因此没有纳入版本控制。</p>
+<pre>research/
+  coding/latitude_codebook.md          编码手册 v0.1
+  coding/latitude_codes_coderA.csv     编码者 A 的结果（55 项技术）
+  coding/latitude_codes_coderB_blank.csv  第二编码者空白表
+  scripts/00_fetch_data.sh             下载 CHAT、V-Dem、MID
+  scripts/01_build_panel.py            构造国家×技术×年份面板
+  scripts/02_model1.py                 模型一及稳健性检验
+  scripts/03_steel_mix.py              钢铁工艺结构补充检验
+  scripts/04_model2.py                 持久对抗识别、模型二与事件研究
+  scripts/05_refcheck.py               Crossref 文献核对
+  scripts/06_reliability.py            Krippendorff α
+  output/                              全部结果表</pre>
+<h3>本报告新增的参考文献</h3>
+<ul class="refs">
+<li>Callaway, Brantly, and Pedro H. C. Sant'Anna. 2021. "Difference-in-Differences with Multiple Time Periods." <i>Journal of Econometrics</i> 225(2): 200-230.</li>
+<li>Coppedge, Michael, et al. V-Dem Dataset. Varieties of Democracy (V-Dem) Project.</li>
+<li>Diehl, Paul F., and Gary Goertz. 2000. <i>War and Peace in International Rivalry</i>. Ann Arbor: University of Michigan Press.</li>
+<li>Evans, Peter. 1995. <i>Embedded Autonomy: States and Industrial Transformation</i>. Princeton: Princeton University Press.</li>
+<li>Kornai, János. 1980. <i>Economics of Shortage</i>. Amsterdam: North-Holland.</li>
+<li>Palmer, Glenn, et al. 2022. "The MID5 Dataset, 2011–2014: Procedures, Coding Rules, and Description." <i>Conflict Management and Peace Science</i> 39(4): 470-482.</li>
+<li>Sun, Liyang, and Sarah Abraham. 2021. "Estimating Dynamic Treatment Effects in Event Studies with Heterogeneous Treatment Effects." <i>Journal of Econometrics</i> 225(2): 175-199.</li>
+</ul>
+<p class="note">专著类文献（Kennedy 1978、Smith 1955、Woo 1991、Stern et al. 1995 等）尚未逐条核对出版信息。</p>
+</section>
+</main>
+</div>

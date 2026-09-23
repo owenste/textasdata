@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# Download the raw data used by the pilot study into research/data/raw/.
+set -euo pipefail
+cd "$(dirname "$0")/../data" && mkdir -p raw && cd raw
+curl -sSLO https://data.nber.org/data-appendix/w15319/chat.dta
+curl -sSL -o mid5.zip https://correlatesofwar.org/wp-content/uploads/MID-5-Data-and-Supporting-Materials.zip
+unzip -o -q mid5.zip 'MIDA 5.0.csv' 'MIDB 5.0.csv'
+# V-Dem: the vdemdata R package ships the full dataset as an .RData file
+tmp=$(mktemp -d)
+GIT_LFS_SKIP_SMUDGE=1 git clone -q --depth 1 https://github.com/vdeminstitute/vdemdata "$tmp/vdemdata"
+python3 - "$tmp/vdemdata/data/vdem.RData" <<'PY'
+import sys, rdata
+df = list(rdata.read_rda(sys.argv[1]).values())[0]
+cols = ['country_name','country_text_id','COWcode','year','v2clstown','v2clstown_osp','v2x_polyarchy',
+        'v2x_rule','v2x_corr','e_gdppc','e_pop','v2stcritrecadm','v2x_libdem','e_miinteco','e_miinterc','e_civil_war']
+df[cols].to_csv('vdem_subset.csv', index=False)
+PY
+rm -rf "$tmp"

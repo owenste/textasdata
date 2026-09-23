@@ -1,0 +1,154 @@
+"""Render the pilot-study report (report/index.html) from the output tables."""
+from pathlib import Path
+import html
+import pandas as pd
+
+ROOT = Path(__file__).resolve().parents[1]
+O = ROOT / "output"
+
+
+def esc(s):
+    return html.escape(str(s))
+
+
+# ---------- chart A: Model 1 coefficient plot ----------
+def coef_plot():
+    r = pd.read_csv(O / "model1_results.csv")
+    keep = ["M1 核心技术，全样本", "M2 加入交互控制", "M3 后发国家（人均GDP<美国50%）", "M4 1945年以后",
+            "M6 含医疗与金融扩展技术", "M8 剔除部门：运输", "M9 剔除曾高度国有化国家", "M10 剔除1989-1995转型期",
+            "M11 剔除1989年以后"]
+    r = r.set_index("model").loc[keep].reset_index()
+    W, rowh, top, left, right = 680, 34, 34, 250, 24
+    H = top + rowh * len(r) + 44
+    lo, hi = -0.08, 0.08
+    X = lambda v: left + (v - lo) / (hi - lo) * (W - left - right)
+    s = [f'<svg viewBox="0 0 {W} {H}" role="img" aria-label="模型一各设定下宽容度乘约束软化的系数及95%置信区间，全部跨越零">']
+    s.append(f'<rect x="{X(lo):.1f}" y="{top-8}" width="{X(0)-X(lo):.1f}" height="{rowh*len(r)+8}" style="fill:var(--hl-c)"/>')
+    s.append(f'<text x="{X(lo)+6:.1f}" y="{top-14}" font-size="12" style="fill:var(--constraint)">研究计划预测的方向（β＜0）</text>')
+    for v in [-0.08, -0.04, 0, 0.04, 0.08]:
+        cls = "axis" if v == 0 else "grid"
+        s.append(f'<line class="{cls}" x1="{X(v):.1f}" y1="{top-8}" x2="{X(v):.1f}" y2="{top+rowh*len(r)}"/>')
+        s.append(f'<text x="{X(v):.1f}" y="{top+rowh*len(r)+18}" font-size="12" text-anchor="middle" class="muted">{v:+.2f}'.replace("+0.00", "0") + '</text>')
+    s.append(f'<text x="{(X(lo)+X(hi))/2:.1f}" y="{H-6}" font-size="12.5" text-anchor="middle">β（宽容度 × 约束软化），95% 置信区间</text>')
+    for i, row in r.iterrows():
+        y = top + rowh * i + rowh / 2
+        name = row.model.split(" ", 1)[1]
+        s.append(f'<text x="{left-12}" y="{y+4:.1f}" font-size="12.5" text-anchor="end">{esc(name)}</text>')
+        tip = f"{name}：β = {row.coef:+.3f}，SE = {row.se:.3f}，p = {row.p:.2f}，N = {row.nobs:,}"
+        s.append(f'<g class="hit"><title>{esc(tip)}</title>'
+                 f'<rect x="{left}" y="{y-rowh/2:.1f}" width="{W-left-right}" height="{rowh}" fill="transparent"/>'
+                 f'<line x1="{X(row.lo):.1f}" y1="{y:.1f}" x2="{X(row.hi):.1f}" y2="{y:.1f}" stroke-width="2" style="stroke:var(--ink)"/>'
+                 f'<circle cx="{X(row.coef):.1f}" cy="{y:.1f}" r="5" stroke-width="2" style="fill:var(--ink);stroke:var(--panel)"/></g>')
+    s.append("</svg>")
+    return "".join(s), r
+
+
+# ---------- chart B: event study ----------
+def event_plot():
+    e = pd.read_csv(O / "model2_event_study.csv")
+    e = pd.concat([e, pd.DataFrame([dict(k=-1, coef=0, se=0, lo=0, hi=0)])]).sort_values("k")
+    W, H, L, R, T, B = 680, 300, 56, 20, 20, 48
+    x0, x1, y0, y1 = -10, 20, -0.35, 0.70
+    X = lambda v: L + (v - x0) / (x1 - x0) * (W - L - R)
+    Y = lambda v: T + (y1 - v) / (y1 - y0) * (H - T - B)
+    s = [f'<svg viewBox="0 0 {W} {H}" role="img" aria-label="首次持久对抗出现前后国有化程度的事件研究系数：之前平稳，十年后逐步上升">']
+    for v in [-0.2, 0, 0.2, 0.4, 0.6]:
+        s.append(f'<line class="{"axis" if v == 0 else "grid"}" x1="{L}" y1="{Y(v):.1f}" x2="{W-R}" y2="{Y(v):.1f}"/>')
+        s.append(f'<text x="{L-8}" y="{Y(v)+4:.1f}" font-size="12" text-anchor="end" class="muted">{v:.1f}</text>')
+    s.append(f'<line x1="{X(0):.1f}" y1="{T}" x2="{X(0):.1f}" y2="{H-B}" stroke-dasharray="4 4" style="stroke:var(--pressure)"/>')
+    s.append(f'<text x="{X(0)+6:.1f}" y="{T+12}" font-size="12" style="fill:var(--ink)">持久对抗出现</text>')
+    band = " ".join(f"{X(k):.1f},{Y(h):.1f}" for k, h in zip(e.k, e.hi)) + " " + \
+           " ".join(f"{X(k):.1f},{Y(l):.1f}" for k, l in zip(e.k[::-1], e.lo[::-1]))
+    s.append(f'<polygon points="{band}" style="fill:var(--hl-p);stroke:none"/>')
+    s.append('<polyline fill="none" stroke-width="2" style="stroke:var(--pressure)" points="' +
+             " ".join(f"{X(k):.1f},{Y(c):.1f}" for k, c in zip(e.k, e.coef)) + '"/>')
+    for row in e.itertuples():
+        lab = "≥20" if row.k == 20 else str(row.k)
+        tip = f"第 {lab} 年：{row.coef:+.3f}（95% CI {row.lo:+.3f} 至 {row.hi:+.3f}）" if row.k != -1 else "第 −1 年：参照期"
+        s.append(f'<g class="hit"><title>{esc(tip)}</title><rect x="{X(row.k)-9:.1f}" y="{T}" width="18" height="{H-T-B}" fill="transparent"/>'
+                 f'<circle cx="{X(row.k):.1f}" cy="{Y(row.coef):.1f}" r="3.5" stroke-width="1.5" style="fill:var(--pressure);stroke:var(--panel)"/></g>')
+    for v in [-10, -5, 0, 5, 10, 15, 20]:
+        s.append(f'<text x="{X(v):.1f}" y="{H-B+18}" font-size="12" text-anchor="middle" class="muted">{"≥20" if v == 20 else v}</text>')
+    s.append(f'<text x="{(L+W-R)/2:.1f}" y="{H-8}" font-size="12.5" text-anchor="middle">相对首次持久对抗出现的年份（参照期为 −1）</text>')
+    s.append("</svg>")
+    return "".join(s)
+
+
+# ---------- chart C: steel open-hearth share ----------
+def steel_plot():
+    d = pd.read_csv(O / "steel_ohf_share_by_softness.csv")
+    d = d[d.year >= 1970]  # most socialist and Latin American producers enter CHAT in 1970
+    W, H, L, R, T, B = 680, 300, 50, 110, 16, 40
+    x0, x1 = 1970, 2001
+    X = lambda v: L + (v - x0) / (x1 - x0) * (W - L - R)
+    Y = lambda v: T + (0.8 - v) / 0.8 * (H - T - B)
+    colors = {"约束较硬": "var(--constraint)", "中间": "var(--faint)", "约束较软": "var(--pressure)"}
+    s = [f'<svg viewBox="0 0 {W} {H}" role="img" aria-label="1970至2001年平炉钢占比，按国家平均国有化程度三分组：国有化程度高的一组淘汰平炉最慢">']
+    for v in [0, 0.2, 0.4, 0.6, 0.8]:
+        s.append(f'<line class="{"axis" if v == 0 else "grid"}" x1="{L}" y1="{Y(v):.1f}" x2="{W-R}" y2="{Y(v):.1f}"/>')
+        s.append(f'<text x="{L-8}" y="{Y(v)+4:.1f}" font-size="12" text-anchor="end" class="muted">{int(v*100)}%</text>')
+    for v in [1970, 1980, 1990, 2000]:
+        s.append(f'<text x="{X(v):.1f}" y="{H-B+18}" font-size="12" text-anchor="middle" class="muted">{v}</text>')
+    for g, c in colors.items():
+        sub = d[d.soft_group == g].sort_values("year")
+        s.append(f'<polyline fill="none" stroke-width="2" stroke-linejoin="round" style="stroke:{c}" points="' +
+                 " ".join(f"{X(a):.1f},{Y(b):.1f}" for a, b in zip(sub.year, sub.ohf_share)) + '"/>')
+        last = sub.iloc[-1]
+        dy = {"约束较硬": 14, "中间": -2, "约束较软": -4}[g]
+        s.append(f'<circle cx="{X(last.year):.1f}" cy="{Y(last.ohf_share):.1f}" r="4" stroke-width="2" style="fill:{c};stroke:var(--panel)"/>')
+        s.append(f'<text x="{X(last.year)+10:.1f}" y="{Y(last.ohf_share)+dy:.1f}" font-size="12.5">{g}</text>')
+        for row in sub.itertuples():
+            s.append(f'<g class="hit"><title>{esc(f"{g}，{row.year}年：平炉钢占 {row.ohf_share*100:.1f}%")}</title>'
+                     f'<circle cx="{X(row.year):.1f}" cy="{Y(row.ohf_share):.1f}" r="7" fill="transparent"/></g>')
+    s.append("</svg>")
+    return "".join(s)
+
+
+def codes_table():
+    c = pd.read_csv(ROOT / "coding" / "latitude_codes_coderA.csv")
+    c = c[c["sample"] == "core"].copy()
+    c["lat"] = c.fv + c.fa + c.ps
+    c = c.sort_values(["lat", "sector"])
+    rows = []
+    for r in c.itertuples():
+        pips = "".join(f'<i class="{"on" if j < r.lat else ""}"></i>' for j in range(6))
+        rows.append(f"<tr><td>{esc(r.label_zh)}<span class='code'>{esc(r.tech)}</span></td><td>{esc(r.sector)}</td>"
+                    f"<td class='num'>{r.fv}</td><td class='num'>{r.fa}</td><td class='num'>{r.ps}</td>"
+                    f"<td><span class='pips' aria-label='总分 {r.lat}'>{pips}</span><span class='num'>{r.lat}</span></td>"
+                    f"<td class='why'>{esc(r.rationale)}</td></tr>")
+    return "\n".join(rows)
+
+
+def m2_table():
+    r = pd.read_csv(O / "model2_results.csv")
+    out = []
+    for x in r.itertuples():
+        out.append(f"<tr><td>{esc(x.model.split(' ',1)[1])}</td><td class='num'>{x.coef:+.3f}</td>"
+                   f"<td class='num'>{x.se:.3f}</td><td class='num'>{x.p:.2f}</td><td class='num'>{x.nobs:,}</td></tr>")
+    return "\n".join(out)
+
+
+def steel_table():
+    r = pd.read_csv(O / "steel_mix_results.csv")
+    names = {"modern_share": "转炉与电炉钢占比", "ohf_share": "平炉钢占比"}
+    return "\n".join(f"<tr><td>{esc(x.sample)}</td><td>{names[x.dv]}</td><td class='num'>{x.coef:+.3f}</td>"
+                     f"<td class='num'>{x.se:.3f}</td><td class='num'>{x.p:.2f}</td><td class='num'>{x.countries}</td></tr>"
+                     for x in r.itertuples())
+
+
+def main():
+    coef_svg, m1 = coef_plot()
+    m1_rows = "\n".join(
+        f"<tr><td>{esc(x.model.split(' ',1)[1])}</td><td class='num'>{x.coef:+.3f}</td><td class='num'>{x.se:.3f}</td>"
+        f"<td class='num'>{x.p:.2f}</td><td class='num'>{x.nobs:,}</td></tr>" for x in m1.itertuples())
+    tpl = (ROOT / "report" / "template.html").read_text()
+    page = (tpl.replace("{{COEF_SVG}}", coef_svg).replace("{{M1_ROWS}}", m1_rows)
+            .replace("{{EVENT_SVG}}", event_plot()).replace("{{STEEL_SVG}}", steel_plot())
+            .replace("{{CODES_ROWS}}", codes_table()).replace("{{M2_ROWS}}", m2_table())
+            .replace("{{STEEL_ROWS}}", steel_table()))
+    (ROOT / "report" / "index.html").write_text(page)
+    print("wrote report/index.html", len(page))
+
+
+if __name__ == "__main__":
+    main()

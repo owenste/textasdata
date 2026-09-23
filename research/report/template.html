@@ -1,0 +1,318 @@
+<title>技术模仿分化试研究</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#EEF1EF; --panel:#F8F9F8; --ink:#1B2230; --muted:#566070; --rule:#C3CAD0;
+  --pressure:#A2640F; --constraint:#276660; --faint:#8A949F;
+  --hl-p:rgba(162,100,15,.14); --hl-c:rgba(39,102,96,.08);
+  --serif:"Noto Serif SC","Songti SC","STSong","SimSun",serif;
+  --sans:"Noto Sans SC","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --paper:#141922; --panel:#1B212C; --ink:#E3E6EB; --muted:#9AA4B2; --rule:#313947;
+    --pressure:#E0A44A; --constraint:#62B3AA; --faint:#77818F;
+    --hl-p:rgba(224,164,74,.16); --hl-c:rgba(98,179,170,.10);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#141922; --panel:#1B212C; --ink:#E3E6EB; --muted:#9AA4B2; --rule:#313947;
+  --pressure:#E0A44A; --constraint:#62B3AA; --faint:#77818F;
+  --hl-p:rgba(224,164,74,.16); --hl-c:rgba(98,179,170,.10);
+}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:17px;line-height:1.85}
+a{color:var(--constraint)}
+a:focus-visible{outline:2px solid var(--pressure);outline-offset:3px}
+.wrap{max-width:74rem;margin:0 auto;padding-inline:1.25rem;display:grid;grid-template-columns:minmax(0,1fr)}
+@media (min-width:1040px){.wrap{grid-template-columns:12.5rem minmax(0,1fr);column-gap:3.5rem}}
+.toc{display:none}
+@media (min-width:1040px){
+  .toc{display:block;position:sticky;top:calc(env(safe-area-inset-top,0px) + 2.5rem);align-self:start;margin-top:10.5rem;font-family:var(--sans);font-size:.84rem;line-height:1.6}
+  .toc ol{list-style:none;margin:0;padding:0;border-left:1px solid var(--rule)}
+  .toc li a{display:block;padding:.3rem 0 .3rem .9rem;color:var(--muted);text-decoration:none}
+  .toc li a:hover{color:var(--ink)}
+}
+main{max-width:46rem;min-width:0;padding-bottom:5rem}
+header.hero{padding-block:4.5rem 2.2rem;border-bottom:1px solid var(--rule)}
+.kind{font-family:var(--sans);font-size:.9rem;color:var(--muted);margin:0 0 1.2rem}
+h1{font-weight:700;font-size:clamp(1.8rem,4.4vw,2.7rem);line-height:1.32;margin:0 0 1.4rem;text-wrap:balance}
+.lead{font-size:1.08rem;margin:0 0 1.4rem}
+.by{font-family:var(--sans);font-size:.88rem;color:var(--muted);margin:0}
+section{padding-top:3rem}
+h2{font-size:1.5rem;line-height:1.4;margin:0 0 1.1rem;text-wrap:balance}
+h3{font-size:1.1rem;line-height:1.5;margin:2rem 0 .6rem;font-weight:600}
+p{margin:0 0 1rem}
+.findings{list-style:none;margin:1.4rem 0 0;padding:0;display:grid;gap:.8rem}
+.findings li{display:grid;grid-template-columns:5.2rem minmax(0,1fr);gap:.8rem;padding:.9rem 1rem;background:var(--panel);border:1px solid var(--rule);border-radius:4px}
+.verdict{font-family:var(--sans);font-size:.78rem;font-weight:700;letter-spacing:.04em;padding:.15rem .5rem;border-radius:3px;align-self:start;text-align:center;border:1px solid currentColor}
+.v-no{color:var(--muted)} .v-part{color:var(--pressure)} .v-ok{color:var(--constraint)}
+.findings b{font-weight:600}
+.note{font-family:var(--sans);font-size:.86rem;color:var(--muted);line-height:1.7}
+.callout{margin:1.4rem 0;padding:1rem 1.2rem;border-left:3px solid var(--constraint);background:var(--hl-c)}
+.callout p:last-child{margin:0}
+figure{margin:1.8rem 0 2rem}
+.fig-body{background:var(--panel);border:1px solid var(--rule);border-radius:4px;padding:1rem}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+figcaption{font-family:var(--sans);font-size:.84rem;color:var(--muted);line-height:1.7;margin-top:.7rem}
+figcaption b{color:var(--ink);font-weight:500;margin-right:.4em}
+svg{max-width:100%;height:auto;display:block}
+svg text{font-family:var(--sans);fill:var(--ink)}
+svg .muted{fill:var(--muted)}
+svg .axis{stroke:var(--muted);stroke-width:1}
+svg .grid{stroke:var(--rule);stroke-width:1}
+svg .hit:hover circle{stroke:var(--ink)}
+table{border-collapse:collapse;width:100%;font-family:var(--sans);font-size:.85rem;line-height:1.6}
+th,td{text-align:left;vertical-align:top;padding:.5rem .6rem;border-bottom:1px solid var(--rule)}
+th{font-weight:500;color:var(--muted);white-space:nowrap}
+.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+td.num,th.num{text-align:right}
+.wide{min-width:40rem}
+.code{display:block;font-size:.75rem;color:var(--muted);font-family:ui-monospace,Menlo,Consolas,monospace}
+.why{color:var(--muted);min-width:16rem}
+.pips{display:inline-flex;gap:2px;margin-right:.4rem;vertical-align:middle}
+.pips i{display:block;width:.7rem;height:.35rem;background:var(--rule);border-radius:1px}
+.pips i.on{background:var(--constraint)}
+.status{font-family:var(--sans);font-size:.78rem;padding:.05rem .45rem;border-radius:3px;white-space:nowrap;border:1px solid currentColor}
+.s-done{color:var(--constraint)} .s-part{color:var(--pressure)} .s-todo{color:var(--muted)}
+details{margin:.6rem 0 1rem;font-family:var(--sans);font-size:.88rem}
+summary{cursor:pointer;color:var(--constraint)}
+.cases{list-style:none;padding:0;margin:0}
+.cases li{padding:.9rem 0;border-bottom:1px solid var(--rule)}
+.cases li:first-child{border-top:1px solid var(--rule)}
+.cases .h{font-weight:600}
+.cases .tag{font-family:var(--sans);font-size:.78rem;color:var(--pressure);margin-left:.5rem}
+.cases p{margin:.3rem 0 0;font-size:.95rem}
+.cases .src{font-family:var(--sans);font-size:.82rem;color:var(--muted)}
+ol.steps{padding-left:1.3rem} ol.steps li{margin-bottom:.6rem}
+pre{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.8rem;background:var(--panel);border:1px solid var(--rule);border-radius:4px;padding:.8rem 1rem;overflow-x:auto;line-height:1.6}
+.refs{font-size:.86rem;line-height:1.7;padding-left:0;list-style:none}
+.refs li{padding-left:2em;text-indent:-2em;margin-bottom:.4rem}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+<nav class="toc" aria-label="目录">
+<ol>
+<li><a href="#summary">摘要</a></li>
+<li><a href="#progress">本轮进度</a></li>
+<li><a href="#data">数据与变量构造</a></li>
+<li><a href="#coding">宽容度试编码</a></li>
+<li><a href="#m1">模型一检验</a></li>
+<li><a href="#steel">补充检验：钢铁工艺</a></li>
+<li><a href="#m2">模型二检验</a></li>
+<li><a href="#revise">对研究设计的修订</a></li>
+<li><a href="#cases">案例候选</a></li>
+<li><a href="#next">下一步</a></li>
+<li><a href="#files">文件与复现</a></li>
+</ol>
+</nav>
+
+<main>
+<header class="hero">
+<p class="kind">研究进展报告 · 第一轮试研究</p>
+<h1>外部竞争压力的传导与后发国家技术模仿的分化：首轮数据检验</h1>
+<p class="lead">本轮按研究大纲完成了第一学期的三项工作：技术宽容度编码手册与试编码、大样本面板的搭建，以及模型一和模型二的试运行。另外核对了参考文献，并整理了过程追踪的候选案例。结果中最重要的一点是模型一的预测没有得到支持，诊断显示问题主要出在测量上，而不是理论本身。据此对研究设计提出修订。</p>
+<p class="by">依据《外部竞争压力的传导与后发国家技术模仿的分化》研究大纲（周宜顺，2026年9月）执行 · 2026年9月23日</p>
+</header>
+
+<section id="summary">
+<h2>摘要</h2>
+<ul class="findings">
+<li><span class="verdict v-no">未获支持</span><span><b>模型一（宽容度 × 约束软化）。</b>在 148 个国家、22 项技术、6 万余个观测上，β 的点估计为 +0.015（SE 0.018），方向与预测相反，也不显著。11 种设定中只有剔除运输部门、剔除曾高度国有化国家两项转为负号，均不显著。</span></li>
+<li><span class="verdict v-part">方向一致</span><span><b>模型二（外部安全压力 → 约束软化）。</b>持久对抗出现之前国有化程度保持平稳，出现后 10 至 20 年逐步上升。连续变量设定中 θ 为正，p 约为 0.09，加入控制后不显著。</span></li>
+<li><span class="verdict v-part">截面明显</span><span><b>补充检验（钢铁工艺结构）。</b>国有化程度高的国家淘汰平炉明显更慢。按 1975 年国有化程度三等分，国有化程度最高的一组平炉钢占比为 47%，最低的一组为 22%。但在国家内部随时间的变化中，这一关系不显著。</span></li>
+<li><span class="verdict v-ok">已核实</span><span><b>参考文献。</b>大纲中 16 篇期刊文献的卷期页码经 Crossref 逐条核对，全部与原始记录一致。</span></li>
+</ul>
+<div class="callout">
+<p><b>核心诊断。</b>CHAT 数据库记录的是技术的<em>使用数量</em>，而软预算约束恰恰会推高数量，科尔奈称之为投资饥渴（Kornai 1980）。铁路和发电这类高宽容度网络技术在国有化程度上升时使用量反而增加，使 β 偏向正值。因此，模型一在目前的测量下检验的是“软约束是否扩大规模”，而不是“软约束是否阻碍掌握”。后者需要能力型的因变量，第八部分给出替代方案。</p>
+</div>
+</section>
+
+<section id="progress">
+<h2>本轮进度</h2>
+<p>下表对照大纲第七部分的进度安排，列出本轮完成的工作。</p>
+<div class="scroll">
+<table class="wide">
+<thead><tr><th>大纲任务</th><th>状态</th><th>本轮产出</th></tr></thead>
+<tbody>
+<tr><td>文献梳理与理论框架</td><td><span class="status s-part">部分完成</span></td><td>16 篇期刊文献的卷期页码已核实；新增科尔奈投资饥渴的论证环节，见第八部分</td></tr>
+<tr><td>宽容度编码手册与试编码</td><td><span class="status s-part">编码者 A 完成</span></td><td>编码手册 v0.1，55 项技术的试编码（核心 22 项、扩展 33 项），第二编码者空白表与 α 计算脚本</td></tr>
+<tr><td>面板数据与固定效应方法</td><td><span class="status s-done">完成</span></td><td>国家 × 技术 × 年份三维面板，三组高维固定效应，按国家聚类标准误</td></tr>
+<tr><td>大样本数据整理与检验</td><td><span class="status s-part">试运行</span></td><td>模型一 11 种设定、逐项剔除技术的检验；模型二连续变量设定与事件研究；钢铁工艺补充检验</td></tr>
+<tr><td>案例档案收集与过程追踪</td><td><span class="status s-todo">未开始</span></td><td>整理了 5 组候选案例，见第九部分</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section id="data">
+<h2>数据与变量构造</h2>
+<div class="scroll">
+<table class="wide">
+<thead><tr><th>变量</th><th>本轮采用的测量</th><th>来源</th><th>与大纲的差异</th></tr></thead>
+<tbody>
+<tr><td>使用强度 <i>Y</i><sub>ckt</sub></td><td>人均使用量取对数。技术 × 年份固定效应吸收前沿变化，因此等价于相对前沿国的使用强度</td><td>CHAT（Comin &amp; Hobijn 2009），NBER 公开版</td><td>一致</td></tr>
+<tr><td>技术宽容度 <i>Lat</i><sub>k</sub></td><td>三维度 0–2 分，总分 0–6</td><td>本轮试编码</td><td>尚无第二编码者，α 未计算</td></tr>
+<tr><td>约束软化 <i>Soft</i><sub>ct</sub></td><td>V-Dem 的经济国有化程度（v2clstown）取反后标准化</td><td>V-Dem（vdemdata 包）</td><td>大纲提出平均关税或国有部门比重。关税缺少长时段跨国数据，本轮先用国有化程度</td></tr>
+<tr><td>外部安全压力</td><td>按 Diehl &amp; Goertz（2000）规则从 MID 5.0 识别持久对抗：20 年内至少 6 次军事化争端。共识别 102 对</td><td>COW MID 5.0</td><td>大纲为 Colaresi 等（2007）战略竞争名单，该名单没有公开下载版本，本轮用替代规则</td></tr>
+<tr><td>后发国家</td><td>当年人均 GDP 低于美国的 50%</td><td>V-Dem 所收 Maddison 数据</td><td>大纲未给出操作化定义，本轮补充</td></tr>
+<tr><td>技术要素密集度</td><td>资本密集度 0–2 分，与宽容度一同编码</td><td>本轮试编码</td><td>一致</td></tr>
+</tbody>
+</table>
+</div>
+<p class="note">核心样本共 64,517 个国家—技术—年份观测，覆盖 148 个国家、22 项技术，时间为 1808–2002 年。约 67% 的观测属于后发国家。</p>
+</section>
+
+<section id="coding">
+<h2>宽容度试编码</h2>
+<p>按大纲的纳入标准，只编码由可识别组织承担的技术，农户或家庭分散采用的技术（拖拉机、化肥、电视、私人汽车、手机等）一律排除。赫希曼讨论的航空（0 分）和铁路线路（4 分）作为锚定案例，公路（6 分）在 CHAT 中没有对应指标，只用于校准刻度。下表为 22 项核心技术，33 项医疗与金融扩展技术见编码表文件。</p>
+<figure>
+<div class="scroll">
+<table class="wide">
+<thead><tr><th>技术</th><th>部门</th><th class="num">显现</th><th class="num">归责</th><th class="num">标准</th><th>总分</th><th>编码理由</th></tr></thead>
+<tbody>
+{{CODES_ROWS}}
+</tbody>
+</table>
+</div>
+<figcaption><b>表1</b>核心技术的宽容度试编码（编码者 A）。显现、归责、标准三列分别为失败显现速度、失败可归责程度和性能标准明确程度，0 表示宽容度最低。</figcaption>
+</figure>
+<p>编码中暴露出一个结构性问题：核心样本的宽容度集中在低端，中位数只有 1.5，高宽容度一端只有铁路、邮政和医院床位。这削弱了交互项的识别力，也使结果容易受铁路一类技术左右。编码手册因此建议从 CHAT 以外补充高宽容度技术，例如公路里程、灌溉渠系和职业教育。</p>
+</section>
+
+<section id="m1">
+<h2>模型一检验：宽容度 × 约束软化</h2>
+<p>设定与大纲一致：<i>Y</i><sub>ckt</sub> = β(<i>Lat</i><sub>k</sub> × <i>Soft</i><sub>ct</sub>) + μ<sub>ck</sub> + δ<sub>ct</sub> + γ<sub>kt</sub> + ε<sub>ckt</sub>，标准误按国家聚类。“加入交互控制”在此基础上加入宽容度与人均 GDP 对数、宽容度与选举民主指数的交互，以及资本密集度与约束软化的交互，用来排除收入和政体沿宽容度维度产生的差异影响。</p>
+<figure>
+<div class="fig-body scroll">{{COEF_SVG}}</div>
+<figcaption><b>图1</b>模型一主要设定下的 β 与 95% 置信区间，悬停可查看数值。阴影区为大纲预测的方向。除第一行外，各设定均加入交互控制。</figcaption>
+</figure>
+<details><summary>查看数值表</summary>
+<div class="scroll"><table class="wide"><thead><tr><th>设定</th><th class="num">β</th><th class="num">SE</th><th class="num">p</th><th class="num">N</th></tr></thead><tbody>
+{{M1_ROWS}}
+</tbody></table></div>
+</details>
+<p>逐项剔除 22 项技术时，β 在 −0.011 与 +0.033 之间，没有一次在 5% 水平显著，因此零结果并非由个别技术造成。分维度看，失败显现速度、可归责程度和标准明确程度三个维度与约束软化的交互也都不显著。</p>
+
+<h3>为什么预测没有成立</h3>
+<p>按技术分别估计使用量对约束软化的斜率，可以看出问题所在。铁路客运周转量（+0.16）、铁路货运周转量（+0.21）和发电量（+0.14）在国有化程度上升时显著增加，民航（−0.15）和氧气顶吹转炉钢（−0.15）则下降。前三者宽容度较高，后两者宽容度最低。这一模式同大纲的逻辑并不矛盾：软约束下，高宽容度技术的<em>数量</em>可以扩张而<em>质量</em>无人察觉，这恰恰是赫希曼宽容度概念的含义。但 CHAT 只记录数量，因此只能看到扩张，看不到能力是否被掌握。</p>
+<p>第二个问题在代理变量上。约束软化指标在国家内部的变异只占总变异的 41%，而且主要来自古巴、匈牙利、阿尔巴尼亚、保加利亚、中国等国的社会主义国有化以及 1989 年后的转型。转型期的产出崩溃对铁路等网络技术冲击最大，与约束硬化同时发生，会把 β 推向正值。剔除曾高度国有化的国家后，β 变为 −0.007，方向转为预测方向，但估计精度不足以作出判断。此外，所有权并不等于预算约束：大纲把约束硬度定义为亏损是否补足、需求是否保障、是否存在竞争主体、支持是否以绩效为条件，国有企业在这些维度上可以有很大差异。</p>
+</section>
+
+<section id="steel">
+<h2>补充检验：钢铁工艺结构</h2>
+<p>为了绕开数量测量的问题，本轮在钢铁部门内部构造了一个更接近能力的指标：各国钢产量中平炉钢所占的比例。平炉是较为宽容的旧工艺，冶炼周期长、可以中途修正；氧气顶吹转炉和电炉则要求精确控制。能否及时淘汰平炉，反映的是生产单位是否在绩效压力下更新工艺，而不是产量大小。</p>
+<figure>
+<div class="fig-body scroll">{{STEEL_SVG}}</div>
+<figcaption><b>图2</b>曾使用平炉的 46 个国家的平炉钢占比，按各国 1960–2001 年平均国有化程度三等分。苏联、东欧、中国和主要拉美产钢国的数据从 1970 年开始，为避免样本构成变化造成的跳跃，图中从 1970 年画起。悬停可查看各年数值。</figcaption>
+</figure>
+<p>截面差异很明显：国有化程度高的一组直到 1990 年代仍有三成以上的钢来自平炉，国有化程度低的一组在 1985 年前后已基本淘汰平炉。但加入国家固定效应和年份固定效应、只利用国家内部随时间的变化后，系数方向虽然与预测一致，却不显著。</p>
+<div class="scroll"><table class="wide"><thead><tr><th>样本</th><th>因变量</th><th class="num">约束软化系数</th><th class="num">SE</th><th class="num">p</th><th class="num">国家数</th></tr></thead><tbody>
+{{STEEL_ROWS}}
+</tbody></table></div>
+<p class="note">截面差异同时反映了计划经济体系、能源价格和设备更新周期等因素，不能直接解释为约束的作用。它的价值在于说明能力型指标能够呈现出数量指标看不到的分化，值得在第三章中系统构造。</p>
+</section>
+
+<section id="m2">
+<h2>模型二检验：外部安全压力与约束软化</h2>
+<p>设定为 <i>Soft</i><sub>ct</sub> = θ<i>Pressure</i><sub>ct</sub> + <i>X</i><sub>ct</sub> + λ<sub>c</sub> + τ<sub>t</sub> + <i>u</i><sub>ct</sub>，控制变量为人均 GDP 对数和选举民主指数，标准误按国家聚类，样本为 1816–2014 年的 195 个国家。</p>
+<div class="scroll"><table class="wide"><thead><tr><th>外部压力测量</th><th class="num">θ</th><th class="num">SE</th><th class="num">p</th><th class="num">N</th></tr></thead><tbody>
+{{M2_ROWS}}
+</tbody></table></div>
+<p>事件研究以各国首次进入持久对抗的年份为事件，要求事件前至少有 10 年观测，得到 67 个处理国和 114 个从未处理的对照国。</p>
+<figure>
+<div class="fig-body scroll">{{EVENT_SVG}}</div>
+<figcaption><b>图3</b>首次持久对抗出现前后，国有化程度（标准化，越高越软）的变化。阴影为 95% 置信区间，第 20 年及以后合并为一组，悬停可查看各年数值。</figcaption>
+</figure>
+<p>事件前的系数都在 ±0.07 之内，没有预先趋势。事件发生后的前五年没有变化，第 10 年起逐步上升，第 15 年约为 0.13 个标准差，20 年及以后为 0.42 个标准差且显著。事件前后合并比较的系数为 0.19（SE 0.12，p = 0.12）。</p>
+<p>这一结果与 H4 的方向一致，但有三点保留。第一，效应出现得很慢，更像长期对抗中逐步形成的战时经济体制，而不是大纲所设想的对战略性模仿单位的直接保护。第二，国有化程度是全经济的指标，不能区分战略部门和一般部门，而 H4 讨论的是战略性模仿单位。第三，处理时点交错时，双向固定效应估计可能有偏，正式分析应换用 Callaway &amp; Sant'Anna（2021）或 Sun &amp; Abraham（2021）的估计量。</p>
+</section>
+
+<section id="revise">
+<h2>对研究设计的修订建议</h2>
+<h3>一、在理论部分补入“数量扩张”环节</h3>
+<p>软预算约束同时产生两种效应：抑制对绩效的反应，以及推动数量扩张（Kornai 1980）。两者在高宽容度技术中叠加，结果是引进规模大而掌握程度低。这可以作为第二章的一个推论写入：<em>约束越软，高宽容度技术的使用数量与能力层级之间的背离越大</em>。这一推论可以用数据检验，也与大纲中“仅完成引进”这一层级的设计相呼应。</p>
+<h3>二、把大样本因变量从数量换成能力</h3>
+<div class="scroll"><table class="wide">
+<thead><tr><th>技术</th><th>能力型指标</th><th>候选来源</th></tr></thead>
+<tbody>
+<tr><td>钢铁</td><td>工艺结构（平炉、转炉、电炉占比），吨钢能耗</td><td>CHAT；世界钢铁协会统计年鉴</td></tr>
+<tr><td>电力</td><td>输配电损耗率</td><td>世界银行 WDI（EG.ELC.LOSS.ZS，1960 年起）</td></tr>
+<tr><td>铁路</td><td>机车可用率、每百万列车公里事故数</td><td>国际铁路联盟（UIC）统计</td></tr>
+<tr><td>民航</td><td>每百万架次事故率</td><td>Aviation Safety Network 数据库，ICAO 统计</td></tr>
+<tr><td>纺织</td><td>出口单价，用作质量代理</td><td>历史贸易统计，COMTRADE</td></tr>
+</tbody>
+</table></div>
+<h3>三、让约束硬度的测量贴近定义</h3>
+<p>大纲对约束硬度的定义包括五个维度，国有化程度只触及其中的所有权背景。大样本中可以考虑：国有企业净财政转移和国有企业亏损（World Bank 1995《Bureaucrats in Business》附表，覆盖 1978–1991 年），部门层面关税（Clemens &amp; Williamson 覆盖 1865–1950 年，WITS 覆盖 1988 年以后），以及出口导向程度。后者直接对应大纲所说的“出口市场作为功能性绩效检验”。</p>
+<h3>四、调整大样本在论文中的分量</h3>
+<p>试运行的结果印证了大纲第九部分所列的风险“大样本代理指标粗糙”。建议第二章的理论文章（2027 春投稿）不以大样本结果为主要证据，以案例和机制论证为主。大样本放在第三章，定位为描述总体模式并检验数量与能力背离的推论。</p>
+</section>
+
+<section id="cases">
+<h2>过程追踪的候选案例</h2>
+<p>以下候选依据二手文献初步筛选，按大纲的三类比较对设计分组。案例中关于约束安排的判断是初步的，<b>需在编码完成后依据档案核实</b>。</p>
+<ul class="cases">
+<li><span class="h">晚清洋务运动：江南制造局与轮船招商局（1865–1895）</span><span class="tag">国家内部技术对 · H1</span>
+<p>同一时期、同一批官员主导。制造局经费来自海关协饷，产品由军方指定调拨；招商局与外国轮船公司在长江航线上直接竞争，亏损有实际后果。两项技术的宽容度都较低，约束安排差异明显。</p>
+<p class="src">Kennedy 1978, <i>The Arms of Kiangnan</i>；Feuerwerker 1958, <i>China's Early Industrialization</i></p></li>
+<li><span class="h">明治日本：官营工厂处理前后（1880 年代）</span><span class="tag">同一项目前后比较 · H1</span>
+<p>松方财政期间政府出售大部分官营工厂，是一次可识别的约束硬化事件，可以比较同一工厂出售前后的工艺改进记录。</p>
+<p class="src">Smith 1955, <i>Political Change and Industrial Development in Japan: Government Enterprise, 1868–1880</i></p></li>
+<li><span class="h">韩国重化工业推进（1973–1979）</span><span class="tag">压力上升前后 · H4</span>
+<p>1971 年驻韩美军削减之后，政府以安全需要为由推进重化工业，大量发放政策性贷款，1979–1980 年出现产能过剩和结构调整。浦项制铁在同一时期以出口和成本标准接受考核，可以作为同一国家内部的对照。</p>
+<p class="src">Woo 1991, <i>Race to the Swift</i>；Stern et al. 1995, <i>Industrialization and the State: The Korean Heavy and Chemical Industry Drive</i>；Amsden 1989</p></li>
+<li><span class="h">巴西、印度、韩国的信息技术产业（1970–1990 年代）</span><span class="tag">跨国同技术对 · H1、H3</span>
+<p>同一技术在三国分别采取市场保留、国营主导和出口导向安排，是检验约束依据的现成比较。</p>
+<p class="src">Evans 1995, <i>Embedded Autonomy: States and Industrial Transformation</i></p></li>
+<li><span class="h">印度钢铁：国营钢厂与塔塔钢铁（1955–1990）</span><span class="tag">同国同技术 · H1</span>
+<p>技术相同、所在国家相同，所有制和约束安排不同。可与本报告第六部分平炉淘汰速度的数据对照。</p>
+<p class="src">二手文献待补充</p></li>
+</ul>
+</section>
+
+<section id="next">
+<h2>下一步（2026 年秋季学期剩余时间）</h2>
+<ol class="steps">
+<li><b>第二编码者独立编码。</b>使用空白编码表，完成后运行信度脚本。任一维度 α 低于 0.8 时修订定义。</li>
+<li><b>获取 Colaresi、Rasler 和 Thompson 的战略竞争名单</b>（书中附录），替换本轮基于 MID 的替代规则，并换用适合交错处理的事件研究估计量。</li>
+<li><b>构造两到三个能力型因变量</b>，优先选择电力输配损耗率和钢铁工艺结构，这两项数据现成、覆盖面广。</li>
+<li><b>补入科尔奈投资饥渴的论证</b>，写成第二章中数量与能力背离的推论。</li>
+<li><b>从五组候选中选出两组</b>，评估档案可得性。晚清与明治两组的二手研究最为充分，建议优先考虑。</li>
+</ol>
+</section>
+
+<section id="files">
+<h2>文件与复现</h2>
+<p>全部代码、编码表和结果表已提交到仓库 <code>owenste/textasdata</code> 的 <code>claude/youthful-albattani-6c49pr</code> 分支，位于 <code>research/</code> 目录。原始数据可以用脚本重新下载，因此没有纳入版本控制。</p>
+<pre>research/
+  coding/latitude_codebook.md          编码手册 v0.1
+  coding/latitude_codes_coderA.csv     编码者 A 的结果（55 项技术）
+  coding/latitude_codes_coderB_blank.csv  第二编码者空白表
+  scripts/00_fetch_data.sh             下载 CHAT、V-Dem、MID
+  scripts/01_build_panel.py            构造国家×技术×年份面板
+  scripts/02_model1.py                 模型一及稳健性检验
+  scripts/03_steel_mix.py              钢铁工艺结构补充检验
+  scripts/04_model2.py                 持久对抗识别、模型二与事件研究
+  scripts/05_refcheck.py               Crossref 文献核对
+  scripts/06_reliability.py            Krippendorff α
+  output/                              全部结果表</pre>
+<h3>本报告新增的参考文献</h3>
+<ul class="refs">
+<li>Callaway, Brantly, and Pedro H. C. Sant'Anna. 2021. "Difference-in-Differences with Multiple Time Periods." <i>Journal of Econometrics</i> 225(2): 200-230.</li>
+<li>Coppedge, Michael, et al. V-Dem Dataset. Varieties of Democracy (V-Dem) Project.</li>
+<li>Diehl, Paul F., and Gary Goertz. 2000. <i>War and Peace in International Rivalry</i>. Ann Arbor: University of Michigan Press.</li>
+<li>Evans, Peter. 1995. <i>Embedded Autonomy: States and Industrial Transformation</i>. Princeton: Princeton University Press.</li>
+<li>Kornai, János. 1980. <i>Economics of Shortage</i>. Amsterdam: North-Holland.</li>
+<li>Palmer, Glenn, et al. 2022. "The MID5 Dataset, 2011–2014: Procedures, Coding Rules, and Description." <i>Conflict Management and Peace Science</i> 39(4): 470-482.</li>
+<li>Sun, Liyang, and Sarah Abraham. 2021. "Estimating Dynamic Treatment Effects in Event Studies with Heterogeneous Treatment Effects." <i>Journal of Econometrics</i> 225(2): 175-199.</li>
+</ul>
+<p class="note">专著类文献（Kennedy 1978、Smith 1955、Woo 1991、Stern et al. 1995 等）尚未逐条核对出版信息。</p>
+</section>
+</main>
+</div>
