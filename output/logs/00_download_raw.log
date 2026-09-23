@@ -1,5 +1,5 @@
 # 脚本: 00_download_raw
-# 运行时间: 2026-09-23 09:24:47
+# 运行时间: 2026-09-23 11:36:07
 # Python: 3.11.15
 ----------------------------------------------------------------------
 [跳过] 已存在 data/raw/gmd/GMD_2026_06_csv.zip
@@ -14,4 +14,10 @@
 [跳过] 已存在 data/raw/wb_meta/OGHIST_2025_07_01.xlsx
 [跳过] 已存在 data/raw/larch/rta_individual_agreements_20240712_csv.zip
 [跳过] 已存在 data/raw/larch/readme_RTA.pdf
+[跳过] 已存在 data/raw/policy_space/oecd_fdiindex_archive_1997_2020.csv
+[跳过] 已存在 data/raw/policy_space/kaopen_2023.dta
+[跳过] 已存在 data/raw/capacity/DB2020_historical_complete_with_scores.xlsx
+[跳过] 已存在 data/raw/capacity/BTI_2006-2026_Scores.xlsx
+[跳过] 已存在 data/raw/capacity/HansonSigman_source.tab
+[跳过] 已存在 data/raw/capacity/owid_undp_mean_years_schooling.csv
 完成。

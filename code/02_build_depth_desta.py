@@ -38,8 +38,7 @@ DESTA 对每个协定编码了 7 个 0/1 指标（Dür, Baccini & Elsig 2014）�
 """
 import pandas as pd
 import numpy as np
-import pycountry
-from utils import RAW, CLEAN, start_log, rel
+from utils import RAW, CLEAN, start_log, rel, desta_iso3
 
 start_log("02_build_depth_desta")
 
@@ -96,21 +95,8 @@ keep = ["base_treaty", "number", "start", "end", "coded"] + cols
 mem = pd.concat([dy.rename(columns={"iso1": "iso"})[["iso"] + keep],
                  dy.rename(columns={"iso2": "iso"})[["iso"] + keep]]).drop_duplicates()
 
-# ISO 数字码 → ISO3 字母码
-SPECIAL = {  # pycountry 不认识或需要特别指定的历史/争议地区
-    890: "YUG", 891: "SCG", 200: "CSK", 810: "SUN", 278: "DDR", 280: "DEU",
-    530: "ANT", 736: "SDN", 720: "YEM", 900: "XKX",  # DESTA 用 900 表示科索沃
-}
-
-
-def to_iso3(n):
-    if n in SPECIAL:
-        return SPECIAL[n]
-    c = pycountry.countries.get(numeric=f"{int(n):03d}")
-    return c.alpha_3 if c else None
-
-
-codes = {n: to_iso3(n) for n in mem.iso.unique()}
+# ISO 数字码 → ISO3 字母码（转换函数见 utils.desta_iso3）
+codes = {n: desta_iso3(n) for n in mem.iso.unique()}
 bad = [n for n, v in codes.items() if v is None]
 print(f"\n国家码：{len(codes)} 个，无法识别 {len(bad)} 个：{bad}")
 mem["ISO3"] = mem.iso.map(codes)

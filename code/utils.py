@@ -84,3 +84,21 @@ def aizenman_countries(col: str = "2") -> set:
     import pycountry
     names = json.loads((CLEAN / "aizenman_appendixA_countries.json").read_text(encoding="utf-8"))[col]
     return {_MANUAL_ISO3.get(n) or pycountry.countries.search_fuzzy(n)[0].alpha_3 for n in names}
+
+
+# ---------------------------------------------------------------------------
+# DESTA 用 ISO 数字码表示国家，这里转成 ISO3 字母码。
+#   pycountry 不认识或需要特别指定的历史/争议地区在 _DESTA_SPECIAL 中手工给出。
+# ---------------------------------------------------------------------------
+_DESTA_SPECIAL = {
+    890: "YUG", 891: "SCG", 200: "CSK", 810: "SUN", 278: "DDR", 280: "DEU",
+    530: "ANT", 736: "SDN", 720: "YEM", 900: "XKX",  # DESTA 用 900 表示科索沃
+}
+
+
+def desta_iso3(n):
+    import pycountry
+    if n in _DESTA_SPECIAL:
+        return _DESTA_SPECIAL[n]
+    c = pycountry.countries.get(numeric=f"{int(n):03d}")
+    return c.alpha_3 if c else None

@@ -1,0 +1,62 @@
+# 脚本: 09_build_C
+# 运行时间: 2026-09-23 11:34:10
+# Python: 3.11.15
+----------------------------------------------------------------------
+DB 子指标得分列 76 个，其中用于统计「规则修订」的程序/法律指数类 26 个：
+    Score-Procedures - Men (number)
+    Score-Procedures - Women (number)
+    Score-Procedures (number)
+    Score-Building quality control index (0-15) (DB16-20 methodology)
+    Score-Procedures (number).1
+    Score-Reliability of supply and transparency of tariff index (0-8) (DB16-20 methodology)
+    Score-Procedures (number).2
+    Score-Quality of land administration index (0-30) (DB17-20 methodology)
+    Score-Strength of legal rights index (0-10) (DB05-14 methodology)
+    Score-Depth of credit information index (0-6) (DB05-14 methodology)
+    Score-Strength of legal rights index (0-12) (DB15-20 methodology)
+    Score-Depth of credit information index (0-8) (DB15-20 methodology)
+    Score-Extent of disclosure index (0-10)
+    Score-Extent of director liability index (0-10)
+    Score-Ease of shareholder suits index (0-10) (DB06-14 methodology)
+    Score-Ease of shareholder suits index (0-10) (DB15-20 methodology)
+    Score-Extent of shareholder rights index (0-6) (DB15-20 methodology)
+    Score-Extent of ownership and control index (0-7) (DB15-20 methodology)
+    Score-Extent of corporate transparency index (0-7) (DB15-20 methodology)
+    Score-Payments (number per year)
+    Score-Postfiling index (0-100) (DB17-20 methodology)
+    Score-Documents to export (number) (DB06-15 methodology)
+    Score-Documents to import (number) (DB06-15 methodology)
+    Score-Procedures (number) (DB04-15 methodology)
+    Score-Quality of judicial processes index (0-18) (DB17-20 methodology)
+    Score-Strength of insolvency framework index (0-16)
+
+C_reform：192 个经济体，2004–2019
+C_reform_n（单年改善个数）分布： {'count': 3057.0, 'mean': 0.97, 'std': 1.5, 'min': 0.0, '25%': 0.0, '50%': 0.0, '75%': 2.0, 'max': 13.0}
+
+BTI：137 个国名，无法匹配 ISO3 的：[]
+C_bti：137 国，2004–2025
+
+已保存 data/clean/C_cy.csv：12,478 行
+
+2005–2015 年国家-年度相关系数：
+              C_reform  C_bti  bti_learning  statecap    hc
+C_reform          1.00   0.26          0.22      0.09  0.07
+C_bti             0.26   1.00          0.94      0.74  0.40
+bti_learning      0.22   0.94          1.00      0.65  0.33
+statecap          0.09   0.74          0.65      1.00  0.75
+hc                0.07   0.40          0.33      0.75  1.00
+
+重点国家 2005–2019 均值：
+      C_reform  C_bti  bti_learning  statecap
+ISO3                                         
+BRA       1.10   6.96          7.00      0.86
+CHN       1.86   6.31          6.73      0.69
+IND       1.79   6.89          7.20      0.76
+MAR       1.57   4.27          4.27      0.72
+MEX       1.30   6.09          5.87      0.67
+POL       1.37   7.33          7.07      1.43
+TUR       1.66   7.47          6.93      1.20
+VNM       1.76   6.02          6.40      0.62
+
+中国百分位：C_reform 0.93，C_bti 0.75
+已保存 output/tables/tabC2_C_construction.md

@@ -136,3 +136,65 @@
 - 原文使用的是 GMD 2025 年版，官网目前只提供 2026_06 版，历史数据可能有修订。
 
 附表 `data/clean/aizenman_appendixA_countries.json`：从原文附录 A 抽取的三列国家名单（第 3 列在 PDF 分页处丢失的 Zambia 已手工补回）。
+
+---
+
+## 6. `data/clean/D_cy.csv` —— 承诺深度 D（阶段 C1，核心自变量）
+
+生成脚本：`code/08_build_D.py`　覆盖：215 个国家/地区 × 1948–2023　诊断：`output/tables/tabC1_D_construction.md`
+
+| 变量 | 定义 | 取值 |
+|---|---|---|
+| `D` | **主设定**：6 个边境后领域中「有法律约束力」的领域个数的期望值。条款内容优先用世行 DTA 的法律约束力编码；世行未收录的协定用 DESTA 编码，并按校准概率 P(有约束力 \| DESTA 执行力) 计入 | 0–6，连续 |
+| `D_strict` | 门槛版：DESTA 独有协定的条款只在执行力 enforce ≥ 7 时计入（校准概率 ≥ 0.8） | 0–6，整数 |
+| `D_loose` | 宽松版：DESTA 独有协定只要有该条款就计入（≈ 阶段 A 口径） | 0–6，整数 |
+| `D_wbonly` | 只用世行 DTA（有幸存者偏差），对照用 | 0–6，整数 |
+| `D_verified`, `share_verified` | 由世行编码核实的领域数及其占比 | |
+| `D_standards` … `D_iprs` | 6 个领域各自被有约束力条款覆盖的概率 | 0–1 |
+
+6 个领域与世行领域的对应：标准 ← SPS、TBT；投资 ← TRIMs、Investment、MovementofCapital；服务 ← GATS；采购 ← PublicProcurement；竞争 ← CompetitionPolicy、StateAid、STE；知识产权 ← TRIPs、IPR。
+
+**关键规则**
+- 两库对接：生效年相差 ≤ 2 年，成员集合 Jaccard ≥ 0.75。388 个世行协定中有 329 个对上，其中 290 个成员完全相同。明细见 `data/clean/xwalk_desta_wbdta.csv`
+- 校准：两库共同编码的协定中，DESTA 记为「有」的条款有 83% 被世行判定有约束力，且这一比例随 DESTA 执行力从 0.51（0 分）升到 0.92（9 分）
+- **排除**欧共体-ACP 非对等优惠安排（雅温得、洛美、科托努），理由与 Larch 数据库相同
+- 1995–2020 年 D > 0 的国家-年度中，平均 80% 的深度由世行编码核实
+
+## 7. `data/clean/C_cy.csv` —— 转化能力 C 与控制变量（阶段 C2）
+
+生成脚本：`code/09_build_C.py`　调研：`docs/C2_data_survey.md`　诊断：`output/tables/tabC2_C_construction.md`
+
+| 变量 | 定义 | 覆盖 |
+|---|---|---|
+| `C_reform_n` | 当年 Doing Business「程序/法律指数」类子指标中得分上升的个数（剔除成本类指标） | 192 国，2004–2019 |
+| `C_reform` | **主设定**：`C_reform_n` 过去 5 年均值（至少 3 年） | 同上 |
+| `bti_learning`, `bti_implementation`, `bti_coordination` | BTI Q14.3 政策学习、Q14.2 执行、Q15.2 政策协调（1–10） | 137 国，2004–2025 |
+| `C_bti` | 上述三项均值（稳健性，专家评分） | 同上 |
+| `statecap` | Hanson-Sigman 国家能力潜变量；2016 年后沿用 2015 年值（`statecap_carried` = 1） | 175 国，1960–2023 |
+| `mys`, `hc` | UNDP 平均受教育年限；按 PWT 公式算的人力资本指数 | 约 190 国，1990–2023 |
+
+## 8. `data/clean/P_cy.csv` —— 政策空间 P（阶段 C3）
+
+生成脚本：`code/10_build_P_S.py`
+
+| 变量 | 定义 | 覆盖 |
+|---|---|---|
+| `P_strat` | OECD FDI 限制指数：战略部门（电力、电信、交通、金融服务、媒体）平均 | 85 国，1997–2020 |
+| `P_manuf` | 制造业 FDI 限制指数 | 同上 |
+| `P_select` | **主设定**：`P_strat − P_manuf`，即战略部门「有选择地」保留的政策空间 | 同上 |
+| `P_total`, `P_screen` | 全行业总指数；全行业「审查与审批」类限制 | 同上 |
+| `P_interp` | = 1 表示该年是插值（原始数据只有 1997、2003、2006、2010–2020） | |
+| `kaopen`, `ka_open` | Chinn-Ito 资本账户开放（原始值；0–1 标准化） | 185 国，1970–2023 |
+| `P_ka` | `1 − ka_open`：资本账户政策空间 | 同上 |
+
+## 9. `data/clean/S_cy.csv`、`S_country.csv` —— 序贯性 S（阶段 C4）
+
+生成脚本：`code/10_build_P_S.py`
+
+| 变量 | 定义 |
+|---|---|
+| `S_sd` / `S_sd_10` | −SD(ΔD)：研究计划的定义。国家层面为 1990–2020；面板版为过去 10 年滚动 |
+| `S_jump` / `S_jump_10` | 1 − 最大单年增幅 ÷ 总增幅：一次到位 = 0，均匀推进 → 1。总增幅 < 0.5 时缺失。**推荐主设定** |
+| `D_rise` / `D_rise_10` | 窗口内 D 的总增幅（正向变化之和） |
+
+**注意**：S_sd 与总增幅的相关为 −0.90，基本是机械关系（增幅越大，标准差越大）。所以使用 S_sd 时必须同时控制深度。S_jump 与总增幅的相关只有 0.27。

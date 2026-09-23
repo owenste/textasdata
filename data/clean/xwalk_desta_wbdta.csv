@@ -1,0 +1,389 @@
+WBID,number,jaccard,matched,wb_name,desta_name
+1,293,1.0,True,EU Treaty,EC
+2,375,1.0,True,European Free Trade Association (EFTA),EFTA
+3,186,0.75,True,Central American Common Market (CACM),Central American Common Market (CACM)
+4,314,0.3157894736842105,False,EU – Overseas Countries and Territories (OCT),EC Israel
+5,293+1,1.0,True,EC (9) Enlargement,EC (9) Enlargement
+6,350,1.0,True,EU - Switzerland - Liechtenstein,EC Switzerland Liechtenstein
+7,313,1.0,True,EU - Iceland,EC Iceland
+8,336,1.0,True,EU - Norway,EC Norway
+9,171,0.3333333333333333,False,Caribbean Community and Common Market (CARICOM),Caribbean Community (CARICOM)
+10,100,1.0,True,Asia Pacific Trade Agreement (APTA),Bangkok Agreement
+11,81,1.0,True,Australia - Papua New Guinea (PATCRA),Australia Papua New Guinea
+12,351,1.0,True,EU - Syria,EC Syria
+13,293+2,1.0,True,EC (10) Enlargement,EC (10) Enlargement
+14,668,0.7333333333333333,False,South Pacific Regional Trade and Economic Cooperation Agreement (SPARTECA),South Pacific Trade and Economic Co Operation Agreement (SPARTECA)
+15,562,1.0,True,Latin American Integration Association (LAIA),Latin American Integration Association (ALADI LAIA)
+16,167,0.5,False,Australia - New Zealand Closer Economic Relations Trade Agreement (ANZCERTA),Canada New Zealand
+17,516,1.0,True,United States - Israel,Israel US
+18,293+3,1.0,True,EC (12) Enlargement,EC (12) Enlargement
+19,461,0.8571428571428571,True,Global System of Trade Preferences among Developing Countries (GSTP),Global System of Trade Preferences (GSTP)
+20,27a,1.0,True,Andean Community (CAN),Andean Group (consolidated)
+21,604,1.0,True,Southern Common Market (MERCOSUR),MERCOSUR
+22,560,1.0,True,Lao People's Democratic Republic - Thailand,Laos Thailand
+23,402,0.875,True,EFTA - Türkiye,EFTA Turkey
+24,370,1.0,True,Economic Cooperation Organization (ECO),Economic Cooperation Organization (ECO) Preferences
+25,64,0.6,False,ASEAN Free Trade Area (AFTA) - 1992,Association of Southeast Asian Nations (ASEAN) FTA
+26,382,0.875,True,EFTA - Israel,EFTA Israel
+27,636,1.0,True,North American Free Trade Agreement (NAFTA),North American Free Trade Agreement (NAFTA)
+28,327+1,1.0,True,EC (15) Enlargement,EC Maastricht (15) Enlargement
+29,243,0.7727272727272727,True,Common Market for Eastern and Southern Africa (COMESA),Common Market for Eastern and Southern Africa (COMESA)
+30,355,1.0,True,EU - Türkiye,EC Turkey
+31,440,1.0,True,Faroe Islands - Norway,Faroe Islands Norway
+32,443,1.0,True,Faroe Islands - Switzerland,Faroe Islands Switzerland
+33,165,1.0,True,Canada - Israel,Canada Israel
+34,307,1.0,True,EU - Faroe Islands,EC Faroe Islands
+35,666,1.0,True,South Asian Preferential Trade Arrangement (SAPTA),"South Asian Association for Regional Cooperation, Preferential Trading Arrangement (SAPTA)"
+36,300,0.9375,True,EU - Palestine,EC Amsterdam
+37,161,1.0,True,Canada - Chile,Canada Chile
+38,28,1.0,True,EU - Andorra,Andorra EC
+39,515,1.0,True,Türkiye - Israel,Israel Turkey
+40,354,1.0,True,EU - Tunisia,EC Tunisia Euro-Med Association Agreement
+41,435,0.6,False,Eurasian Economic Community (EAEC),Eurasian Economic Community (Union of the Five)
+42,555,1.0,True,"Kyrgyz Republic - Moldova, Republic of",Kyrgyzstan Moldova
+43,558,1.0,True,Kyrgyz Republic - Ukraine,Kyrgyzstan Ukraine
+44,559,1.0,True,Kyrgyz Republic - Uzbekistan,Kyrgyzstan Uzbekistan
+45,244,0.6666666666666666,False,Commonwealth of Independent States (CIS),Commonwealth of Independent States (CIS)
+46,544,1.0,True,Kyrgyz Republic - Kazakhstan,Kazakhstan Kyrgyzstan
+47,360,1.0,True,Economic and Monetary Community of Central Africa (CEMAC),Economic and Monetary Community of Central Africa (CEMAC)
+48,390,0.6666666666666666,False,EFTA - Palestine,EFTA Mexico
+49,603,0.75,True,Melanesian Spearhead Group (MSG),Melanesian Spearhead Group (MSG)
+50,100+1,0.0,False,West African Economic and Monetary Union (WAEMU),Bangkok Agreement China accession
+51,391,1.0,True,EFTA - Morocco,EFTA Morocco
+52,330,1.0,True,EU - Mexico,EC Mexico
+53,316,1.0,True,EU - Israel,EC Israel Euro-Med Association Agreement
+54,787,0.6,False,East African Community (EAC),East African Community (EAC)
+55,334,1.0,True,EU - Morocco,EC Morocco Euro-Med Association Agreement
+56,347,1.0,True,EU - South Africa,EC South Africa
+57,389,1.0,True,EFTA - North Macedonia,EFTA Macedonia
+58,55,1.0,True,Kyrgyz Republic - Armenia,Armenia Kyrgyzstan
+59,593,1.0,True,Türkiye - North Macedonia,Macedonia Turkey
+60,52,1.0,True,Georgia - Armenia ,Armenia Georgia
+61,86,1.0,True,Georgia - Azerbaijan ,Azerbaijan Georgia
+62,454,1.0,True,Georgia - Kazakhstan ,Georgia Kazakhstan
+63,455,1.0,True,Georgia - Russian Federation,Georgia Russia
+64,457,1.0,True,Georgia - Turkmenistan ,Georgia Turkmenistan
+65,458,1.0,True,Georgia - Ukraine ,Georgia Ukraine
+66,509,1.0,True,Israel - Mexico,Israel Mexico
+67,212,1.0,True,Chile - Mexico,Chile Mexico
+68,390,1.0,True,EFTA - Mexico,EFTA Mexico
+69,631,1.0,True,New Zealand - Singapore,New Zealand Singapore
+70,300,0.9375,True,EU - North Macedonia,EC Amsterdam
+71,543,1.0,True,United States - Jordan ,Jordan US
+72,383,1.0,True,EFTA - Jordan ,EFTA Jordan
+73,163,0.3333333333333333,False,Chile - Costa Rica (Chile - Central America),Canada Costa Rica
+74,494,1.0,True,India - Sri Lanka,India Sri Lanka
+75,520,1.0,True,Japan - Singapore,Japan Singapore
+76,318,1.0,True,EU - Jordan,EC Jordan Euro-Med Association Agreement
+77,163,1.0,True,Canada - Costa Rica,Canada Costa Rica
+78,396,1.0,True,EFTA - Singapore,EFTA Singapore
+79,335,0.9375,True,EU - Lebanon,EC Nice
+80,136,1.0,True,Türkiye - Bosnia and Herzegovina,Bosnia and Herzegovina Turkey
+81,82,1.0,True,Singapore - Australia,Australia Singapore
+82,218,1.0,True,United States - Chile,Chile US
+83,658,1.0,True,United States - Singapore,Singapore US
+84,221,1.0,True,"China - Macao, China",China Macao
+85,220,1.0,True,"China - Hong Kong, China",China Hong Kong
+86,183,0.3333333333333333,False,Chile - El Salvador (Chile - Central America),Central America Chile
+87,202,1.0,True,EU - Chile,Chile EC
+88,208,1.0,True,"Korea, Republic of - Chile",Chile Korea
+89,335+1,1.0,True,EC (25) Enlargement,EC Nice (25) Enlargement
+90,100+1,1.0,True,Asia Pacific Trade Agreement (APTA) - Accession of China,Bangkok Agreement China accession
+91,59,1.0,True,Armenia - Turkmenistan,Armenia Turkmenistan
+92,56,1.0,True,"Armenia - Moldova, Republic of",Armenia Moldova
+93,54,1.0,True,Armenia - Kazakhstan,Armenia Kazakhstan
+94,60,1.0,True,Armenia - Ukraine,Armenia Ukraine
+95,672a,0.8461538461538461,True,Southern African Development Community (SADC),Southern African Development Community (SADC) (consolidated)
+96,335+1,0.9615384615384616,True,EU - Egypt,EC Nice (25) Enlargement
+97,205,1.0,True,EFTA - Chile,Chile EFTA
+98,84,1.0,True,United States - Australia,Australia US
+99,83,1.0,True,Thailand - Australia,Australia Thailand
+100,185,0.3333333333333333,False,Panama - El Salvador (Panama - Central America),Central America Panama
+101,518,1.0,True,Japan - Mexico,Japan Mexico
+102,401,1.0,True,EFTA - Tunisia,EFTA Tunisia
+103,367,0.875,True,Economic Community of West African States (ECOWAS),Economic Community Of West African States (ECOWAS)
+104,136,0.3333333333333333,False,Türkiye - Palestine,Bosnia and Herzegovina Turkey
+105,683,1.0,True,Türkiye - Tunisia,Tunisia Turkey
+106,67,1.0,True,ASEAN - China,Association of Southeast Asian Nations (ASEAN) China
+107,632,1.0,True,Thailand - New Zealand,New Zealand Thailand
+108,628,1.0,True,United States - Morocco,Morocco US
+109,626,1.0,True,Türkiye - Morocco,Morocco Turkey
+110,550,1.0,True,"Korea, Republic of - Singapore",Korea Singapore
+111,187,0.8333333333333334,True,Dominican Republic - Central America - United States Free Trade Agreement (CAFTA-DR),Central American Free Trade Agreement (CAFTA)
+112,534,1.0,True,Jordan - Singapore,Jordan Singapore
+113,517,1.0,True,Japan - Malaysia,Japan Malaysia
+114,335+1,0.9615384615384616,True,EU - Algeria,EC Nice (25) Enlargement
+115,384,1.0,True,"EFTA - Korea, Republic of",EFTA Korea
+116,96,1.0,True,United States - Bahrain,Bahrain US
+117,324,1.0,True,EC (27) Enlargement,EC Lisbon
+118,462,0.8888888888888888,True,Pan-Arab Free Trade Area (PAFTA),Greater Arab Free Trade Agreement
+119,386,1.0,True,EFTA - Lebanon,EFTA Lebanon
+120,675,1.0,True,Türkiye - Syria,Syria Turkey
+121,335+1,0.9615384615384616,True,EU - Albania,EC Nice (25) Enlargement
+122,641,1.0,True,Panama - Singapore,Panama Singapore
+123,493,1.0,True,India - Singapore,India Singapore
+124,679,1.0,True,Trans-Pacific Strategic Economic Partnership,Trans Pacific Strategic EPA
+125,199,1.0,True,Chile - China,Chile China
+126,670,1.0,True,Southern African Customs Union (SACU),Southern Africa Customs Union (SACU)
+127,376,1.0,True,EFTA - Egypt,EFTA Egypt
+128,193a,1.0,True,Central European Free Trade Agreement (CEFTA) 2006,Central European Free Trade Agreement (CEFTA) (consolidated)
+129,207,1.0,True,Chile - Japan,Chile Japan
+130,415,1.0,True,Egypt - Türkiye,Egypt Turkey
+131,522,1.0,True,Japan - Thailand,Japan Thailand
+132,331,1.0,True,EU - Montenegro,EC Montenegro SAA
+133,224,1.0,True,Pakistan - China,China Pakistan
+134,599,1.0,True,Pakistan - Malaysia,Malaysia Pakistan
+135,213,1.0,True,Panama - Chile,Chile Panama
+136,667,1.0,True,South Asian Free Trade Agreement (SAFTA),South Asian Free Trade Area (SAFTA)
+137,15,1.0,True,Türkiye - Albania,Albania Turkey
+138,640,1.0,True,Pakistan - Sri Lanka,Pakistan Sri Lanka
+139,495,1.0,True,Japan - Indonesia ,Indonesia Japan
+140,116,1.0,True,India - Bhutan,Bhutan India
+141,439,1.0,True,Iceland - Faroe Islands,Faroe Islands Iceland
+142,324,0.9642857142857143,True,EU - Bosnia and Herzegovina,EC Lisbon
+143,146,1.0,True,Brunei Darussalam - Japan,Brunei Japan
+144,92,1.0,True,Ukraine - Azerbaijan,Azerbaijan Ukraine
+145,114,1.0,True,Ukraine - Belarus,Belarus Ukraine
+146,548,1.0,True,Ukraine - Kazakhstan,Kazakhstan Ukraine
+147,594,1.0,True,Ukraine - North Macedonia,Macedonia Ukraine
+148,621,1.0,True,"Ukraine - Moldova, Republic of",Moldova Ukraine
+149,677,1.0,True,Ukraine - Tajikistan,Tajikistan Ukraine
+150,684,1.0,True,Ukraine -Turkmenistan,Turkmenistan Ukraine
+151,686,1.0,True,Ukraine - Uzbekistan,Ukraine Uzbekistan
+152,242,1.0,True,Common Economic Zone (CEZ),Common Economic Zone
+153,639,0.5833333333333334,False,Pacific Island Countries Trade Agreement (PICTA),Pacific Island Countries Trade Agreement (PICTA)
+154,181,1.0,True,EU - CARIFORUM States,CARIFORUM EC EPA
+155,399,1.0,True,EFTA - SACU,EFTA Southern African Customs Union (SACU)
+156,519,1.0,True,Japan - Philippines,Japan Philippines
+157,130,0.9333333333333333,True,EU - Côte d'Ivoire,Bosnia and Herzegovina EC SAA
+158,206,1.0,True,Chile - India,Chile India
+159,637,1.0,True,United States - Oman,Oman US
+160,645,1.0,True,United States - Peru,Peru US
+161,456,1.0,True,Türkiye - Georgia,Georgia Turkey
+162,228,1.0,True,China - Singapore,China Singapore
+163,75,1.0,True,Australia - Chile,Australia Chile
+164,213,0.5,False,Panama - Costa Rica (Panama - Central America),Chile Panama
+165,222,1.0,True,China - New Zealand,China New Zealand
+166,634,1.0,True,Nicaragua - Chinese Taipei,Nicaragua Taiwan
+167,642,1.0,True,Panama - Chinese Taipei,Panama Taiwan
+168,644,1.0,True,Peru - Singapore,Peru Singapore
+169,168,1.0,True,Canada - Peru,Canada Peru
+170,164,1.0,True,EFTA - Canada,Canada EFTA
+171,201,1.0,True,Chile - Colombia,Chile Colombia
+172,521,1.0,True,Japan - Switzerland ,Japan Switzerland
+173,324+1,0.9655172413793104,True,EU - Cameroon,EC Lisbon (28) Enlargement
+174,523,1.0,True,Japan - Viet Nam ,Japan Vietnam
+175,71,0.45454545454545453,False,ASEAN - Japan,Association of Southeast Asian Nations (ASEAN) Japan
+176,213,0.3333333333333333,False,Panama - Honduras (Panama - Central America),Chile Panama
+177,490,1.0,True,Southern Common Market (MERCOSUR) - India,India MERCOSUR
+178,335,0.9375,True,EU - San Marino,EC Nice
+179,227,1.0,True,Peru - China,China Peru
+180,1,1.0,True,India - Afghanistan,Afghanistan India
+181,624,1.0,True,Türkiye - Montenegro,Montenegro Turkey
+182,416,1.0,True,El Salvador- Honduras - Chinese Taipei,El Salvador Honduras Taiwan
+183,66,0.75,True,ASEAN - Australia - New Zealand,Association of Southeast Asian Nations (ASEAN) Australia New Zealand FTA (AANZFTA)
+184,324,0.9642857142857143,True,EU - Serbia,EC Lisbon
+185,492,1.0,True,India - Nepal,India Nepal
+186,657,1.0,True,Türkiye - Serbia,Serbia Turkey
+187,70,0.7272727272727273,False,ASEAN - India,Association of Southeast Asian Nations (ASEAN) India
+188,464,0.6666666666666666,False,Colombia - Mexico,Group of Three
+189,394,0.6,False,EFTA - Serbia,EFTA Serbia
+190,825,1.0,True,"Hong Kong, China - New Zealand",Hong Kong New Zealand
+191,9,0.6,False,EFTA - Albania,Albania EFTA
+192,216,1.0,True,Türkiye - Chile,Chile Turkey
+193,541,1.0,True,Türkiye - Jordan,Jordan Turkey
+194,819,0.8,True,EFTA - Peru,EFTA Peru
+195,815,1.0,True,"EU - Korea, Republic of ",EC Korea
+196,470,1.0,True,Guatemala - Chinese Taipei,Guatemala Taiwan
+197,830,1.0,True,"Peru - Korea, Republic of",Korea Peru
+198,827,1.0,True,India - Malaysia,India Malaysia
+199,826,1.0,True,India - Japan,India Japan
+200,350+6,0.5,False,EFTA - Colombia,EC Switzerland Liechtenstein Croatia accession
+201,162,1.0,True,Canada - Colombia,Canada Colombia
+202,324,0.9642857142857143,True,EU - Pacific States,EC Lisbon
+203,199,0.3333333333333333,False,Chile - Honduras (Chile - Central America),Chile China
+204,716,1.0,True,Peru - Chile,Chile Peru
+205,184,0.6666666666666666,False,Dominican Republic - Central America,Central America Dominican Republic
+206,598,1.0,True,New Zealand - Malaysia,Malaysia New Zealand
+207,1062,1.0,True,EU - Eastern and Southern Africa States,Eastern and Southern Africa States (ESA) EC Interim EPA
+208,1014,1.0,True,Peru - Mexico,Mexico Peru
+209,829,1.0,True,Japan - Peru,Japan Peru
+210,804,1.0,True,China - Costa Rica ,China Costa Rica
+211,551,1.0,True,"Korea, Republic of - United States",Korea US
+212,115,0.3333333333333333,False,Chile - Guatemala (Chile - Central America),Belize Guatemala
+213,837,1.0,True,Panama - Peru,Panama Peru
+214,241,1.0,True,United States - Colombia,Colombia US
+215,820,1.0,True,EFTA - Ukraine,EFTA Ukraine
+216,787+1,1.0,True,East African Community (EAC) - Accession of Burundi and Rwanda,East African Community (EAC) Burundi Rwanda accession
+217,239,0.5,False,"Colombia - Northern Triangle (El Salvador, Guatemala, Honduras)",Colombia Northern Triangle
+218,90,1.0,True,Russian Federation - Azerbaijan,Azerbaijan Russia
+219,652,1.0,True,Russian Federation - Tajikistan,Russia Tajikistan
+220,817,1.0,True,"EFTA - Hong Kong, China",EFTA Hong Kong
+221,818,1.0,True,EFTA - Montenegro,EFTA Montenegro
+222,643,1.0,True,United States - Panama,Panama US
+223,435,1.0,True,Russian Federation - Belarus - Kazakhstan,Eurasian Economic Community (Union of the Five)
+224,651,1.0,True,Russian Federation - Serbia,Russia Serbia and Montenegro
+225,655,1.0,True,Russian Federation - Uzbekistan,Russia Uzbekistan
+226,653,1.0,True,Russian Federation - Turkmenistan,Russia Turkmenistan
+227,800,1.0,True,Chile - Malaysia,Chile Malaysia
+228,213,0.3333333333333333,False,Panama - Nicaragua (Panama - Central America),Chile Panama
+229,810,0.9666666666666667,True,"EU - Colombia, Ecuador and Peru",Colombia EC Peru
+230,799,0.9411764705882353,True,EU - Central America,Central America EC
+231,798,1.0,True,Canada - Panama,Canada Panama
+232,166,1.0,True,Canada - Jordan,Canada Jordan
+233,115,0.3333333333333333,False,Panama - Guatemala (Panama - Central America),Belize Guatemala
+234,833,1.0,True,Ukraine - Montenegro,Montenegro Ukraine
+235,324+1,1.0,True,EU (28) Enlargement,EC Lisbon (28) Enlargement
+236,831,1.0,True,"Korea, Republic of - Türkiye",Korea Turkey
+237,795,1.0,True,Malaysia - Australia,Australia Malaysia
+238,832,1.0,True,Türkiye - Mauritius,Mauritius Turkey
+239,813,1.0,True,Costa Rica - Peru,Costa Rica Peru
+240,811,0.6666666666666666,False,Treaty on a Free Trade Area between members of the Commonwealth of Independent States (CIS),Commonwealth of Independent States (CIS)
+241,202+3,0.3333333333333333,False,Chile - Nicaragua (Chile - Central America),Chile EC Croatia accession
+242,616,1.0,True,Mexico - Uruguay,Mexico Uruguay
+243,814,1.0,True,Costa Rica - Singapore,Costa Rica Singapore
+244,834,1.0,True,New Zealand - Chinese Taipei,New Zealand Taiwan
+245,916,1.0,True,El Salvador - Cuba,Cuba El Salvador
+246,949,0.5,False,Mexico - Central America,Central America Mexico
+247,961,1.0,True,Singapore - Chinese Taipei,Singapore Taiwan
+248,872,1.0,True,"EU - Moldova, Republic of",EC Moldova
+249,862,1.0,True,Switzerland - China,China Switzerland
+250,876,1.0,True,EU - Ukraine,EC Ukraine
+251,866,1.0,True,EU - Georgia,EC Georgia
+252,955,1.0,True,Iceland - China,China Iceland
+253,858,1.0,True,"Hong Kong, China - Chile",Chile Hong Kong
+254,864,1.0,True,EFTA - Central America (Costa Rica and Panama),Central America EFTA
+255,1040+2,1.0,True,Eurasian Economic Union (EAEU) ,Eurasian Economic Union (EAEU) Kyrgyzstan accession
+256,911,1.0,True,"Korea, Republic of - Australia",Australia Korea
+257,1040+1,1.0,True,Eurasian Economic Union (EAEU) - Accession of Armenia,Eurasian Economic Union (EAEU) Armenia accession
+258,844,1.0,True,EFTA - Bosnia and Herzegovina,Bosnia and Herzegovina EFTA
+259,842,1.0,True,Japan - Australia ,Australia Japan
+260,852,1.0,True,"Canada - Korea, Republic of",Canada Korea
+261,797,1.0,True,Canada - Honduras,Canada Honduras
+262,803,1.0,True,Chile - Viet Nam,Chile Vietnam
+263,379,0.5454545454545454,False,Gulf Cooperation Council (GCC) - Singapore,EFTA Gulf Cooperation Council (GCC)
+264,1040+2,1.0,True,Eurasian Economic Union (EAEU) - Accession of the Kyrgyz Republic,Eurasian Economic Union (EAEU) Kyrgyzstan accession
+265,602,1.0,True,Mauritius - Pakistan,Mauritius Pakistan
+266,912,1.0,True,"Korea, Republic of - New Zealand",Korea New Zealand
+267,672+5,0.8666666666666667,True,Southern African Development Community (SADC) - Accession of Seychelles,Southern African Development Community (SADC) Seychelles accession
+268,840,1.0,True,Australia - China,Australia China
+269,4,1.0,True,Agadir Agreement,Agadir Agreement
+270,909,1.0,True,"China - Korea, Republic of",China Korea
+271,913,1.0,True,"Korea, Republic of - Viet Nam",Korea Vietnam
+272,642,0.3333333333333333,False,Panama  - Dominican Republic,Panama Taiwan
+273,930,1.0,True,Japan - Mongolia,Japan Mongolia
+274,891,1.0,True,Mexico - Panama,Mexico Panama
+275,667+1,1.0,True,South Asian Free Trade Agreement (SAFTA) - Accession of  Afghanistan,South Asian Free Trade Area (SAFTA) Afghanistan accession
+276,808,1.0,True,"Korea, Republic of - Colombia",Colombia Korea
+277,805,1.0,True,Costa Rica - Colombia,Colombia Costa Rica
+278,989,0.25,False,Pacific Alliance,Comprehensive and Progressive Agreement for Transpacific Partnership (CPTPP)
+279,69,0.9090909090909091,True,"ASEAN - Korea, Republic of",Association of Southeast Asian Nations (ASEAN) Goods
+280,489,1.0,True,"Korea, Republic of - India",India Korea
+281,989,0.7272727272727273,False,Comprehensive and Progressive Agreement for Trans-Pacific Partnership (CPTPP),Comprehensive and Progressive Agreement for Transpacific Partnership (CPTPP)
+282,474,1.0,True,Gulf Cooperation Council (GCC),Gulf Cooperation Council (GCC)
+283,437,0.8333333333333334,True,European Economic Area (EEA),European Economic Area (EEA)
+284,869,1.0,True,EU - Japan,EC Japan
+285,1046,1.0,True,EU - United Kingdom,EC UK
+286,848,1.0,True,EU - Canada,Canada EC (CETA)
+287,1008a,1.0,True,EU - Singapore,EC Singapore (consolidated)
+288,877,1.0,True,EU - Viet Nam,EC Vietnam
+289,978,0.9705882352941176,True,EU - SADC,EC South African Development Community (SADC) EPA
+290,130,0.9333333333333333,True,EU - Ghana,Bosnia and Herzegovina EC SAA
+291,1007,1.0,True,United States-Mexico-Canada Agreement (USMCA/CUSMA/T-MEC),US Mexico Canada Agreement (USMCA)
+292,990,1.0,True,China - Georgia ,China Georgia
+293,1047,1.0,True,China - Mauritius,China Mauritius
+294,1063,0.6363636363636364,False,"ASEAN - Hong Kong, China",Association of Southeast Asian Nations (ASEAN) Hong Kong
+295,105,0.0,False,ASEAN Free Trade Area (AFTA),Belarus Kyrgyzstan
+296,1015,1.0,True,"Hong Kong, China - Australia",Australia Hong Kong
+297,915,1.0,True,Eurasian Economic Union (EAEU) - Viet Nam,Eurasian Economic Union (EAEU) Vietnam
+298,141,1.0,True,Brazil - Mexico ,Brazil Mexico
+299,1,0.3333333333333333,False,India - Thailand,Afghanistan India
+300,931,0.6666666666666666,False,"Korea, Republic of - Central America",Central America Korea
+301,962,1.0,True,Türkiye - Singapore,Singapore Turkey
+302,1013,1.0,True,"Hong Kong, China - Georgia",Georgia Hong Kong
+303,984,1.0,True,"Hong Kong, China - Macao, China",Hong Kong Macao
+304,43,1.0,True,Argentina - Mexico ,Argentina Mexico
+305,855,1.0,True,Canada - Ukraine,Canada Ukraine
+306,965,0.8,True,EFTA - Philippines ,EFTA Philippines
+307,247,0.3333333333333333,False,Ecuador - Mexico ,Costa Rica Mexico
+308,1084,0.7142857142857143,False,Eurasian Economic Union (EAEU) - Iran,Eurasian Economic Union (EAEU) Serbia
+309,1014,0.3333333333333333,False,"Mexico - Bolivia, Plurinational State of ",Mexico Peru
+310,269a,1.0,True,Mexico - Cuba,Cuba Mexico (consolidated)
+311,1084,1.0,True,Eurasian Economic Union (EAEU) - Serbia,Eurasian Economic Union (EAEU) Serbia
+312,943,1.0,True,Türkiye - Malaysia,Malaysia Turkey
+313,243+1,0.8095238095238095,True,Common Market for Eastern and Southern Africa (COMESA) - Accession of Egypt,Common Market for Eastern and Southern Africa (COMESA) Egypt accession
+314,57,1.0,True,Armenia - Russian Federation,Armenia Russia
+316,556,1.0,True,Kyrgyz Republic - Russian Federation,Kyrgyzstan Russia
+317,647,0.65,False,Protocol on Trade Negotiations (PTN),Protocol on Trade Negotiations (PTN)
+319,630,1.0,True,Namibia - Zimbabwe,Namibia Zimbabwe
+320,379,1.0,True,EFTA - Gulf Cooperation Council (GCC),EFTA Gulf Cooperation Council (GCC)
+321,1097,1.0,True,Türkiye - Faeroe Islands,Faroe Islands Turkey
+322,933,1.0,True,India - Mauritius,India Mauritius
+323,508,0.4,False,Southern Common Market (MERCOSUR) - Israel,Israel MERCOSUR
+324,941,1.0,True,Indonesia - Australia,Australia Indonesia
+325,654,1.0,True,Ukraine - Russian Federation,Russia Ukraine
+326,972,0.6666666666666666,False,EFTA - Indonesia,Ecuador EFTA
+327,466,1.0,True,GUAM,GUAM/GUUAM Organization for Democracy and Economic Development
+328,627,1.0,True,Morocco - United Arab Emirates,Morocco UAE
+329,895,0.7333333333333333,False,Pacific Agreement on Closer Economic Relations Plus (PACER Plus) ,Pacific Agreement on Closer Economic Relations (PACER) Plus
+330,801,1.0,True,Chile - Thailand,Chile Thailand
+331,821,1.0,True,Southern Common Market (MERCOSUR) - Egypt,Egypt MERCOSUR
+332,919,1.0,True,Peru - Honduras,Honduras Peru
+333,789,1.0,True,Southern Common Market (MERCOSUR) - Southern African Customs Union (SACU),MERCOSUR Southern African Customs Union (SACU)
+334,766,1.0,True,Mexico - Paraguay,Mexico Paraguay
+335,106,0.3333333333333333,False,Russian Federation - Belarus,Belarus Moldova
+336,618,1.0,True,Russian Federation - Republic of Moldova,Moldova Russia
+337,455,0.3333333333333333,False,Russian Federation - Kazakhstan,Georgia Russia
+338,867,1.0,True,EU - Armenia,Armenia EC
+339,186+1,1.0,True,Central American Common Market (CACM) - Accession of Panama,Central American Common Market (CACM) Panama accession
+340,920,1.0,True,Chile - Indonesia,Chile Indonesia
+341,810+2,0.9354838709677419,True,EU - Colombia and Peru - Accession of Ecuador,Colombia EC Peru Ecuador accession
+342,1089,1.0,True,Türkiye - Kosovo,Kosovo Turkey
+343,983,1.0,True,"Türkiye - Moldova, Republic of",Moldova Turkey
+344,971,1.0,True,Indonesia - Pakistan,Indonesia Pakistan
+345,981,0.6,False,EFTA - Georgia,EFTA Georgia
+346,972,1.0,True,EFTA - Ecuador,Ecuador EFTA
+347,787+1,0.21052631578947367,False,Common Market for Eastern and Southern Africa (COMESA) - Accession of Seychelles,East African Community (EAC) Burundi Rwanda accession
+348,562+1,1.0,True,Latin American Integration Association (LAIA) - Accession of Cuba,Latin American Integration Association (ALADI LAIA) Cuba accession
+349,992,1.0,True,Peru - Australia,Australia Peru
+350,1012,1.0,True,El Salvador - Ecuador,Ecuador El Salvador
+351,1049,1.0,True,United Kingdom - Japan,Japan UK
+352,979+1,0.9354838709677419,True,EU - Pacific States - Accession of Samoa,EC Pacific States EPA Samoa accession
+353,1046,0.9655172413793104,True,EU - Pacific States - Accession of Solomon Islands,EC UK
+354,1016a,1.0,True,"United Kingdom - Colombia, Ecuador and Peru",Andean Countries UK (consolidated)
+355,1036,1.0,True,United Kingdom - CARIFORUM States,CARIFORUM UK
+356,1019a,1.0,True,United Kingdom - Central America,Central America UK (consolidated)
+357,1020a,1.0,True,United Kingdom - Chile,Chile UK (consolidated)
+358,1051,1.0,True,United Kingdom - Côte d'Ivoire,Cote d'Ivoire UK
+359,1035,0.5714285714285714,False,United Kingdom - Eastern and Southern Africa States,Eastern and Southern African States UK
+360,1021a,1.0,True,United Kingdom - Faroe Islands,Faroe Islands UK (consolidated)
+361,1022,1.0,True,United Kingdom - Georgia,Georgia UK
+362,1023,1.0,True,United Kingdom - Norway and Iceland,Iceland Norway UK
+363,1024a,1.0,True,United Kingdom - Israel,Israel UK (consolidated)
+365,1017a,0.3333333333333333,False,United Kingdom - Kosovo,Korea UK (consolidated)
+366,1027a,1.0,True,United Kingdom - Lebanon,Lebanon UK (consolidated)
+367,1017a,0.3333333333333333,False,United Kingdom - Morocco,Korea UK (consolidated)
+368,1031+2,1.0,True,United Kingdom - Pacific States,Pacific States UK Solomon Islands accession 
+369,1017a,0.3333333333333333,False,United Kingdom - Palestine,Korea UK (consolidated)
+370,1017a,1.0,True,"United Kingdom - Korea, Republic of",Korea UK (consolidated)
+371,1037,1.0,True,United Kingdom - SACU and Mozambique,Southern African Customs Union Mozambique (SACUM) UK
+372,972,0.3333333333333333,False,United Kingdom - Switzerland - Liechtenstein,Ecuador EFTA
+373,1017a,0.3333333333333333,False,United Kingdom - Tunisia,Korea UK (consolidated)
+374,1056,1.0,True,United Kingdom - Ukraine,UK Ukraine
+376,1058,1.0,True,United Kingdom - Cameroon,Cameroon UK
+377,1050a,1.0,True,United Kingdom - Egypt,Egypt UK (consolidated)
+378,1066,1.0,True,United Kingdom - Ghana,Ghana UK
+380,1053,1.0,True,"United Kingdom - Moldova, Republic of",Moldova UK
+381,1054a,1.0,True,United Kingdom - North Macedonia,Macedonia UK (consolidated)
+383,1055a,1.0,True,United Kingdom - Singapore,Singapore UK (consolidated)
+384,1048,1.0,True,United Kingdom - Türkiye,Turkey UK
+385,1057a,1.0,True,United Kingdom - Viet Nam,UK Vietnam (consolidated)
+386,1059a,1.0,True,United Kingdom - Canada,Canada UK (consolidated)
+387,1052,1.0,True,United Kingdom - Kenya,Kenya UK
+388,1031+1,0.5,False,United Kingdom - Pacific States - Accession of Samoa,Pacific States UK Samoa accession
+389,1031+2,0.4,False,United Kingdom - Pacific States - Accession of Solomon Islands,Pacific States UK Solomon Islands accession 
+390,1061,1.0,True,Ukraine - Israel,Israel Ukraine
+391,1046,0.9655172413793104,True,EU - Eastern and Southern Africa States - Accession of Comoros,EC UK
+394,1092,1.0,True,India - United Arab Emirates,India UAE
+395,1044,0.8666666666666667,True,RCEP (Regional Comprehensive Economic Partnership) Agreement,Regional Comprehensive Economic Partnership (RCEP)
+396,988+3,0.9444444444444444,True,AfCFTA (African Continental Free Trade) Agreement,African Continental Free Trade Area (AfCFTA) Benin Nigeria accession

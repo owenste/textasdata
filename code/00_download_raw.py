@@ -1,14 +1,16 @@
 # -*- coding: utf-8 -*-
 """
-00_download_raw.py —— 下载阶段 A、B 所需的全部原始数据到 data/raw/。
+00_download_raw.py —— 下载阶段 A–C 所需的全部原始数据到 data/raw/。
 
 做什么：
-  依次下载 5 类数据（已存在的文件自动跳过，不会重复下载、也不会覆盖）：
+  依次下载 7 类数据（已存在的文件自动跳过，不会重复下载、也不会覆盖）：
     1) Global Macro Database (GMD) 2026_06 版 —— 宏观面板（人均实际 GDP 等）
     2) DESTA 2.03 版 —— 协定深度指数（阶段 A 主横轴）
     3) 世界银行 Deep Trade Agreements 1.0 横向内容 (v2, 2024-01) —— 52 个政策领域编码（阶段 A 稳健性；阶段 C 主力候选）
     4) 世界银行国家元数据（区域）与历史收入分组 OGHIST —— 用于界定「发展中国家」样本和按区域着色
     5) Larch RTA 数据库 —— 复刻 Aizenman 等 (2026) 的 EIA 变量（阶段 B）
+    6) OECD FDI 限制指数、Chinn-Ito KAOPEN —— 政策空间 P（阶段 C3）
+    7) Doing Business 历史数据、BTI、Hanson-Sigman 国家能力、UNDP 受教育年限 —— 转化能力 C 与控制变量（阶段 C2）
 
 为什么原始数据不进 git：
   GMD 附带「研究使用条款」，不宜在公开仓库里再分发；文件也较大（约 40MB）。
@@ -58,6 +60,18 @@ FILES = [
     ("larch/rta_individual_agreements_20240712_csv.zip",
      "https://www.ewf.uni-bayreuth.de/pool/dokumente/rta_individual_agreements_20240712_csv.zip"),
     ("larch/readme_RTA.pdf", "https://www.ewf.uni-bayreuth.de/pool/dokumente/readme_RTA.pdf"),
+    # 6) 阶段 C：政策空间 P
+    ("policy_space/oecd_fdiindex_archive_1997_2020.csv",   # OECD FDI 限制指数 1997–2020 档案系列
+     "https://sdmx.oecd.org/archive/rest/data/OECD,DF_FDIINDEX,/all?dimensionAtObservation=AllDimensions&format=csvfilewithlabels"),
+    ("policy_space/kaopen_2023.dta", "https://web.pdx.edu/~ito/kaopen_2023.dta"),   # Chinn-Ito 资本账户开放
+    # 7) 阶段 C：转化能力 C 与控制变量
+    ("capacity/DB2020_historical_complete_with_scores.xlsx",   # 世行 Doing Business 历史全集
+     "https://archive.doingbusiness.org/content/dam/doingBusiness/excel/db2020/Historical-data---COMPLETE-dataset-with-scores.xlsx"),
+    ("capacity/BTI_2006-2026_Scores.xlsx",
+     "https://bti-project.org/fileadmin/api/content/en/downloads/data/BTI_2006-2026_Scores.xlsx"),
+    ("capacity/HansonSigman_source.tab", "https://dataverse.harvard.edu/api/access/datafile/4103950"),  # 国家能力
+    ("capacity/owid_undp_mean_years_schooling.csv",        # UNDP 平均受教育年限（用于按 PWT 公式算人力资本）
+     "https://ourworldindata.org/grapher/average-years-of-schooling.csv?v=1&csvType=full&useColumnShortNames=true"),
 ]
 # 注：Aizenman, Ito & Saadaoui (2026) 原文 PDF 放在 data/raw/papers/（NBER 网站拒绝脚本下载，需手动放入）
 
@@ -69,7 +83,7 @@ for relpath, url in FILES:
         continue
     print(f"[下载] {url}")
     # 部分网站会拒绝没有浏览器标识的请求，加上 User-Agent
-    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120 Safari/537.36"})
     with urllib.request.urlopen(req) as r, open(dest, "wb") as fh:
         fh.write(r.read())
     print(f"       -> {rel(dest)}  ({dest.stat().st_size/1e6:.1f} MB)")
