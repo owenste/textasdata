@@ -306,3 +306,13 @@
 | `D_US`、`D_EU`、`D_ON` | 南北协定按模板拆分（同脚本 31） |
 | `D_SP`、`D_SHI` | 南南协定再拆：纯发展中国家之间 / 含非传统高收入经济体（1995 年高收入但不在北方名单，如韩国、新加坡、以色列、海湾国家） |
 | `countryname`、`region` | 国家名、世行区域 |
+
+## 19. 第五轮登记检验的数据
+
+| 文件 | 生成脚本 | 1 行 = | 变量 |
+|---|---|---|---|
+| `data/raw/polcon/POLCON_2025_FINALPOSTED.xlsx` | 下载（`00_download_raw.py` 第 12 项） | COW 国家 × 年份 | Henisz 政治约束指数；本研究用 `POLCONIII_2025`（0–1，越高表示改变政策需要越多否决者同意） |
+| `polcon_iso3.csv` | `35_ratification_expectations.py` | ISO3 × 年份 | `POLCONIII_2025`：按国名对接 ISO3，同一 ISO3 多个 COW 代码取年度平均；覆盖本研究 122 个发展中国家中的 115 个 |
+| `prereg5_family5.csv` | 同上 | 1 项检验 | H1–H4 的估计、SE、原始 p、Holm 调整 p、判定 |
+
+**脚本 35 内部构造的变量**（不单独存文件）：`L_D_pend_new` / `L_D_pend_old`（待生效协定已等待 0 年 / ≥ 1 年带来的额外领域数）；`L_D_pend_deep` / `L_D_pend_shallow`（待生效协定版本自身深度 ≥ 4 / < 4）；`F_early` / `F_late`（国家对之间有最终从未生效的协定，签署于 1–3 年前 / ≥ 4 年前）；`L_veto`（两方 POLCONIII 最大值，滞后一期，标准化）。

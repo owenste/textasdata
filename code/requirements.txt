@@ -8,3 +8,4 @@ pycountry
 tabulate
 scipy
 pyfixest>=0.60
+country_converter
