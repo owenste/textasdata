@@ -1,0 +1,34 @@
+# 脚本: 39_separation_tests
+# 运行时间: 2026-09-23 18:14:05
+# Python: 3.11.15
+----------------------------------------------------------------------
+协定 347（南南 196，南北 151）；被涉及的协定 × 领域 1373
+ 检验                           内容        估计       SE          原始p      Holm调整p       判定
+N1a      形式分离：南南 − 南北（控制领域、签署时期） -0.019306 0.027923 4.893229e-01 9.786458e-01      不支持
+N1b 形式分离：（采购 + 竞争）/2 − 技术标准（协定内）  0.015253 0.031152 6.244050e-01 9.786458e-01 方向一致，不显著
+ N2    服务生效滞后（年）：南南 − 南北（控制签署时期）  1.058941 0.549927 5.415381e-02 1.624614e-01 方向一致，不显著
+ N3       有约束力：采购 − 其余五领域平均（协定内） -0.172884 0.032584 1.121884e-07 4.487536e-07       支持
+      南南：形式分离比重  南北：形式分离比重  南南 N  南北 N  全部：LE/AC 比
+领域                                                
+技术标准       0.16       0.36   134   121        0.75
+投资         0.15       0.11   103   122        0.87
+服务         0.29       0.17   110   109        0.77
+政府采购       0.33       0.34    66   113        0.66
+竞争政策       0.14       0.18   155   130        0.84
+知识产权       0.18       0.09    90   120        0.87
+                                                                   协定    货物生效    服务生效  滞后（年）
+WBID                                                                                        
+10                                Asia Pacific Trade Agreement (APTA)  1976.0  2013.0   37.0
+9                     Caribbean Community and Common Market (CARICOM)  1973.0  2002.0   29.0
+95                      Southern African Development Community (SADC)  2000.0  2022.0   22.0
+21                                  Southern Common Market (MERCOSUR)  1991.0  2005.0   14.0
+54                                       East African Community (EAC)  2000.0  2010.0   10.0
+205                              Dominican Republic - Central America  2001.0  2001.0    0.0
+217   Colombia - Northern Triangle (El Salvador, Guatemala, Honduras)  2009.0  2009.0    0.0
+246                                          Mexico - Central America  2012.0  2012.0    0.0
+         协定数  平均滞后  滞后大于0的比重
+组                           
+南北        88  0.36      0.08
+南南·其他     64  0.61      0.11
+南南·区域多边   16  7.00      0.31
+已保存 output/tables/tab29_separation_tests.md、output/figures/cn_fig6_separation.png
