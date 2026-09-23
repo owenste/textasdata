@@ -6,3 +6,4 @@ __pycache__/
 # 回归面板含 GMD 原始数值的逐年副本，体积大且可由 code/06 重新生成，不进 git
 data/clean/panel_aizenman.csv
 .venv_gmm/
+data/clean/panel_main.csv
