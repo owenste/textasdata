@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 """
-00_download_raw.py —— 下载阶段 A–C 所需的全部原始数据到 data/raw/。
+00_download_raw.py —— 下载全部阶段所需的全部原始数据到 data/raw/。
 
 做什么：
-  依次下载 7 类数据（已存在的文件自动跳过，不会重复下载、也不会覆盖）：
+  依次下载 9 类数据（已存在的文件自动跳过，不会重复下载、也不会覆盖）：
     1) Global Macro Database (GMD) 2026_06 版 —— 宏观面板（人均实际 GDP 等）
     2) DESTA 2.03 版 —— 协定深度指数（阶段 A 主横轴）
     3) 世界银行 Deep Trade Agreements 1.0 横向内容 (v2, 2024-01) —— 52 个政策领域编码（阶段 A 稳健性；阶段 C 主力候选）
@@ -11,6 +11,8 @@
     5) Larch RTA 数据库 —— 复刻 Aizenman 等 (2026) 的 EIA 变量（阶段 B）
     6) OECD FDI 限制指数、Chinn-Ito KAOPEN —— 政策空间 P（阶段 C3）
     7) Doing Business 历史数据、BTI、Hanson-Sigman 国家能力、UNDP 受教育年限 —— 转化能力 C 与控制变量（阶段 C2）
+    8) 联合国大会投票理想点 —— GeoV、GeoC（脚本 19）
+    9) 世界银行 WDI 大宗商品出口占比 —— 异质性分组（脚本 11）
 
 为什么原始数据不进 git：
   GMD 附带「研究使用条款」，不宜在公开仓库里再分发；文件也较大（约 40MB）。
@@ -72,6 +74,12 @@ FILES = [
     ("capacity/HansonSigman_source.tab", "https://dataverse.harvard.edu/api/access/datafile/4103950"),  # 国家能力
     ("capacity/owid_undp_mean_years_schooling.csv",        # UNDP 平均受教育年限（用于按 PWT 公式算人力资本）
      "https://ourworldindata.org/grapher/average-years-of-schooling.csv?v=1&csvType=full&useColumnShortNames=true"),
+    # 8) 地缘经济变量：联合国大会投票理想点（Bailey, Strezhnev & Voeten，Harvard Dataverse）
+    #    双边出口（IMF IMTS）数据量大，由 code/19_build_geo.py 通过 IMF API 逐国下载
+    ("geo/IdealpointestimatesAll_Jun2024.csv", "https://dataverse.harvard.edu/api/access/datafile/10295878"),
+    # 9) 大宗商品出口占比（世界银行 WDI API）
+    *[(f"wdi/{ind}.json", f"https://api.worldbank.org/v2/country/all/indicator/{ind}?format=json&per_page=20000&date=1960:2024")
+      for ind in ["TX.VAL.FUEL.ZS.UN", "TX.VAL.MMTL.ZS.UN", "TX.VAL.AGRI.ZS.UN", "TX.VAL.FOOD.ZS.UN"]],
 ]
 # 注：Aizenman, Ito & Saadaoui (2026) 原文 PDF 放在 data/raw/papers/（NBER 网站拒绝脚本下载，需手动放入）
 

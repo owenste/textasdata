@@ -1,5 +1,5 @@
 # 脚本: 00_download_raw
-# 运行时间: 2026-09-23 11:36:07
+# 运行时间: 2026-09-23 12:54:01
 # Python: 3.11.15
 ----------------------------------------------------------------------
 [跳过] 已存在 data/raw/gmd/GMD_2026_06_csv.zip
@@ -20,4 +20,9 @@
 [跳过] 已存在 data/raw/capacity/BTI_2006-2026_Scores.xlsx
 [跳过] 已存在 data/raw/capacity/HansonSigman_source.tab
 [跳过] 已存在 data/raw/capacity/owid_undp_mean_years_schooling.csv
+[跳过] 已存在 data/raw/geo/IdealpointestimatesAll_Jun2024.csv
+[跳过] 已存在 data/raw/wdi/TX.VAL.FUEL.ZS.UN.json
+[跳过] 已存在 data/raw/wdi/TX.VAL.MMTL.ZS.UN.json
+[跳过] 已存在 data/raw/wdi/TX.VAL.AGRI.ZS.UN.json
+[跳过] 已存在 data/raw/wdi/TX.VAL.FOOD.ZS.UN.json
 完成。

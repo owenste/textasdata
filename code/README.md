@@ -20,15 +20,20 @@
 | `13_heterogeneity_quantile_threshold.py` | D3–D5 | 异质性、MM-QR 分位数回归、Hansen 门限（约 25 分钟） | `output/tables/tab03_heterogeneity.md`、`output/figures/fig03_quantile.png` |
 | `14_robustness.py` | E1/E2 | 16 种变体下的核心系数 + 元证伪检查 | `output/tables/tab04_robustness.md` |
 | `15_system_gmm.py` | E3 | 系统 GMM（**需在 `.venv_gmm` 虚拟环境中运行**，见脚本开头） | `output/tables/tab05_system_gmm.md` |
+| `16_inverted_u_checks.py` | 登记 A1–A5 | 倒 U 形的替代解释检验（事件研究、剔除入盟国、区域×年份 FE、收入、领域分解） | `tab06`、`fig04_event_study.png` |
+| `17_calibration_tests.py` | 登记 P1–P3 | 拐点随能力右移、政策空间安全阀、节奏×能力（约 11 分钟） | `tab07`、`fig05_turning_point.png` |
+| `18_try_then_commit.py` | 登记 P4 | 先试后签 vs 以签促改 | `tab08`、`data/clean/p4_events.csv` |
+| `19_build_geo.py` | 登记第 6 节 | 下载 IMF 双边出口，构造 GeoV/GeoC，并做倒 U 形稳健性（约 3 分钟） | `data/clean/geo_cy.csv`、`tab09` |
+| `20_case_profiles.py` | 案例选择 | 重点国家的承诺校准画像（为过程追踪选案例） | `tab10`、`fig06_case_profiles.png` |
 
 ```bash
 pip install -r code/requirements.txt
-for s in 00 01 02 03 04 05 06 07 08 09 10 11 12 13 14; do python code/${s}_*.py; done
+for s in 00 01 02 03 04 05 06 07 08 09 10 11 12 13 14 16 17 18 19 20; do python code/${s}_*.py; done
 # 系统 GMM 需要 numpy<2 的独立环境：
 python -m venv .venv_gmm && .venv_gmm/bin/pip install "numpy<2" "pandas<2.2" scipy pydynpd prettytable tabulate pycountry
 .venv_gmm/bin/python code/15_system_gmm.py
 ```
 
 每个脚本的运行日志在 `output/logs/`。`utils.py` 是公用路径与日志工具。
-说明文档：`docs/data_dictionary.md`（数据字典）、`docs/progress_stageA.md`、`docs/progress_stageB.md`、`docs/progress_stageC.md`、`docs/progress_stageDE.md`（各阶段小结）；`docs/falsification_log.md`（证伪条件逐条核对）；`docs/C2_data_survey.md`（C2 数据可得性调研）。
+说明文档：`docs/data_dictionary.md`（数据字典）、`docs/progress_stageA.md`、`docs/progress_stageB.md`、`docs/progress_stageC.md`、`docs/progress_stageDE.md`（各阶段小结）；`docs/falsification_log.md`（证伪条件逐条核对）；`docs/theory_calibration.md`（承诺校准理论）、`docs/preregistration.md`（事前登记）、`docs/results_vs_prereg.md`（结果与登记对照）；`docs/C2_data_survey.md`（C2 数据可得性调研）。
 阶段 B 需要原文 PDF 放在 `data/raw/papers/`（NBER 网站拒绝脚本下载）；附录 A 国家名单已抽取到 `data/clean/aizenman_appendixA_countries.json`。
