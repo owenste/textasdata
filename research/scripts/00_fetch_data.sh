@@ -23,3 +23,6 @@ done
 # Plane Crash Info fatal-accident list, as compiled in JohnyPeters/aviation-accidents-dashboard
 curl -sSL -o planecrashinfo.csv \
   https://raw.githubusercontent.com/JohnyPeters/aviation-accidents-dashboard/main/data/crashes_data/plane_crash_data.csv
+# WDI Database Archives, July 2018 vintage: country-level T&D losses 1960-2014
+curl -sSL "https://api.worldbank.org/v2/sources/57/country/all/series/EG.ELC.LOSS.ZS/version/201807/time/all?format=json&per_page=30000" \
+  -o arch_201807.json

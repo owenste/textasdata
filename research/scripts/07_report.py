@@ -152,6 +152,23 @@ def interact_plot():
     return svg, r
 
 
+# ---------- chart F: three technologies ----------
+def three_plot():
+    r = pd.read_csv(O / "three_tech_results.csv").reset_index(drop=True)
+    names = {"D 剔除民航": "D 只留钢铁与电力", "D 剔除钢铁": "D 只留民航与电力", "D 剔除电力": "D 只留民航与钢铁"}
+    r["model"] = r.model.replace(names)
+    svg = hcoef(r, -0.6, 1.0, [-0.4, 0, 0.4, 0.8], "left", "预测方向（β＜0）",
+                "β（能力，技术内标准差 / 宽容度一分 × 约束软化一个标准差），95% 置信区间",
+                "三项技术面板中β及95%置信区间，主设定接近零，两项显著结果方向与预测相反", fmt="β = {:+.3f}", left=260)
+    return svg, r
+
+
+def three_slopes():
+    r = pd.read_csv(O / "three_tech_slopes.csv")
+    return "\n".join(f"<tr><td>{esc(x.tech)}</td><td class='num'>{int(x.lat)}</td><td class='num'>{x.coef:+.3f}</td>"
+                     f"<td class='num'>{x.se:.3f}</td><td class='num'>{x.p:.2f}</td></tr>" for x in r.itertuples())
+
+
 def interact_tables():
     r = pd.read_csv(O / "interaction_results.csv")
     other = r[~r.model.str.startswith("S")]
@@ -217,6 +234,10 @@ def main():
         f"<tr><td>{esc(x.model.split(' ',1)[1])}</td><td class='num'>{x.coef:+.3f}</td><td class='num'>{x.se:.3f}</td>"
         f"<td class='num'>{x.p:.2f}</td><td class='num'>{x.nobs:,}</td></tr>" for x in it.itertuples())
     i_other, i_thr = interact_tables()
+    three_svg, th = three_plot()
+    t_rows = "\n".join(
+        f"<tr><td>{esc(x.model.split(' ',1)[1])}</td><td class='num'>{x.coef:+.3f}</td><td class='num'>{x.se:.3f}</td>"
+        f"<td class='num'>{x.p:.3f}</td><td class='num'>{x.nobs:,}</td><td class='num'>{x.countries}</td></tr>" for x in th.itertuples())
     tpl = (ROOT / "report" / "template.html").read_text()
     page = (tpl.replace("{{COEF_SVG}}", coef_svg).replace("{{M1_ROWS}}", m1_rows)
             .replace("{{EVENT_SVG}}", event_plot()).replace("{{STEEL_SVG}}", steel_plot())
@@ -224,7 +245,8 @@ def main():
             .replace("{{STEEL_ROWS}}", steel_table())
             .replace("{{ELEC_SVG}}", elec_svg).replace("{{ELEC_ROWS}}", e_rows).replace("{{ELEC_Q_ROWS}}", elec_q_rows())
             .replace("{{INT_SVG}}", int_svg).replace("{{INT_ROWS}}", i_rows)
-            .replace("{{INT_OTHER_ROWS}}", i_other).replace("{{INT_THR_ROWS}}", i_thr))
+            .replace("{{INT_OTHER_ROWS}}", i_other).replace("{{INT_THR_ROWS}}", i_thr)
+            .replace("{{THREE_SVG}}", three_svg).replace("{{THREE_ROWS}}", t_rows).replace("{{THREE_SLOPES}}", three_slopes()))
     (ROOT / "report" / "index.html").write_text(page)
     print("wrote report/index.html", len(page))
 

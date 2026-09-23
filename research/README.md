@@ -15,6 +15,7 @@ python3 scripts/05_refcheck.py     # -> output/refcheck.json
 python3 scripts/06_reliability.py  # needs coding/latitude_codes_coderB.csv
 python3 scripts/08_electricity.py            # -> output/electricity_*.csv
 python3 scripts/09_aviation_interaction.py   # -> output/interaction_*.csv
+python3 scripts/10_three_tech.py              # -> output/three_tech_*.csv
 python3 scripts/07_report.py                 # -> report/index.html
 ```
 
