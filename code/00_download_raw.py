@@ -14,6 +14,7 @@
     8) 联合国大会投票理想点 —— GeoV、GeoC（脚本 19）
     9) 世界银行 WDI 大宗商品出口占比 —— 异质性分组（脚本 11）
    10) 世界银行 WDI 外资净流入占 GDP 比重 —— 第二轮登记 P5（脚本 23）
+   11) 世界银行 WDI 加权平均实施关税 —— 第三轮登记 B3b（脚本 29）
 
 为什么原始数据不进 git：
   GMD 附带「研究使用条款」，不宜在公开仓库里再分发；文件也较大（约 40MB）。
@@ -84,6 +85,9 @@ FILES = [
     # 10) 外资净流入占 GDP 比重（世界银行 WDI API）—— 第二轮登记 P5 的结果变量（脚本 23）
     ("wdi/BX.KLT.DINV.WD.GD.ZS.json",
      "https://api.worldbank.org/v2/country/all/indicator/BX.KLT.DINV.WD.GD.ZS?format=json&per_page=20000&date=1960:2024"),
+    # 11) 加权平均实施关税（世界银行 WDI API）—— 第三轮登记 B3b 的结果变量（脚本 29）
+    ("wdi/TM.TAX.MRCH.WM.AR.ZS.json",
+     "https://api.worldbank.org/v2/country/all/indicator/TM.TAX.MRCH.WM.AR.ZS?format=json&per_page=20000&date=1960:2024"),
 ]
 # 注：Aizenman, Ito & Saadaoui (2026) 原文 PDF 放在 data/raw/papers/（NBER 网站拒绝脚本下载，需手动放入）
 
