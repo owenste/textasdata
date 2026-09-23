@@ -104,6 +104,7 @@ pre{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.8rem;background
 <li><a href="#coding">宽容度试编码</a></li>
 <li><a href="#m1">模型一检验</a></li>
 <li><a href="#steel">补充检验：钢铁工艺</a></li>
+<li><a href="#elec">模型一重跑：电力</a></li>
 <li><a href="#m2">模型二检验</a></li>
 <li><a href="#revise">对研究设计的修订</a></li>
 <li><a href="#cases">案例候选</a></li>
@@ -116,7 +117,7 @@ pre{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.8rem;background
 <header class="hero">
 <p class="kind">研究进展报告 · 第一轮试研究</p>
 <h1>外部竞争压力的传导与后发国家技术模仿的分化：首轮数据检验</h1>
-<p class="lead">本轮按研究大纲完成了第一学期的三项工作：技术宽容度编码手册与试编码、大样本面板的搭建，以及模型一和模型二的试运行。另外核对了参考文献，并整理了过程追踪的候选案例。结果中最重要的一点是模型一的预测没有得到支持，诊断显示问题主要出在测量上，而不是理论本身。据此对研究设计提出修订。</p>
+<p class="lead">本轮按研究大纲完成了第一学期的三项工作：技术宽容度编码手册与试编码、大样本面板的搭建，以及模型一和模型二的试运行。另外核对了参考文献，并整理了过程追踪的候选案例。结果中最重要的一点是模型一的预测没有得到支持，诊断显示问题主要出在测量上，而不是理论本身。据此对研究设计提出修订，并按修订建议用电力输配损耗率重跑了模型一。</p>
 <p class="by">依据《外部竞争压力的传导与后发国家技术模仿的分化》研究大纲（周宜顺，2026年9月）执行 · 2026年9月23日</p>
 </header>
 
@@ -124,12 +125,13 @@ pre{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.8rem;background
 <h2>摘要</h2>
 <ul class="findings">
 <li><span class="verdict v-no">未获支持</span><span><b>模型一（宽容度 × 约束软化）。</b>在 148 个国家、22 项技术、6 万余个观测上，β 的点估计为 +0.015（SE 0.018），方向与预测相反，也不显著。11 种设定中只有剔除运输部门、剔除曾高度国有化国家两项转为负号，均不显著。</span></li>
+<li><span class="verdict v-part">方向一致</span><span><b>模型一重跑（电力输配损耗率）。</b>换成能力型因变量后，约束软化每上升一个标准差，输配电损耗率上升约 1.7 个百分点（p = 0.06），滞后五年的设定 p = 0.04；同时人均用电量上升约 12%。数量上升而能力下降，与第九部分提出的背离推论一致。但这只检验了单一技术，宽容度交互项无法识别，加入国家特定趋势后也不显著。</span></li>
 <li><span class="verdict v-part">方向一致</span><span><b>模型二（外部安全压力 → 约束软化）。</b>持久对抗出现之前国有化程度保持平稳，出现后 10 至 20 年逐步上升。连续变量设定中 θ 为正，p 约为 0.09，加入控制后不显著。</span></li>
 <li><span class="verdict v-part">截面明显</span><span><b>补充检验（钢铁工艺结构）。</b>国有化程度高的国家淘汰平炉明显更慢。按 1975 年国有化程度三等分，国有化程度最高的一组平炉钢占比为 47%，最低的一组为 22%。但在国家内部随时间的变化中，这一关系不显著。</span></li>
 <li><span class="verdict v-ok">已核实</span><span><b>参考文献。</b>大纲中 16 篇期刊文献经 Crossref 逐条核对。14 篇的卷期页码与原始记录完全一致；Cohen &amp; Levinthal（1990）和 DiMaggio &amp; Powell（1983）的 Crossref 记录只有首页，首页一致。</span></li>
 </ul>
 <div class="callout">
-<p><b>核心诊断。</b>CHAT 数据库记录的是技术的<em>使用数量</em>，而软预算约束恰恰会推高数量，科尔奈称之为投资饥渴（Kornai 1980）。铁路和发电这类高宽容度网络技术在国有化程度上升时使用量反而增加，使 β 偏向正值。因此，模型一在目前的测量下检验的是“软约束是否扩大规模”，而不是“软约束是否阻碍掌握”。后者需要能力型的因变量，第八部分给出替代方案。</p>
+<p><b>核心诊断。</b>CHAT 数据库记录的是技术的<em>使用数量</em>，而软预算约束恰恰会推高数量，科尔奈称之为投资饥渴（Kornai 1980）。铁路和发电这类高宽容度网络技术在国有化程度上升时使用量反而增加，使 β 偏向正值。因此，模型一在目前的测量下检验的是“软约束是否扩大规模”，而不是“软约束是否阻碍掌握”。后者需要能力型的因变量，第九部分给出替代方案。第七部分已用电力输配损耗率重跑。</p>
 </div>
 </section>
 
@@ -143,8 +145,8 @@ pre{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.8rem;background
 <tr><td>文献梳理与理论框架</td><td><span class="status s-part">部分完成</span></td><td>16 篇期刊文献的卷期页码已核对，未发现错误；新增科尔奈投资饥渴的论证环节，见第八部分</td></tr>
 <tr><td>宽容度编码手册与试编码</td><td><span class="status s-part">编码者 A 完成</span></td><td>编码手册 v0.1，55 项技术的试编码（核心 22 项、扩展 33 项），第二编码者空白表与 α 计算脚本</td></tr>
 <tr><td>面板数据与固定效应方法</td><td><span class="status s-done">完成</span></td><td>国家 × 技术 × 年份三维面板，三组高维固定效应，按国家聚类标准误</td></tr>
-<tr><td>大样本数据整理与检验</td><td><span class="status s-part">试运行</span></td><td>模型一 11 种设定、逐项剔除技术的检验；模型二连续变量设定与事件研究；钢铁工艺补充检验</td></tr>
-<tr><td>案例档案收集与过程追踪</td><td><span class="status s-todo">未开始</span></td><td>整理了 5 组候选案例，见第九部分</td></tr>
+<tr><td>大样本数据整理与检验</td><td><span class="status s-part">试运行</span></td><td>模型一 11 种设定、逐项剔除技术的检验；模型二连续变量设定与事件研究；钢铁工艺补充检验；以电力输配损耗率重跑模型一</td></tr>
+<tr><td>案例档案收集与过程追踪</td><td><span class="status s-todo">未开始</span></td><td>整理了 5 组候选案例，见第十部分</td></tr>
 </tbody>
 </table>
 </div>
@@ -218,6 +220,37 @@ pre{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.8rem;background
 <p class="note">截面差异同时反映了计划经济体系、能源价格和设备更新周期等因素，不能直接解释为约束的作用。它的价值在于说明能力型指标能够呈现出数量指标看不到的分化，值得在第三章中系统构造。</p>
 </section>
 
+<section id="elec">
+<h2>模型一重跑：电力输配损耗率</h2>
+<p>按修订建议，把电力的因变量从 CHAT 的发电量换成世界银行 WDI 的输配电损耗率，即输配过程中损失的电量占发电量的比例。在编码方案中，电力的宽容度为 2 分，“显现”与“归责”两个维度各为 1。损耗恰好是这两个维度所指的部分：它缓慢累积，不会造成停电，而且在发电、电网和用户之间难以归责。损耗率越高，说明电网运营的功能性掌握越差。</p>
+<p>样本为 147 个国家，1990–2024 年，共 4,913 个观测。损耗率均值为 13.9%，国家内部的标准差为 5.9 个百分点。约束软化的测量与第五部分相同。</p>
+<div class="callout">
+<p><b>需要先说明的限制。</b>模型一的原始设定依靠不同技术之间宽容度的差异来识别 β。只用电力一项技术时，宽容度是常数，交互项被固定效应吸收，因此这里估计的是单一技术版本：<i>Loss</i><sub>ct</sub> = θ<i>Soft</i><sub>ct</sub> + <i>X</i><sub>ct</sub> + λ<sub>c</sub> + τ<sub>t</sub> + <i>u</i><sub>ct</sub>。它检验的是“软约束是否损害一项高宽容度技术的掌握程度”，而不是“这种损害是否随宽容度增大”。要恢复交互项，还需要一项低宽容度技术的能力型指标。</p>
+</div>
+<figure>
+<div class="fig-body scroll">{{ELEC_SVG}}</div>
+<figcaption><b>图3</b>约束软化每上升一个标准差，输配电损耗率变化的百分点与 95% 置信区间，悬停可查看数值。除第一行外，各设定均控制人均 GDP 对数和选举民主指数，并包含国家和年份固定效应，标准误按国家聚类。阴影区为预测方向。</figcaption>
+</figure>
+<details><summary>查看数值表</summary>
+<div class="scroll"><table class="wide"><thead><tr><th>设定</th><th class="num">θ（百分点）</th><th class="num">SE</th><th class="num">p</th><th class="num">N</th></tr></thead><tbody>
+{{ELEC_ROWS}}
+</tbody></table></div>
+</details>
+<p>八种设定的点估计全部为正。主设定为 +1.7 个百分点（SE 0.9，p = 0.06），约相当于样本均值的 12%。只看后发国家、加入腐败控制、剔除 1990–1995 年转型期后，结果基本不变。约束软化滞后五年时，系数为 +1.1（p = 0.04），可以减轻损耗反过来影响所有制安排的疑虑。按国家平均约束软化程度三等分，2005 年约束最软的一组损耗率为 17.3%，最硬的一组为 11.7%。</p>
+<h3>数量与能力的背离</h3>
+<p>在同一批国家和年份上，用电数量对约束软化的反应方向与损耗相同：</p>
+<div class="scroll"><table class="wide"><thead><tr><th>数量指标</th><th class="num">系数</th><th class="num">SE</th><th class="num">p</th><th class="num">N</th></tr></thead><tbody>
+{{ELEC_Q_ROWS}}
+</tbody></table></div>
+<p>约束软化每上升一个标准差，人均用电量增加约 12%（对数系数 0.11，p = 0.02），同时损耗率上升。也就是说，软约束下电力的规模更大、运转更差。这正是第一轮 CHAT 结果中 β 偏正的来源，也支持第九部分提出的推论：约束越软，高宽容度技术的数量与能力背离越大。</p>
+<h3>保留意见</h3>
+<ol class="steps">
+<li><b>证据强度有限。</b>主设定只在 10% 水平显著。加入国家特定线性趋势后，系数降为 +0.9，不显著；剔除曾高度国有化的国家后，系数为 +2.1，但标准误增大，也不显著。</li>
+<li><b>时段受限。</b>数据从 1990 年开始，这一时期约束软化在国家内部的变化主要来自私有化和转型。配电私有化常常与电表更换、打击窃电等改革一同推行，这些改革本身就是约束硬化的一种形式，但也可能与世界银行贷款条件等其他因素同时发生，难以分开。</li>
+<li><b>损耗包含窃电。</b>WDI 的损耗包括技术损耗和非技术损耗（窃电、计量失准）。后者同时反映收费能力和治理水平。加入腐败控制后系数不变，但 V-Dem 的腐败指数比较粗糙，不能完全排除这一解释。</li>
+</ol>
+</section>
+
 <section id="m2">
 <h2>模型二检验：外部安全压力与约束软化</h2>
 <p>设定为 <i>Soft</i><sub>ct</sub> = θ<i>Pressure</i><sub>ct</sub> + <i>X</i><sub>ct</sub> + λ<sub>c</sub> + τ<sub>t</sub> + <i>u</i><sub>ct</sub>，控制变量为人均 GDP 对数和选举民主指数，标准误按国家聚类，样本为 1816–2014 年的 195 个国家。</p>
@@ -227,7 +260,7 @@ pre{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.8rem;background
 <p>事件研究以各国首次进入持久对抗的年份为事件，要求事件前至少有 10 年观测，得到 67 个处理国和 114 个从未处理的对照国。</p>
 <figure>
 <div class="fig-body scroll">{{EVENT_SVG}}</div>
-<figcaption><b>图3</b>首次持久对抗出现前后，国有化程度（标准化，越高越软）的变化。阴影为 95% 置信区间，第 20 年及以后合并为一组，悬停可查看各年数值。</figcaption>
+<figcaption><b>图4</b>首次持久对抗出现前后，国有化程度（标准化，越高越软）的变化。阴影为 95% 置信区间，第 20 年及以后合并为一组，悬停可查看各年数值。</figcaption>
 </figure>
 <p>事件前的系数都在 ±0.07 之内，没有预先趋势。事件发生后的前五年没有变化，第 10 年起逐步上升，第 15 年约为 0.13 个标准差，20 年及以后为 0.42 个标准差且显著。事件前后合并比较的系数为 0.19（SE 0.12，p = 0.12）。</p>
 <p>这一结果与 H4 的方向一致，但有三点保留。第一，效应出现得很慢，更像长期对抗中逐步形成的战时经济体制，而不是大纲所设想的对战略性模仿单位的直接保护。第二，国有化程度是全经济的指标，不能区分战略部门和一般部门，而 H4 讨论的是战略性模仿单位。第三，处理时点交错时，双向固定效应估计可能有偏，正式分析应换用 Callaway &amp; Sant'Anna（2021）或 Sun &amp; Abraham（2021）的估计量。</p>
@@ -242,7 +275,7 @@ pre{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.8rem;background
 <thead><tr><th>技术</th><th>能力型指标</th><th>候选来源</th></tr></thead>
 <tbody>
 <tr><td>钢铁</td><td>工艺结构（平炉、转炉、电炉占比），吨钢能耗</td><td>CHAT；世界钢铁协会统计年鉴</td></tr>
-<tr><td>电力</td><td>输配电损耗率</td><td>世界银行 WDI（EG.ELC.LOSS.ZS，1960 年起）</td></tr>
+<tr><td>电力</td><td>输配电损耗率（本轮已使用，见第七部分）</td><td>世界银行 WDI（EG.ELC.LOSS.ZS）。国家层面数据从 1990 年开始，更早年份只有地区汇总</td></tr>
 <tr><td>铁路</td><td>机车可用率、每百万列车公里事故数</td><td>国际铁路联盟（UIC）统计</td></tr>
 <tr><td>民航</td><td>每百万架次事故率</td><td>Aviation Safety Network 数据库，ICAO 统计</td></tr>
 <tr><td>纺织</td><td>出口单价，用作质量代理</td><td>历史贸易统计，COMTRADE</td></tr>
@@ -281,7 +314,7 @@ pre{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.8rem;background
 <ol class="steps">
 <li><b>第二编码者独立编码。</b>使用空白编码表，完成后运行信度脚本。任一维度 α 低于 0.8 时修订定义。</li>
 <li><b>获取 Colaresi、Rasler 和 Thompson 的战略竞争名单</b>（书中附录），替换本轮基于 MID 的替代规则，并换用适合交错处理的事件研究估计量。</li>
-<li><b>构造两到三个能力型因变量</b>，优先选择电力输配损耗率和钢铁工艺结构，这两项数据现成、覆盖面广。</li>
+<li><b>为低宽容度技术构造能力型因变量</b>，优先考虑民航事故率。电力输配损耗率已经完成。有了低宽容度一端，就能在同一批国家和年份上恢复宽容度与约束软化的交互项，也就是真正意义上的模型一。</li>
 <li><b>补入科尔奈投资饥渴的论证</b>，写成第二章中数量与能力背离的推论。</li>
 <li><b>从五组候选中选出两组</b>，评估档案可得性。晚清与明治两组的二手研究最为充分，建议优先考虑。</li>
 </ol>
@@ -301,6 +334,7 @@ pre{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.8rem;background
   scripts/04_model2.py                 持久对抗识别、模型二与事件研究
   scripts/05_refcheck.py               Crossref 文献核对
   scripts/06_reliability.py            Krippendorff α
+  scripts/08_electricity.py            模型一电力重跑（WDI 输配损耗）
   output/                              全部结果表</pre>
 <h3>本报告新增的参考文献</h3>
 <ul class="refs">

@@ -1,0 +1,11 @@
+{
+ "obs": 4913,
+ "countries": 147,
+ "years": [
+  1990,
+  2024
+ ],
+ "loss_mean": 13.88,
+ "loss_sd": 10.33,
+ "within_sd": 5.86
+}
