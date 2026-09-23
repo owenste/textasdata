@@ -273,3 +273,14 @@
 
 **另：P5 的外资变量**不存为单独文件，由脚本 23 直接从 `data/raw/wdi/BX.KLT.DINV.WD.GD.ZS.json`（WDI 外资净流入占 GDP 比重，%）读入，在发展中国家 1990–2023 样本的第 1、99 百分位缩尾。
 **另：IMTS 单位**：`data/raw/geo/imts_exports_1990_2023.csv` 的 `exports_usd` 列实际是美元 × 10^6（脚本 19 的下载错误，已修正代码；见 `docs/results_vs_prereg2.md` 第五节第 7 条）。GeoV、GeoC 用份额，不受影响。
+
+## 16. 第三轮登记检验的数据文件
+
+| 文件 | 生成脚本 | 1 行 = | 变量 |
+|---|---|---|---|
+| `D_NS_cy.csv` | `27_north_south.py` | 国家-年度（1989–2022，**未滞后**） | `D_N`：已生效南北协定（含任一北方成员）的领域并集，0–6；`D_S`：南南协定的领域并集。北方 = 1995 年传统 OECD 高收入国家 23 个（`code/depth_tools.py` 中的 `NORTH`） |
+| `D_pend_cy.csv` | `28_sign_vs_force.py` | 国家-年度（1989–2022，**未滞后**） | `D_pend` = D_sign − D：已签署、尚未生效（之后会生效）的协定带来的额外领域数，≥ 0；签署年取 DESTA `year` |
+| `prereg3_B1.csv`、`prereg3_B2.csv`、`prereg3_B3.csv` | 27–29 | 1 项检验 | 估计值、原始 p、方向是否正确、区域×年份 FE 版本的估计与 p（B2 另有待生效系数及其 p） |
+| `prereg3_family3.csv` | `29_policy_reversal.py` | 1 项检验 | 第三族 Holm 调整 p 与判定 |
+
+**B3 的结果变量**（不单独存文件，由脚本 29 构造）：`rev_ka` = 1{KAOPEN(t) < KAOPEN(t−1)}，只在上一年有数据且 KAOPEN(t−1) > 0 时定义；`rev_tar` = 1{加权平均实施关税(t) − 关税(t−1) ≥ 1 个百分点}，关税来自 `data/raw/wdi/TM.TAX.MRCH.WM.AR.ZS.json`。
