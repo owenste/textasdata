@@ -51,9 +51,10 @@ def _union(df, keys):
     return (1 - np.exp(lg.groupby(keys)[DOM].sum())).sum(axis=1)
 
 
-def country_depth(sp, prob, bil, wbc, years, ver_mask=None, wb_mask=None, from_sign=False):
+def country_depth(sp, prob, bil, wbc, years, ver_mask=None, wb_mask=None, from_sign=False, by_domain=False):
     """国家-年度深度。ver_mask / wb_mask：只保留部分协定（布尔 Series，索引对齐 sp / bil）；
-    from_sign=True：已签署、尚未生效但之后会生效的协定也从签署年起计入。"""
+    from_sign=True：已签署、尚未生效但之后会生效的协定也从签署年起计入；
+    by_domain=True：返回 6 个领域各自的覆盖概率（而不是加总）。"""
     s = sp if ver_mask is None else sp[ver_mask]
     b = bil if wb_mask is None else bil[wb_mask]
     begin = "sign" if from_sign else "start"
@@ -67,8 +68,15 @@ def country_depth(sp, prob, bil, wbc, years, ver_mask=None, wb_mask=None, from_s
         x = pd.concat([mem[(mem.begin <= t) & (mem.end > t)][["ISO3"] + DOM], ex[ex.year == t][["ISO3"] + DOM]])
         x = x.dropna(subset=DOM)
         if len(x):
-            u = _union(x, ["ISO3"])
-            out.append(pd.DataFrame({"ISO3": u.index, "year": t, "D": u.values}))
+            if by_domain:
+                lg = np.log1p(-x[DOM].clip(upper=1 - 1e-12))
+                lg["ISO3"] = x["ISO3"]
+                u = (1 - np.exp(lg.groupby("ISO3")[DOM].sum())).reset_index()
+                u["year"] = t
+                out.append(u)
+            else:
+                u = _union(x, ["ISO3"])
+                out.append(pd.DataFrame({"ISO3": u.index, "year": t, "D": u.values}))
     return pd.concat(out, ignore_index=True)
 
 
