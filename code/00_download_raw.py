@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 """
-00_download_raw.py —— 下载阶段 A 所需的全部原始数据到 data/raw/。
+00_download_raw.py —— 下载阶段 A、B 所需的全部原始数据到 data/raw/。
 
 做什么：
-  依次下载 4 类数据（已存在的文件自动跳过，不会重复下载、也不会覆盖）：
+  依次下载 5 类数据（已存在的文件自动跳过，不会重复下载、也不会覆盖）：
     1) Global Macro Database (GMD) 2026_06 版 —— 宏观面板（人均实际 GDP 等）
-    2) DESTA 2.03 版 —— 协定深度指数（稳健性用）
-    3) 世界银行 Deep Trade Agreements 1.0 横向内容 (v2, 2024-01) —— 52 个政策领域编码（主力）
+    2) DESTA 2.03 版 —— 协定深度指数（阶段 A 主横轴）
+    3) 世界银行 Deep Trade Agreements 1.0 横向内容 (v2, 2024-01) —— 52 个政策领域编码（阶段 A 稳健性；阶段 C 主力候选）
     4) 世界银行国家元数据（区域）与历史收入分组 OGHIST —— 用于界定「发展中国家」样本和按区域着色
+    5) Larch RTA 数据库 —— 复刻 Aizenman 等 (2026) 的 EIA 变量（阶段 B）
 
 为什么原始数据不进 git：
   GMD 附带「研究使用条款」，不宜在公开仓库里再分发；文件也较大（约 40MB）。
@@ -52,7 +53,13 @@ FILES = [
      "https://api.worldbank.org/v2/country?format=json&per_page=400"),
     ("wb_meta/OGHIST_2025_07_01.xlsx",
      "https://datacatalogfiles.worldbank.org/ddh-published/0037712/DR0095334/OGHIST_2025_07_01.xlsx"),
+    # 5) 阶段 B：Larch RTA 数据库（个别协定版，2024-07-12；压缩包 68MB，解压后 23GB，
+    #    脚本 05 直接从压缩包流式读取，不需要解压）及说明文档
+    ("larch/rta_individual_agreements_20240712_csv.zip",
+     "https://www.ewf.uni-bayreuth.de/pool/dokumente/rta_individual_agreements_20240712_csv.zip"),
+    ("larch/readme_RTA.pdf", "https://www.ewf.uni-bayreuth.de/pool/dokumente/readme_RTA.pdf"),
 ]
+# 注：Aizenman, Ito & Saadaoui (2026) 原文 PDF 放在 data/raw/papers/（NBER 网站拒绝脚本下载，需手动放入）
 
 for relpath, url in FILES:
     dest = RAW / relpath
@@ -61,7 +68,10 @@ for relpath, url in FILES:
         print(f"[跳过] 已存在 {rel(dest)}")
         continue
     print(f"[下载] {url}")
-    urllib.request.urlretrieve(url, dest)
+    # 部分网站会拒绝没有浏览器标识的请求，加上 User-Agent
+    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+    with urllib.request.urlopen(req) as r, open(dest, "wb") as fh:
+        fh.write(r.read())
     print(f"       -> {rel(dest)}  ({dest.stat().st_size/1e6:.1f} MB)")
 
 # GMD 是 zip 包，解压出 GMD.csv

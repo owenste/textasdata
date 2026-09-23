@@ -1,5 +1,5 @@
 # 脚本: 00_download_raw
-# 运行时间: 2026-09-23 08:26:07
+# 运行时间: 2026-09-23 09:24:47
 # Python: 3.11.15
 ----------------------------------------------------------------------
 [跳过] 已存在 data/raw/gmd/GMD_2026_06_csv.zip
@@ -12,4 +12,6 @@
 [跳过] 已存在 data/raw/wb_dta/DTA_1.0_Horizontal_Content_v2.xlsx
 [跳过] 已存在 data/raw/wb_meta/wb_countries.json
 [跳过] 已存在 data/raw/wb_meta/OGHIST_2025_07_01.xlsx
+[跳过] 已存在 data/raw/larch/rta_individual_agreements_20240712_csv.zip
+[跳过] 已存在 data/raw/larch/readme_RTA.pdf
 完成。

@@ -9,11 +9,15 @@
 | `02_build_depth_desta.py` | A1 | DESTA → 国家-年度深度 | `data/clean/depth_desta_cy.csv` |
 | `03_build_convergence.py` | A2 | 收敛幅度 + 样本 + 合并 | `data/clean/puzzle_cross_section.csv` |
 | `04_fig01_puzzle.py` | A3/A4 | 谜题图 + 验收诊断 | `output/figures/fig01_*.png`、`output/tables/tabA_*.md` |
+| `05_extract_larch_eia.py` | B1 | Larch RTA → 国家-年度 EIA 协定数（流式读 23GB，约 8 分钟） | `data/clean/eia_cy.csv` 等 |
+| `06_build_panel_aizenman.py` | B1 | Aizenman 回归面板 + 与原文 Table 1 对表 | `data/clean/panel_aizenman.csv`、`output/tables/tab01a_table1_check.md` |
+| `07_replicate_table2.py` | B2–B5 | 复刻 Table 2 三列 + 验收 + 稳健性（约 2 分钟） | `output/tables/tab01_replication.md` |
 
 ```bash
 pip install -r code/requirements.txt
-for s in 00 01 02 03 04; do python code/${s}_*.py; done
+for s in 00 01 02 03 04 05 06 07; do python code/${s}_*.py; done
 ```
 
 每个脚本的运行日志在 `output/logs/`。`utils.py` 是公用路径与日志工具。
-说明文档：`docs/data_dictionary.md`（数据字典）、`docs/progress_stageA.md`（阶段 A 小结）。
+说明文档：`docs/data_dictionary.md`（数据字典）、`docs/progress_stageA.md`、`docs/progress_stageB.md`（各阶段小结）。
+阶段 B 需要原文 PDF 放在 `data/raw/papers/`（NBER 网站拒绝脚本下载）；附录 A 国家名单已抽取到 `data/clean/aizenman_appendixA_countries.json`。

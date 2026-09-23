@@ -62,3 +62,25 @@ def start_log(script_name: str) -> Path:
 def rel(p: Path) -> str:
     """把绝对路径转成相对项目根目录的路径，日志里更易读。"""
     return str(Path(p).resolve().relative_to(ROOT))
+
+
+# ---------------------------------------------------------------------------
+# Aizenman, Ito & Saadaoui (2026) 附录 A 国家名单 → ISO3 码
+#   原文名单是英文国名；pycountry 模糊匹配 + 少数手工指定（匹配不到或会匹配错的）。
+#   col = "1" / "2" / "3" 对应原文 Table 2 的三列。
+# ---------------------------------------------------------------------------
+_MANUAL_ISO3 = {
+    "Congo": "COG", "Democratic Republic of Congo": "COD", "Cote d'Ivoire": "CIV", "Iran": "IRN",
+    "Kyrgyz Republic": "KGZ", "Laos": "LAO", "Macedonia": "MKD", "Moldova": "MDA", "Russia": "RUS",
+    "Slovak Republic": "SVK", "South Korea": "KOR", "Syria": "SYR", "Taiwan": "TWN", "Tanzania": "TZA",
+    "Turkey": "TUR", "Venezuela": "VEN", "Vietnam": "VNM", "Yemen Arab Republic": "YEM", "Bolivia": "BOL",
+    "Hong Kong": "HKG", "Czech Republic": "CZE", "Anguilla": "AIA", "Montserrat": "MSR", "Gambia": "GMB",
+    "Niger": "NER", "Nigeria": "NGA",
+}
+
+
+def aizenman_countries(col: str = "2") -> set:
+    import json
+    import pycountry
+    names = json.loads((CLEAN / "aizenman_appendixA_countries.json").read_text(encoding="utf-8"))[col]
+    return {_MANUAL_ISO3.get(n) or pycountry.countries.search_fuzzy(n)[0].alpha_3 for n in names}
