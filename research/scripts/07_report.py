@@ -104,32 +104,63 @@ def steel_plot():
     return "".join(s)
 
 
-# ---------- chart D: electricity losses, Model 1 rerun ----------
-def elec_plot():
-    r = pd.read_csv(O / "electricity_results.csv")
-    r = r[r.dv == "loss"].reset_index(drop=True)
-    W, rowh, top, left, right = 680, 34, 34, 230, 24
+# ---------- horizontal coefficient plot shared by charts D and E ----------
+def hcoef(r, lo, hi, ticks, shade, shade_label, axis_label, aria, fmt="{:+.2f}", left=230):
+    W, rowh, top, right = 680, 34, 34, 24
     H = top + rowh * len(r) + 44
-    lo, hi = -2.0, 6.0
     X = lambda v: left + (v - lo) / (hi - lo) * (W - left - right)
-    s = [f'<svg viewBox="0 0 {W} {H}" role="img" aria-label="约束软化每上升一个标准差，输配电损耗率变化的百分点及95%置信区间，点估计均为正">']
-    s.append(f'<rect x="{X(0):.1f}" y="{top-8}" width="{X(hi)-X(0):.1f}" height="{rowh*len(r)+8}" style="fill:var(--hl-c)"/>')
-    s.append(f'<text x="{X(hi)-6:.1f}" y="{top-14}" font-size="12" text-anchor="end" style="fill:var(--constraint)">预测方向：约束越软，损耗越高（θ＞0）</text>')
-    for v in [-2, 0, 2, 4, 6]:
+    s = [f'<svg viewBox="0 0 {W} {H}" role="img" aria-label="{esc(aria)}">']
+    a, b = (X(0), X(hi)) if shade == "right" else (X(lo), X(0))
+    s.append(f'<rect x="{a:.1f}" y="{top-8}" width="{b-a:.1f}" height="{rowh*len(r)+8}" style="fill:var(--hl-c)"/>')
+    tx, anchor = (X(hi) - 6, "end") if shade == "right" else (X(lo) + 6, "start")
+    s.append(f'<text x="{tx:.1f}" y="{top-14}" font-size="12" text-anchor="{anchor}" style="fill:var(--constraint)">{esc(shade_label)}</text>')
+    for v in ticks:
         s.append(f'<line class="{"axis" if v == 0 else "grid"}" x1="{X(v):.1f}" y1="{top-8}" x2="{X(v):.1f}" y2="{top+rowh*len(r)}"/>')
-        s.append(f'<text x="{X(v):.1f}" y="{top+rowh*len(r)+18}" font-size="12" text-anchor="middle" class="muted">{v:+d}'.replace("+0", "0") + '</text>')
-    s.append(f'<text x="{(X(lo)+X(hi))/2:.1f}" y="{H-6}" font-size="12.5" text-anchor="middle">θ（百分点 / 约束软化一个标准差），95% 置信区间</text>')
-    for i, row in r.iterrows():
+        lab = "0" if v == 0 else (f"{v:+g}")
+        s.append(f'<text x="{X(v):.1f}" y="{top+rowh*len(r)+18}" font-size="12" text-anchor="middle" class="muted">{lab}</text>')
+    s.append(f'<text x="{(X(lo)+X(hi))/2:.1f}" y="{H-6}" font-size="12.5" text-anchor="middle">{esc(axis_label)}</text>')
+    for i, row in enumerate(r.itertuples()):
         y = top + rowh * i + rowh / 2
         name = row.model.split(" ", 1)[1]
         s.append(f'<text x="{left-12}" y="{y+4:.1f}" font-size="12.5" text-anchor="end">{esc(name)}</text>')
-        tip = f"{name}：θ = {row.coef:+.2f}，SE = {row.se:.2f}，p = {row.p:.2f}，N = {row.nobs:,}"
+        tip = f"{name}：{fmt.format(row.coef)}，SE = {row.se:.2f}，p = {row.p:.2f}，N = {row.nobs:,}"
         s.append(f'<g class="hit"><title>{esc(tip)}</title>'
                  f'<rect x="{left}" y="{y-rowh/2:.1f}" width="{W-left-right}" height="{rowh}" fill="transparent"/>'
                  f'<line x1="{X(row.lo):.1f}" y1="{y:.1f}" x2="{X(row.hi):.1f}" y2="{y:.1f}" stroke-width="2" style="stroke:var(--ink)"/>'
                  f'<circle cx="{X(row.coef):.1f}" cy="{y:.1f}" r="5" stroke-width="2" style="fill:var(--ink);stroke:var(--panel)"/></g>')
     s.append("</svg>")
-    return "".join(s), r
+    return "".join(s)
+
+
+# ---------- chart D: electricity losses, Model 1 rerun ----------
+def elec_plot():
+    r = pd.read_csv(O / "electricity_results.csv")
+    r = r[r.dv == "loss"].reset_index(drop=True)
+    svg = hcoef(r, -2.0, 6.0, [-2, 0, 2, 4, 6], "right", "预测方向：约束越软，损耗越高（θ＞0）",
+                "θ（百分点 / 约束软化一个标准差），95% 置信区间",
+                "约束软化每上升一个标准差，输配电损耗率变化的百分点及95%置信区间，点估计均为正", fmt="θ = {:+.2f}")
+    return svg, r
+
+
+# ---------- chart E: restored interaction, electricity x aviation ----------
+def interact_plot():
+    r = pd.read_csv(O / "interaction_results.csv")
+    r = r[r.model.str.startswith("S")].reset_index(drop=True)
+    svg = hcoef(r, -0.5, 0.5, [-0.4, -0.2, 0, 0.2, 0.4], "left", "预测方向（β＜0）",
+                "β（能力，技术内标准差 / 宽容度一分 × 约束软化一个标准差），95% 置信区间",
+                "电力与民航两项技术恢复交互项后的β及95%置信区间，多数为负但全部跨越零", fmt="β = {:+.3f}")
+    return svg, r
+
+
+def interact_tables():
+    r = pd.read_csv(O / "interaction_results.csv")
+    other = r[~r.model.str.startswith("S")]
+    t1 = "\n".join(f"<tr><td>{esc(x.model.split(' ',1)[1])}</td><td class='num'>{x.coef:+.3f}</td><td class='num'>{x.se:.3f}</td>"
+                    f"<td class='num'>{x.p:.2f}</td><td class='num'>{x.nobs:,}</td></tr>" for x in other.itertuples())
+    t = pd.read_csv(O / "interaction_threshold_sensitivity.csv")
+    t2 = "\n".join(f"<tr><td class='num'>{int(x.threshold):,}</td><td class='num'>{x.coef:+.3f}</td><td class='num'>{x.se:.3f}</td>"
+                    f"<td class='num'>{x.p:.3f}</td><td class='num'>{x.countries}</td></tr>" for x in t.itertuples())
+    return t1, t2
 
 
 def elec_q_rows():
@@ -181,12 +212,19 @@ def main():
     e_rows = "\n".join(
         f"<tr><td>{esc(x.model.split(' ',1)[1])}</td><td class='num'>{x.coef:+.2f}</td><td class='num'>{x.se:.2f}</td>"
         f"<td class='num'>{x.p:.3f}</td><td class='num'>{x.nobs:,}</td></tr>" for x in e.itertuples())
+    int_svg, it = interact_plot()
+    i_rows = "\n".join(
+        f"<tr><td>{esc(x.model.split(' ',1)[1])}</td><td class='num'>{x.coef:+.3f}</td><td class='num'>{x.se:.3f}</td>"
+        f"<td class='num'>{x.p:.2f}</td><td class='num'>{x.nobs:,}</td></tr>" for x in it.itertuples())
+    i_other, i_thr = interact_tables()
     tpl = (ROOT / "report" / "template.html").read_text()
     page = (tpl.replace("{{COEF_SVG}}", coef_svg).replace("{{M1_ROWS}}", m1_rows)
             .replace("{{EVENT_SVG}}", event_plot()).replace("{{STEEL_SVG}}", steel_plot())
             .replace("{{CODES_ROWS}}", codes_table()).replace("{{M2_ROWS}}", m2_table())
             .replace("{{STEEL_ROWS}}", steel_table())
-            .replace("{{ELEC_SVG}}", elec_svg).replace("{{ELEC_ROWS}}", e_rows).replace("{{ELEC_Q_ROWS}}", elec_q_rows()))
+            .replace("{{ELEC_SVG}}", elec_svg).replace("{{ELEC_ROWS}}", e_rows).replace("{{ELEC_Q_ROWS}}", elec_q_rows())
+            .replace("{{INT_SVG}}", int_svg).replace("{{INT_ROWS}}", i_rows)
+            .replace("{{INT_OTHER_ROWS}}", i_other).replace("{{INT_THR_ROWS}}", i_thr))
     (ROOT / "report" / "index.html").write_text(page)
     print("wrote report/index.html", len(page))
 

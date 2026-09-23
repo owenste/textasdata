@@ -16,3 +16,10 @@ cols = ['country_name','country_text_id','COWcode','year','v2clstown','v2clstown
 df[cols].to_csv('vdem_subset.csv', index=False)
 PY
 rm -rf "$tmp"
+# World Bank WDI: electricity T&D losses, electricity use per capita, carrier departures
+for ind in EG.ELC.LOSS.ZS EG.USE.ELEC.KH.PC IS.AIR.DPRT; do
+  curl -sSL "https://api.worldbank.org/v2/country/all/indicator/$ind?format=json&per_page=20000" -o "wdi_$ind.json"
+done
+# Plane Crash Info fatal-accident list, as compiled in JohnyPeters/aviation-accidents-dashboard
+curl -sSL -o planecrashinfo.csv \
+  https://raw.githubusercontent.com/JohnyPeters/aviation-accidents-dashboard/main/data/crashes_data/plane_crash_data.csv

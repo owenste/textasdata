@@ -105,6 +105,7 @@ pre{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.8rem;background
 <li><a href="#m1">模型一检验</a></li>
 <li><a href="#steel">补充检验：钢铁工艺</a></li>
 <li><a href="#elec">模型一重跑：电力</a></li>
+<li><a href="#interact">恢复交互项</a></li>
 <li><a href="#m2">模型二检验</a></li>
 <li><a href="#revise">对研究设计的修订</a></li>
 <li><a href="#cases">案例候选</a></li>
@@ -117,7 +118,7 @@ pre{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.8rem;background
 <header class="hero">
 <p class="kind">研究进展报告 · 第一轮试研究</p>
 <h1>外部竞争压力的传导与后发国家技术模仿的分化：首轮数据检验</h1>
-<p class="lead">本轮按研究大纲完成了第一学期的三项工作：技术宽容度编码手册与试编码、大样本面板的搭建，以及模型一和模型二的试运行。另外核对了参考文献，并整理了过程追踪的候选案例。结果中最重要的一点是模型一的预测没有得到支持，诊断显示问题主要出在测量上，而不是理论本身。据此对研究设计提出修订，并按修订建议用电力输配损耗率重跑了模型一。</p>
+<p class="lead">本轮按研究大纲完成了第一学期的三项工作：技术宽容度编码手册与试编码、大样本面板的搭建，以及模型一和模型二的试运行。另外核对了参考文献，并整理了过程追踪的候选案例。结果中最重要的一点是模型一的预测没有得到支持，诊断显示问题主要出在测量上，而不是理论本身。据此对研究设计提出修订，并按修订建议用电力输配损耗率和民航事故率两项能力型指标重跑了模型一。</p>
 <p class="by">依据《外部竞争压力的传导与后发国家技术模仿的分化》研究大纲（周宜顺，2026年9月）执行 · 2026年9月23日</p>
 </header>
 
@@ -125,13 +126,14 @@ pre{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.8rem;background
 <h2>摘要</h2>
 <ul class="findings">
 <li><span class="verdict v-no">未获支持</span><span><b>模型一（宽容度 × 约束软化）。</b>在 148 个国家、22 项技术、6 万余个观测上，β 的点估计为 +0.015（SE 0.018），方向与预测相反，也不显著。11 种设定中只有剔除运输部门、剔除曾高度国有化国家两项转为负号，均不显著。</span></li>
-<li><span class="verdict v-part">方向一致</span><span><b>模型一重跑（电力输配损耗率）。</b>换成能力型因变量后，约束软化每上升一个标准差，输配电损耗率上升约 1.7 个百分点（p = 0.06），滞后五年的设定 p = 0.04；同时人均用电量上升约 12%。数量上升而能力下降，与第九部分提出的背离推论一致。但这只检验了单一技术，宽容度交互项无法识别，加入国家特定趋势后也不显著。</span></li>
+<li><span class="verdict v-part">方向一致</span><span><b>模型一重跑（电力输配损耗率）。</b>换成能力型因变量后，约束软化每上升一个标准差，输配电损耗率上升约 1.7 个百分点（p = 0.06），滞后五年的设定 p = 0.04；同时人均用电量上升约 12%。数量上升而能力下降，与第十部分提出的背离推论一致。但这只检验了单一技术，宽容度交互项无法识别，加入国家特定趋势后也不显著。</span></li>
+<li><span class="verdict v-no">方向一致但不显著</span><span><b>恢复交互项（电力 × 民航）。</b>以民航致命事故率作为低宽容度一端，与电力输配损耗率组成两项技术的能力面板后，β 为 −0.11 个技术内标准差（p = 0.27），方向与预测一致，七种设定中六种为负，但没有一种显著。剔除曾高度国有化的国家后符号反转，结果对机队规模门槛也敏感。</span></li>
 <li><span class="verdict v-part">方向一致</span><span><b>模型二（外部安全压力 → 约束软化）。</b>持久对抗出现之前国有化程度保持平稳，出现后 10 至 20 年逐步上升。连续变量设定中 θ 为正，p 约为 0.09，加入控制后不显著。</span></li>
 <li><span class="verdict v-part">截面明显</span><span><b>补充检验（钢铁工艺结构）。</b>国有化程度高的国家淘汰平炉明显更慢。按 1975 年国有化程度三等分，国有化程度最高的一组平炉钢占比为 47%，最低的一组为 22%。但在国家内部随时间的变化中，这一关系不显著。</span></li>
 <li><span class="verdict v-ok">已核实</span><span><b>参考文献。</b>大纲中 16 篇期刊文献经 Crossref 逐条核对。14 篇的卷期页码与原始记录完全一致；Cohen &amp; Levinthal（1990）和 DiMaggio &amp; Powell（1983）的 Crossref 记录只有首页，首页一致。</span></li>
 </ul>
 <div class="callout">
-<p><b>核心诊断。</b>CHAT 数据库记录的是技术的<em>使用数量</em>，而软预算约束恰恰会推高数量，科尔奈称之为投资饥渴（Kornai 1980）。铁路和发电这类高宽容度网络技术在国有化程度上升时使用量反而增加，使 β 偏向正值。因此，模型一在目前的测量下检验的是“软约束是否扩大规模”，而不是“软约束是否阻碍掌握”。后者需要能力型的因变量，第九部分给出替代方案。第七部分已用电力输配损耗率重跑。</p>
+<p><b>核心诊断。</b>CHAT 数据库记录的是技术的<em>使用数量</em>，而软预算约束恰恰会推高数量，科尔奈称之为投资饥渴（Kornai 1980）。铁路和发电这类高宽容度网络技术在国有化程度上升时使用量反而增加，使 β 偏向正值。因此，模型一在目前的测量下检验的是“软约束是否扩大规模”，而不是“软约束是否阻碍掌握”。后者需要能力型的因变量，第十部分给出替代方案。第七部分已用电力输配损耗率重跑，第八部分加入民航事故率恢复了交互项。</p>
 </div>
 </section>
 
@@ -145,8 +147,8 @@ pre{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.8rem;background
 <tr><td>文献梳理与理论框架</td><td><span class="status s-part">部分完成</span></td><td>16 篇期刊文献的卷期页码已核对，未发现错误；新增科尔奈投资饥渴的论证环节，见第八部分</td></tr>
 <tr><td>宽容度编码手册与试编码</td><td><span class="status s-part">编码者 A 完成</span></td><td>编码手册 v0.1，55 项技术的试编码（核心 22 项、扩展 33 项），第二编码者空白表与 α 计算脚本</td></tr>
 <tr><td>面板数据与固定效应方法</td><td><span class="status s-done">完成</span></td><td>国家 × 技术 × 年份三维面板，三组高维固定效应，按国家聚类标准误</td></tr>
-<tr><td>大样本数据整理与检验</td><td><span class="status s-part">试运行</span></td><td>模型一 11 种设定、逐项剔除技术的检验；模型二连续变量设定与事件研究；钢铁工艺补充检验；以电力输配损耗率重跑模型一</td></tr>
-<tr><td>案例档案收集与过程追踪</td><td><span class="status s-todo">未开始</span></td><td>整理了 5 组候选案例，见第十部分</td></tr>
+<tr><td>大样本数据整理与检验</td><td><span class="status s-part">试运行</span></td><td>模型一 11 种设定、逐项剔除技术的检验；模型二连续变量设定与事件研究；钢铁工艺补充检验；以电力输配损耗率重跑模型一；加入民航事故率恢复交互项</td></tr>
+<tr><td>案例档案收集与过程追踪</td><td><span class="status s-todo">未开始</span></td><td>整理了 5 组候选案例，见第十一部分</td></tr>
 </tbody>
 </table>
 </div>
@@ -242,13 +244,53 @@ pre{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.8rem;background
 <div class="scroll"><table class="wide"><thead><tr><th>数量指标</th><th class="num">系数</th><th class="num">SE</th><th class="num">p</th><th class="num">N</th></tr></thead><tbody>
 {{ELEC_Q_ROWS}}
 </tbody></table></div>
-<p>约束软化每上升一个标准差，人均用电量增加约 12%（对数系数 0.11，p = 0.02），同时损耗率上升。也就是说，软约束下电力的规模更大、运转更差。这正是第一轮 CHAT 结果中 β 偏正的来源，也支持第九部分提出的推论：约束越软，高宽容度技术的数量与能力背离越大。</p>
+<p>约束软化每上升一个标准差，人均用电量增加约 12%（对数系数 0.11，p = 0.02），同时损耗率上升。也就是说，软约束下电力的规模更大、运转更差。这正是第一轮 CHAT 结果中 β 偏正的来源，也支持第十部分提出的推论：约束越软，高宽容度技术的数量与能力背离越大。</p>
 <h3>保留意见</h3>
 <ol class="steps">
 <li><b>证据强度有限。</b>主设定只在 10% 水平显著。加入国家特定线性趋势后，系数降为 +0.9，不显著；剔除曾高度国有化的国家后，系数为 +2.1，但标准误增大，也不显著。</li>
 <li><b>时段受限。</b>数据从 1990 年开始，这一时期约束软化在国家内部的变化主要来自私有化和转型。配电私有化常常与电表更换、打击窃电等改革一同推行，这些改革本身就是约束硬化的一种形式，但也可能与世界银行贷款条件等其他因素同时发生，难以分开。</li>
 <li><b>损耗包含窃电。</b>WDI 的损耗包括技术损耗和非技术损耗（窃电、计量失准）。后者同时反映收费能力和治理水平。加入腐败控制后系数不变，但 V-Dem 的腐败指数比较粗糙，不能完全排除这一解释。</li>
 </ol>
+</section>
+
+<section id="interact">
+<h2>恢复交互项：电力与民航</h2>
+<p>第七部分只用了电力一项技术，无法识别宽容度交互项。这一部分加入低宽容度的一端：民航，宽容度为 0 分，是赫希曼的锚定案例。能力指标为每百万架次的致命事故数。</p>
+<h3>数据构造</h3>
+<div class="scroll"><table class="wide">
+<thead><tr><th>环节</th><th>做法</th></tr></thead>
+<tbody>
+<tr><td>事故</td><td>Plane Crash Info 致命事故表，1970 年以后的民用事故共 2,199 起，排除军方运营者。按飞机注册号的国籍标志（ICAO 附件 7）归入注册国，95.3% 的事故可以归属。空军注册号（FAC、FAP 等）不计入</td></tr>
+<tr><td>暴露量</td><td>WDI 的本国注册承运人起飞架次（IS.AIR.DPRT），与注册国口径一致</td></tr>
+<tr><td>样本</td><td>1990–2019 年，按五年分期，与电力损耗数据重叠。致命事故是稀有事件，年度比率噪声很大，所以用五年合计。只保留年均起飞 1 万架次以上的国家期，否则一起事故就能让比率跳到极端值</td></tr>
+<tr><td>因变量</td><td>两项技术的失败指标（损耗率；致命事故率取反双曲正弦）在技术内部标准化后取负，得到“能力”。按大纲设定，预测 β＜0</td></tr>
+<tr><td>规模</td><td>119 个国家，1,273 个国家—技术—时期观测</td></tr>
+</tbody>
+</table></div>
+<p>估计式与大纲一致：<i>Cap</i><sub>ckt</sub> = β(<i>Lat</i><sub>k</sub> × <i>Soft</i><sub>ct</sub>) + μ<sub>ck</sub> + δ<sub>ct</sub> + γ<sub>kt</sub> + ε<sub>ckt</sub>。只有两项技术时，β 等于电力与民航的能力对约束软化的斜率之差除以两者的宽容度差（2 分）。</p>
+<figure>
+<div class="fig-body scroll">{{INT_SVG}}</div>
+<figcaption><b>图4</b>恢复交互项后的 β 与 95% 置信区间，悬停可查看数值。单位为技术内标准差：宽容度每高一分、约束软化每上升一个标准差，能力的相对变化。除第一行外均加入宽容度与收入、民主程度的交互控制。</figcaption>
+</figure>
+<details><summary>查看数值表</summary>
+<div class="scroll"><table class="wide"><thead><tr><th>设定</th><th class="num">β</th><th class="num">SE</th><th class="num">p</th><th class="num">N</th></tr></thead><tbody>
+{{INT_ROWS}}
+</tbody></table></div>
+</details>
+<p>七种设定中六种为负，主设定为 −0.11（SE 0.10，p = 0.27），但没有一种在常规水平上显著。剔除曾高度国有化的国家后，β 变为 +0.08。这与第一轮 CHAT 结果中出现的问题相同：约束软化在国家内部的变化有相当部分来自转型国家。</p>
+<h3>两项技术各自的斜率</h3>
+<div class="scroll"><table class="wide"><thead><tr><th>设定</th><th class="num">系数</th><th class="num">SE</th><th class="num">p</th><th class="num">N</th></tr></thead><tbody>
+{{INT_OTHER_ROWS}}
+</tbody></table></div>
+<p>民航事故对约束软化基本没有反应：用泊松模型、以起飞架次为暴露量估计，1970–2021 年的系数接近 0。这与 H2 的逻辑相符，失败迅速显现、可以归责的技术，在软约束下也能维持基本能力。但在两技术面板的五年分期样本上，电力一端的斜率也变弱了（−0.05 个标准差，不显著）。第七部分年度全样本中约 1.7 个百分点的效应，大致相当于 −0.16 个标准差。变弱的原因是样本限于有一定规模民航的 119 个国家，而且五年平均削弱了时间变化。</p>
+<h3>对机队规模门槛的敏感性</h3>
+<div class="scroll"><table class="wide"><thead><tr><th class="num">年均起飞架次门槛</th><th class="num">β</th><th class="num">SE</th><th class="num">p</th><th class="num">国家数</th></tr></thead><tbody>
+{{INT_THR_ROWS}}
+</tbody></table></div>
+<p>门槛为 0 或 2 万架次时，β 在 1% 水平显著为负；门槛为 5 千或 1 万架次时不显著；门槛为 5 万架次时转为正。结果随门槛上下跳动，没有单调规律，说明民航一端的测量噪声主导了估计。这里不把门槛为 0 或 2 万时的显著结果当作证据，主设定仍按事先选定的 1 万架次报告。</p>
+<div class="callout">
+<p><b>判断。</b>恢复交互项之后，方向与大纲的预测一致：约束软化对高宽容度技术能力的损害大于对低宽容度技术。但目前的证据不足以支持这一结论，原因有三：只有两项技术，β 实际上只是一个对比；民航致命事故极为稀少，比率噪声大；约束软化的代理变量仍是国有化程度。大样本在论文中宜定位为“方向一致的描述性证据”，机制论证仍需依靠案例。</p>
+</div>
 </section>
 
 <section id="m2">
@@ -260,7 +302,7 @@ pre{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.8rem;background
 <p>事件研究以各国首次进入持久对抗的年份为事件，要求事件前至少有 10 年观测，得到 67 个处理国和 114 个从未处理的对照国。</p>
 <figure>
 <div class="fig-body scroll">{{EVENT_SVG}}</div>
-<figcaption><b>图4</b>首次持久对抗出现前后，国有化程度（标准化，越高越软）的变化。阴影为 95% 置信区间，第 20 年及以后合并为一组，悬停可查看各年数值。</figcaption>
+<figcaption><b>图5</b>首次持久对抗出现前后，国有化程度（标准化，越高越软）的变化。阴影为 95% 置信区间，第 20 年及以后合并为一组，悬停可查看各年数值。</figcaption>
 </figure>
 <p>事件前的系数都在 ±0.07 之内，没有预先趋势。事件发生后的前五年没有变化，第 10 年起逐步上升，第 15 年约为 0.13 个标准差，20 年及以后为 0.42 个标准差且显著。事件前后合并比较的系数为 0.19（SE 0.12，p = 0.12）。</p>
 <p>这一结果与 H4 的方向一致，但有三点保留。第一，效应出现得很慢，更像长期对抗中逐步形成的战时经济体制，而不是大纲所设想的对战略性模仿单位的直接保护。第二，国有化程度是全经济的指标，不能区分战略部门和一般部门，而 H4 讨论的是战略性模仿单位。第三，处理时点交错时，双向固定效应估计可能有偏，正式分析应换用 Callaway &amp; Sant'Anna（2021）或 Sun &amp; Abraham（2021）的估计量。</p>
@@ -277,7 +319,7 @@ pre{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.8rem;background
 <tr><td>钢铁</td><td>工艺结构（平炉、转炉、电炉占比），吨钢能耗</td><td>CHAT；世界钢铁协会统计年鉴</td></tr>
 <tr><td>电力</td><td>输配电损耗率（本轮已使用，见第七部分）</td><td>世界银行 WDI（EG.ELC.LOSS.ZS）。国家层面数据从 1990 年开始，更早年份只有地区汇总</td></tr>
 <tr><td>铁路</td><td>机车可用率、每百万列车公里事故数</td><td>国际铁路联盟（UIC）统计</td></tr>
-<tr><td>民航</td><td>每百万架次事故率</td><td>Aviation Safety Network 数据库，ICAO 统计</td></tr>
+<tr><td>民航</td><td>每百万架次致命事故率（本轮已使用，见第八部分）</td><td>Plane Crash Info 致命事故表（经公开整理版）；WDI 起飞架次（IS.AIR.DPRT）。ASN 数据库设有反爬验证，本轮未使用</td></tr>
 <tr><td>纺织</td><td>出口单价，用作质量代理</td><td>历史贸易统计，COMTRADE</td></tr>
 </tbody>
 </table></div>
@@ -314,7 +356,7 @@ pre{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.8rem;background
 <ol class="steps">
 <li><b>第二编码者独立编码。</b>使用空白编码表，完成后运行信度脚本。任一维度 α 低于 0.8 时修订定义。</li>
 <li><b>获取 Colaresi、Rasler 和 Thompson 的战略竞争名单</b>（书中附录），替换本轮基于 MID 的替代规则，并换用适合交错处理的事件研究估计量。</li>
-<li><b>为低宽容度技术构造能力型因变量</b>，优先考虑民航事故率。电力输配损耗率已经完成。有了低宽容度一端，就能在同一批国家和年份上恢复宽容度与约束软化的交互项，也就是真正意义上的模型一。</li>
+<li><b>扩充能力型指标的技术覆盖。</b>两项技术只提供一个对比，β 实际上是两条斜率之差。至少再加入一项中等宽容度的技术（如钢铁工艺结构，需把时段向前延伸），并考虑用 ICAO 或 ASN 的完整事故与事故征候数据替换 Plane Crash Info，以减少民航一端的噪声。</li>
 <li><b>补入科尔奈投资饥渴的论证</b>，写成第二章中数量与能力背离的推论。</li>
 <li><b>从五组候选中选出两组</b>，评估档案可得性。晚清与明治两组的二手研究最为充分，建议优先考虑。</li>
 </ol>
@@ -335,6 +377,7 @@ pre{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.8rem;background
   scripts/05_refcheck.py               Crossref 文献核对
   scripts/06_reliability.py            Krippendorff α
   scripts/08_electricity.py            模型一电力重跑（WDI 输配损耗）
+  scripts/09_aviation_interaction.py   民航事故率与电力组成两技术面板，恢复交互项
   output/                              全部结果表</pre>
 <h3>本报告新增的参考文献</h3>
 <ul class="refs">

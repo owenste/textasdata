@@ -6,14 +6,16 @@
 
 ```bash
 pip install pandas numpy pyfixest rdata krippendorff
-bash scripts/00_fetch_data.sh      # CHAT, MID 5.0, V-Dem -> data/raw/
+bash scripts/00_fetch_data.sh      # CHAT, MID 5.0, V-Dem, WDI, Plane Crash Info -> data/raw/
 python3 scripts/01_build_panel.py  # -> data/panel_model1.csv.gz
 python3 scripts/02_model1.py       # -> output/model1_*.csv
 python3 scripts/03_steel_mix.py    # -> output/steel_*.csv
 python3 scripts/04_model2.py       # -> output/model2_*.csv, enduring_rivalries_from_mid.csv
 python3 scripts/05_refcheck.py     # -> output/refcheck.json
 python3 scripts/06_reliability.py  # needs coding/latitude_codes_coderB.csv
-python3 scripts/07_report.py       # -> report/index.html
+python3 scripts/08_electricity.py            # -> output/electricity_*.csv
+python3 scripts/09_aviation_interaction.py   # -> output/interaction_*.csv
+python3 scripts/07_report.py                 # -> report/index.html
 ```
 
 ## 注意
