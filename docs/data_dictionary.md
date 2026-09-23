@@ -284,3 +284,12 @@
 | `prereg3_family3.csv` | `29_policy_reversal.py` | 1 项检验 | 第三族 Holm 调整 p 与判定 |
 
 **B3 的结果变量**（不单独存文件，由脚本 29 构造）：`rev_ka` = 1{KAOPEN(t) < KAOPEN(t−1)}，只在上一年有数据且 KAOPEN(t−1) > 0 时定义；`rev_tar` = 1{加权平均实施关税(t) − 关税(t−1) ≥ 1 个百分点}，关税来自 `data/raw/wdi/TM.TAX.MRCH.WM.AR.ZS.json`。
+
+## 17. 第四轮登记检验的数据文件
+
+| 文件 | 生成脚本 | 1 行 = | 变量 |
+|---|---|---|---|
+| `D_templates_cy.csv` | `31_north_templates.py` | 国家-年度（1989–2022，**未滞后**） | `D_US`（含美国的协定）、`D_EU`（含欧盟 15 国成员、不含美国）、`D_ON`（含其他北方国家、不含美欧）、`D_S`（不含北方国家），各自按主设定规则取领域并集，0–6 |
+| `prereg4_E1.csv` | `30_equivalence_round3.py` | 1 个对象 × 1 种 FE | 估计、SE、90% 区间、SESOI、MDE、等价性判定 |
+| `prereg4_E2.csv`、`prereg4_E3.csv` | 31、32 | 1 项检验 | 估计、原始 p、区域×年份 FE 版本 |
+| `prereg4_family4.csv` | `32_codification.py` | 1 项检验 | 第四族 Holm 调整 p 与判定 |
