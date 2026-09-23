@@ -70,7 +70,7 @@
 |---|---|---|---|
 | 全球南方 95% 的约束性覆盖由南南协定提供 | **强**（描述性） | 修正 OEP 隐含的「北方制定规则、南方接受规则」假设 | 支持「主权国家之间的开放」「全球南方共同构建制度网络」的判断；但要注明南南网络越来越多经由韩国、新加坡等新兴高收入经济体连接 |
 | 东亚的规则型开放更依赖北方伙伴；中国的政府采购约束只来自南北协定 | **强**（描述性，需人工核对） | — | 外延型制度型开放存在区域和领域差异；政府采购是制度对接的「最后一公里」 |
-| 签署后、生效前出口已增加（双向聚类 p = 0.005） | **较强** | OEP 的链条是「国内批准 → 国际结果」；这里是**国际承诺在国内批准完成前就影响国内经济** | 为「国际政治 → 国内经济」提供一个可检验的机制：**预期** |
+| 签署后、生效前出口已增加（双向聚类 p = 0.005） | **较强** | OEP 的链条是「国内批准 → 国际结果」；这里是**国际承诺在国内批准完成前就影响国内经济** | 事实支持「国际承诺在国内法律程序完成前就影响国内经济」；但第五轮检验否定了「预期」机制，机制待定（先行实施或内生批准） |
 | 内向型改革与外延型对接的先后（编纂说 vs 以签促改） | **无法判断**（功效不足） | — | 「先试后签」与「以签促改」无法在跨国数据中区分，需要过程追踪 |
 | 约束性深度与增长的关系 | **脆弱**；强版本主张被排除 | OEP 的锁定理论缺乏支撑 | 制度型开放不会自动带来增长；这与「稳步扩大」「自主开放」的思路相容，但不能作为其证明 |
 
@@ -97,14 +97,14 @@
 
 ### 中文论文（以 OPE 为主框架）
 - 题目方向：《全球南方的制度型开放：开放政治经济学视角下的约束性规则网络（1990–2023）》
-- 用 OPE 的「内向型 / 外延型制度型开放」组织全文；用图谱数据说明外延型制度型开放的全球格局；用困惑 A 说明「国际→国内」的预期机制。
+- 用 OPE 的「内向型 / 外延型制度型开放」组织全文；用图谱数据说明外延型制度型开放的全球格局；用困惑 A 说明规则在正式生效前就与贸易相关，并如实报告「预期」机制未获支持。
 - **必须保留的学术性**：明确写出哪些 OPE 命题得到支持（主权国家之间的开放、南南网络），哪些无法判断（先试后签），哪些不被支持（规则深度自动带来增长）。
 - 目标期刊：《世界经济与政治》《国际政治研究》《国际政治科学》。
 
 ### 英文论文（以 OEP 的批评与发展为主框架）
 - 从 Oatley（2011）、Gourevitch（1978）、Farrell & Newman（2014）切入：OEP 缺少国际→国内的一环；
 - 介绍中国学界的 OPE 作为同一方向上的理论努力，引用徐、罗（2024）的原话；这本身是一种有价值的「跨学术共同体对话」；
-- 以困惑 A 作为经验核心，以全球南方图谱作为背景事实。
+- 以困惑 A 作为经验核心（稳健事实 + 被否定的预期机制 + 待检验的先行实施 / 内生批准），以全球南方图谱作为背景事实。
 - 目标期刊：RIO、ISQ、*Chinese Journal of International Politics*。
 
 ### 需要避免的
@@ -119,7 +119,7 @@
 - 徐秀军、罗仪馥：《中国式现代化的开放政治经济学逻辑》，《世界经济与政治》2024 年第 10 期。英文版：Xu Xiujun and Luo Yifu, "The Open Political Economics Logic of Chinese Modernization," *China Watch* 5, no. 4 (2025).
 - 徐秀军：《制度型开放与「再全球化」的政治经济学》，《国际政治研究》2024 年第 1 期。
 - Lake, David A. 2009. "Open Economy Politics: A Critical Review." *Review of International Organizations* 4(3).
-- Lake, David A. 2006. "International Political Economy: A Maturing Interdiscipline." In *The Oxford Handbook of Political Economy*, ed. Weingast and Wittman.（徐、罗 2024 所引）
+- Lake, David A. 2006. "International Political Economy: A Maturing Interdiscipline." In *The Oxford Handbook of Political Economy*, ed. Weingast and Wittman.（徐、罗 2024 所引；其脚注写作「An Emerging Interdiscipline」，与通常引用的题名「A Maturing Interdiscipline」不同，需核对原书）
 - Oatley, Thomas. 2011. "The Reductionist Gamble: Open Economy Politics in the Global Economy." *International Organization* 65(2).
 - Gourevitch, Peter. 1978. "The Second Image Reversed: The International Sources of Domestic Politics." *International Organization* 32(4).
 - Farrell, Henry, and Abraham Newman. 2014. "Domestic Institutions beyond the Nation-State: Charting the New Interdependence Approach." *World Politics* 66(2).
