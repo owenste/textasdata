@@ -96,6 +96,7 @@ FILES = [
     ("wdi/TM.TAX.MRCH.WM.AR.ZS.json",
      "https://api.worldbank.org/v2/country/all/indicator/TM.TAX.MRCH.WM.AR.ZS?format=json&per_page=20000&date=1960:2024"),
 ]
+# 注：IMF IMTS 双边进出口（1990–2025）由 code/41_download_imts_trade.py 逐国下载
 # 注：Aizenman, Ito & Saadaoui (2026) 原文 PDF 放在 data/raw/papers/（NBER 网站拒绝脚本下载，需手动放入）
 
 for relpath, url in FILES:
