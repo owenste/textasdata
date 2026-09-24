@@ -194,6 +194,39 @@ def sector_rows():
     return "\n".join(out), single
 
 
+# ---------- project-level redesign ----------
+def project_grid():
+    d = pd.read_csv(ROOT / "projects" / "projects_coderA.csv")
+    d["lat"] = d[["fv", "fa", "ps"]].sum(axis=1)
+    d["hard"] = d[["h_loss", "h_demand", "h_comp", "h_cond", "h_mgr"]].sum(axis=1)
+    d["HARD"], d["LOWLAT"] = (d.hard >= 2).astype(int), (d.lat <= 1).astype(int)
+    lv = {0: "仅引进", 1: "基础", 2: "中间", 3: "高级"}
+    pred = {(1, 1): "预测：中间级至高级", (1, 0): "预测：基础级至中间级", (0, 1): "预测：基础级", (0, 0): "预测：仅完成引进"}
+    title = {(1, 1): "约束硬 · 宽容度低", (1, 0): "约束硬 · 宽容度高", (0, 1): "约束软 · 宽容度低", (0, 0): "约束软 · 宽容度高"}
+    cells = []
+    for key in [(1, 1), (1, 0), (0, 1), (0, 0)]:
+        g = d[(d.HARD == key[0]) & (d.LOWLAT == key[1])].sort_values("outcome", ascending=False)
+        chips = "".join(
+            f"<li class='chip lv{r.outcome}'><span class='lv'>{lv[r.outcome]}</span>{esc(r.project)}"
+            f"{'<span class=ext title=有外部观察者>外</span>' if r.ext else ''}</li>" for r in g.itertuples())
+        cells.append(f"<div class='cell'><h4>{title[key]}</h4><p class='pred'>{pred[key]} · 实际均值 {g.outcome.mean():.2f}</p><ul>{chips}</ul></div>")
+    return "".join(cells)
+
+
+def project_tables():
+    r = pd.read_csv(O / "projects_regressions.csv")
+    r = r[r.model == "有序logit"]
+    names = {"hard": "约束硬度（0–5）", "lat": "宽容度（0–6）", "ext": "外部观察者", "press": "外部安全压力"}
+    reg = "\n".join(f"<tr><td>{esc(x.sample)}</td><td>{names[x.term]}</td><td class='num'>{x.coef:+.2f}</td>"
+                     f"<td class='num'>{x.se:.2f}</td><td class='num'>{x.p:.2f}</td><td class='num'>{x.n}</td></tr>"
+                     for x in r.itertuples())
+    nec = pd.read_csv(O / "projects_qca_necessity.csv")
+    nm = {"HARD": "约束硬（≥2）", "LOWLAT": "宽容度低（≤1）", "EXT": "外部观察者", "PRESS": "外部安全压力"}
+    w = nec.pivot(index="cond", columns="outcome", values="necessity").loc[["HARD", "LOWLAT", "EXT", "PRESS"]]
+    necr = "\n".join(f"<tr><td>{nm[c]}</td><td class='num'>{w.loc[c, 'MID']:.2f}</td><td class='num'>{w.loc[c, 'ADV']:.2f}</td></tr>" for c in w.index)
+    return reg, necr
+
+
 def interact_tables():
     r = pd.read_csv(O / "interaction_results.csv")
     other = r[~r.model.str.startswith("S")]
@@ -264,6 +297,7 @@ def main():
         f"<tr><td>{esc(x.model.split(' ',1)[1])}</td><td class='num'>{x.coef:+.3f}</td><td class='num'>{x.se:.3f}</td>"
         f"<td class='num'>{x.p:.3f}</td><td class='num'>{x.nobs:,}</td><td class='num'>{x.countries}</td></tr>" for x in th.itertuples())
     sec_rows, sec_single = sector_rows()
+    p_reg, p_nec = project_tables()
     tpl = (ROOT / "report" / "template.html").read_text()
     page = (tpl.replace("{{COEF_SVG}}", coef_svg).replace("{{M1_ROWS}}", m1_rows)
             .replace("{{EVENT_SVG}}", event_plot()).replace("{{STEEL_SVG}}", steel_plot())
@@ -274,7 +308,8 @@ def main():
             .replace("{{INT_OTHER_ROWS}}", i_other).replace("{{INT_THR_ROWS}}", i_thr)
             .replace("{{THREE_SVG}}", three_svg).replace("{{THREE_ROWS}}", t_rows).replace("{{THREE_SLOPES}}", three_slopes())
             .replace("{{SECTOR_SVG}}", sector_plot()).replace("{{SECTOR_ROWS}}", sec_rows)
-            .replace("{{SECTOR_SINGLE}}", sec_single))
+            .replace("{{SECTOR_SINGLE}}", sec_single)
+            .replace("{{PROJECT_GRID}}", project_grid()).replace("{{PROJECT_REG}}", p_reg).replace("{{PROJECT_NEC}}", p_nec))
     (ROOT / "report" / "index.html").write_text(page)
     print("wrote report/index.html", len(page))
 

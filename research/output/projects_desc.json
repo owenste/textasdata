@@ -1,0 +1,25 @@
+{
+ "n": 30,
+ "countries": 7,
+ "conf": {
+  "medium": 16,
+  "low": 7,
+  "high": 7
+ },
+ "outcome_dist": {
+  "0": 1,
+  "1": 10,
+  "2": 14,
+  "3": 5
+ },
+ "lat_range": [
+  0,
+  5
+ ],
+ "hard_range": [
+  0,
+  5
+ ],
+ "corr_hard_ext": 0.73,
+ "corr_lat_ext": -0.13
+}

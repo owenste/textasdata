@@ -92,6 +92,17 @@ ol.steps{padding-left:1.3rem} ol.steps li{margin-bottom:.6rem}
 pre{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.8rem;background:var(--panel);border:1px solid var(--rule);border-radius:4px;padding:.8rem 1rem;overflow-x:auto;line-height:1.6}
 .refs{font-size:.86rem;line-height:1.7;padding-left:0;list-style:none}
 .refs li{padding-left:2em;text-indent:-2em;margin-bottom:.4rem}
+.pgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.6rem;font-family:var(--sans);font-size:.82rem}
+@media (max-width:640px){.pgrid{grid-template-columns:1fr}}
+.pgrid .cell{border:1px solid var(--rule);border-radius:4px;padding:.7rem .8rem;background:var(--paper)}
+.pgrid h4{margin:0;font-family:var(--serif);font-size:.95rem}
+.pgrid .pred{margin:.1rem 0 .5rem;color:var(--muted);font-size:.78rem}
+.pgrid ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:.3rem}
+.chip{display:inline-flex;align-items:center;gap:.3rem;border:1px solid var(--rule);border-radius:3px;padding:.1rem .4rem;background:var(--panel);line-height:1.5}
+.chip .lv{font-size:.7rem;font-weight:700;padding:0 .25rem;border-radius:2px;color:var(--panel)}
+.chip.lv0 .lv{background:var(--muted)} .chip.lv1 .lv{background:var(--faint)}
+.chip.lv2 .lv{background:var(--pressure)} .chip.lv3 .lv{background:var(--constraint)}
+.chip .ext{font-size:.68rem;color:var(--constraint);border:1px solid currentColor;border-radius:2px;padding:0 .2rem}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 
@@ -108,6 +119,7 @@ pre{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.8rem;background
 <li><a href="#interact">恢复交互项</a></li>
 <li><a href="#three">三项技术与延长时段</a></li>
 <li><a href="#sector">部门层面约束</a></li>
+<li><a href="#redesign">重新设计：项目层面</a></li>
 <li><a href="#m2">模型二检验</a></li>
 <li><a href="#revise">对研究设计的修订</a></li>
 <li><a href="#cases">案例候选</a></li>
@@ -120,15 +132,16 @@ pre{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.8rem;background
 <header class="hero">
 <p class="kind">研究进展报告 · 第一轮试研究</p>
 <h1>外部竞争压力的传导与后发国家技术模仿的分化：首轮数据检验</h1>
-<p class="lead">本轮按研究大纲完成了第一学期的三项工作：技术宽容度编码手册与试编码、大样本面板的搭建，以及模型一和模型二的试运行。另外核对了参考文献，并整理了过程追踪的候选案例。结果中最重要的一点是模型一的预测没有得到支持，诊断显示问题主要出在测量上，而不是理论本身。据此对研究设计提出修订，并按修订建议依次用电力输配损耗率、民航事故率和钢铁工艺结构三项能力型指标重跑了模型一。三项技术、1970–2014 年的面板上，交互项接近零，预测没有得到支持。最后把约束变量换成 OECD 的部门层面指标，交互项方向与预测一致，但接近零且不显著。</p>
+<p class="lead">本轮按研究大纲完成了第一学期的三项工作：技术宽容度编码手册与试编码、大样本面板的搭建，以及模型一和模型二的试运行。另外核对了参考文献，并整理了过程追踪的候选案例。结果中最重要的一点是模型一的预测没有得到支持，诊断显示问题主要出在测量上，而不是理论本身。据此对研究设计提出修订，并按修订建议依次用电力输配损耗率、民航事故率和钢铁工艺结构三项能力型指标重跑了模型一。三项技术、1970–2014 年的面板上，交互项接近零，预测没有得到支持。最后把约束变量换成 OECD 的部门层面指标，交互项方向与预测一致，但接近零且不显著。回头检查后发现，问题出在大样本检验的前置设计上，于是改以模仿项目为单位重新编码 30 个项目：宽容度的作用得到支持，国内约束硬度的作用不明显，而所有达到高级的项目都有国家保护之外的外部观察者。</p>
 <p class="by">依据《外部竞争压力的传导与后发国家技术模仿的分化》研究大纲（周宜顺，2026年9月）执行 · 2026年9月23日</p>
 </header>
 
 <section id="summary">
 <h2>摘要</h2>
 <ul class="findings">
+<li><span class="verdict v-part">部分支持</span><span><b>重新设计：项目层面检验（第十一部分）。</b>以 7 国 30 个模仿项目为单位，约束按开始后前五年编码，能力层级在约 20 年后测量。宽容度越低，达到的能力层级越高（有序 logit 系数 −0.80，p = 0.03）；国内约束硬度的作用方向为正但不显著（p = 0.19）；5 个达到高级的项目全都有出口市场、外国认证或外国竞争者等外部观察者。外部安全压力下的项目并没有更软的约束，H4 在项目层面未获支持。这些结果来自单一编码者、二手文献，编码者编码约束时已知结果，只能作为试探性证据。</span></li>
 <li><span class="verdict v-no">未获支持</span><span><b>模型一（宽容度 × 约束软化）。</b>在 148 个国家、22 项技术、6 万余个观测上，β 的点估计为 +0.015（SE 0.018），方向与预测相反，也不显著。11 种设定中只有剔除运输部门、剔除曾高度国有化国家两项转为负号，均不显著。</span></li>
-<li><span class="verdict v-part">方向一致</span><span><b>模型一重跑（电力输配损耗率）。</b>换成能力型因变量后，约束软化每上升一个标准差，输配电损耗率上升约 1.7 个百分点（p = 0.06），滞后五年的设定 p = 0.04；同时人均用电量上升约 12%。数量上升而能力下降，与第十二部分提出的背离推论一致。但这只检验了单一技术，宽容度交互项无法识别，加入国家特定趋势后也不显著。</span></li>
+<li><span class="verdict v-part">方向一致</span><span><b>模型一重跑（电力输配损耗率）。</b>换成能力型因变量后，约束软化每上升一个标准差，输配电损耗率上升约 1.7 个百分点（p = 0.06），滞后五年的设定 p = 0.04；同时人均用电量上升约 12%。数量上升而能力下降，与第十三部分提出的背离推论一致。但这只检验了单一技术，宽容度交互项无法识别，加入国家特定趋势后也不显著。</span></li>
 <li><span class="verdict v-no">方向一致但不显著</span><span><b>恢复交互项（电力 × 民航）。</b>以民航致命事故率作为低宽容度一端，与电力输配损耗率组成两项技术的能力面板后，β 为 −0.11 个技术内标准差（p = 0.27），方向与预测一致，七种设定中六种为负，但没有一种显著。剔除曾高度国有化的国家后符号反转，结果对机队规模门槛也敏感。</span></li>
 <li><span class="verdict v-no">未获支持</span><span><b>三项技术、延长时段（民航 0 分、钢铁 1 分、电力 2 分）。</b>用 2018 年版 WDI 档案把电力损耗延伸到 1970 年，加入钢铁工艺结构后，133 个国家、1970–2014 年的面板上 β 为 +0.03（p = 0.63），接近零且方向与预测相反。12 种设定中只有 2 种显著，且都与预测方向相反。上一轮两项技术的负号没有延续下来。</span></li>
 <li><span class="verdict v-no">未获支持</span><span><b>部门层面约束变量。</b>把约束变量换成 OECD 的部门监管指标（民航、电力各自的进入壁垒、公有制和市场集中度），34 个 OECD 国家、1975–2014 年，β 为 −0.02（p = 0.78）。7 种设定中 6 种为负，但都接近零、不显著。部门层面的约束变量没有改变结论，而且这批数据只覆盖 OECD 国家，后发国家只有 14 个。</span></li>
@@ -137,7 +150,7 @@ pre{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.8rem;background
 <li><span class="verdict v-ok">已核实</span><span><b>参考文献。</b>大纲中 16 篇期刊文献经 Crossref 逐条核对。14 篇的卷期页码与原始记录完全一致；Cohen &amp; Levinthal（1990）和 DiMaggio &amp; Powell（1983）的 Crossref 记录只有首页，首页一致。</span></li>
 </ul>
 <div class="callout">
-<p><b>核心诊断。</b>CHAT 数据库记录的是技术的<em>使用数量</em>，而软预算约束恰恰会推高数量，科尔奈称之为投资饥渴（Kornai 1980）。铁路和发电这类高宽容度网络技术在国有化程度上升时使用量反而增加，使 β 偏向正值。因此，模型一在目前的测量下检验的是“软约束是否扩大规模”，而不是“软约束是否阻碍掌握”。后者需要能力型的因变量，第十二部分给出替代方案。第七至九部分按替代方案依次用电力、民航和钢铁三项能力型指标重跑，第十部分把约束变量换成部门层面的指标。</p>
+<p><b>核心诊断。</b>CHAT 数据库记录的是技术的<em>使用数量</em>，而软预算约束恰恰会推高数量，科尔奈称之为投资饥渴（Kornai 1980）。铁路和发电这类高宽容度网络技术在国有化程度上升时使用量反而增加，使 β 偏向正值。因此，模型一在目前的测量下检验的是“软约束是否扩大规模”，而不是“软约束是否阻碍掌握”。后者需要能力型的因变量，第十三部分给出替代方案。第七至九部分按替代方案依次用电力、民航和钢铁三项能力型指标重跑，第十部分把约束变量换成部门层面的指标，第十一部分诊断了原设计的问题并改在项目层面重新检验。</p>
 </div>
 </section>
 
@@ -151,8 +164,8 @@ pre{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.8rem;background
 <tr><td>文献梳理与理论框架</td><td><span class="status s-part">部分完成</span></td><td>16 篇期刊文献的卷期页码已核对，未发现错误；新增科尔奈投资饥渴的论证环节，见第八部分</td></tr>
 <tr><td>宽容度编码手册与试编码</td><td><span class="status s-part">编码者 A 完成</span></td><td>编码手册 v0.1，55 项技术的试编码（核心 22 项、扩展 33 项），第二编码者空白表与 α 计算脚本</td></tr>
 <tr><td>面板数据与固定效应方法</td><td><span class="status s-done">完成</span></td><td>国家 × 技术 × 年份三维面板，三组高维固定效应，按国家聚类标准误</td></tr>
-<tr><td>大样本数据整理与检验</td><td><span class="status s-part">试运行</span></td><td>模型一 11 种设定、逐项剔除技术的检验；模型二连续变量设定与事件研究；钢铁工艺补充检验；以电力输配损耗率重跑模型一；加入民航事故率恢复交互项；加入钢铁工艺结构、延长到 1970–2014 年；以部门层面约束指标重跑</td></tr>
-<tr><td>案例档案收集与过程追踪</td><td><span class="status s-todo">未开始</span></td><td>整理了 5 组候选案例，见第十三部分</td></tr>
+<tr><td>大样本数据整理与检验</td><td><span class="status s-part">试运行</span></td><td>模型一 11 种设定、逐项剔除技术的检验；模型二连续变量设定与事件研究；钢铁工艺补充检验；以电力输配损耗率重跑模型一；加入民航事故率恢复交互项；加入钢铁工艺结构、延长到 1970–2014 年；以部门层面约束指标重跑；改以项目为单位重新设计并编码 30 个项目</td></tr>
+<tr><td>案例档案收集与过程追踪</td><td><span class="status s-todo">未开始</span></td><td>整理了 5 组候选案例，见第十四部分</td></tr>
 </tbody>
 </table>
 </div>
@@ -289,7 +302,7 @@ pre{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.8rem;background
 <tr><td>人均用电量，限输配损耗样本</td><td class='num'>+0.113</td><td class='num'>0.047</td><td class='num'>0.02</td><td class='num'>4,257</td></tr>
 <tr><td>人均发电量（CHAT，1990-2001）</td><td class='num'>+0.030</td><td class='num'>0.027</td><td class='num'>0.27</td><td class='num'>1,236</td></tr>
 </tbody></table></div>
-<p>约束软化每上升一个标准差，人均用电量增加约 12%（对数系数 0.11，p = 0.02），同时损耗率上升。也就是说，软约束下电力的规模更大、运转更差。这正是第一轮 CHAT 结果中 β 偏正的来源，也支持第十二部分提出的推论：约束越软，高宽容度技术的数量与能力背离越大。</p>
+<p>约束软化每上升一个标准差，人均用电量增加约 12%（对数系数 0.11，p = 0.02），同时损耗率上升。也就是说，软约束下电力的规模更大、运转更差。这正是第一轮 CHAT 结果中 β 偏正的来源，也支持第十三部分提出的推论：约束越软，高宽容度技术的数量与能力背离越大。</p>
 <h3>保留意见</h3>
 <ol class="steps">
 <li><b>证据强度有限。</b>主设定只在 10% 水平显著。加入国家特定线性趋势后，系数降为 +0.9，不显著；剔除曾高度国有化的国家后，系数为 +2.1，但标准误增大，也不显著。</li>
@@ -441,6 +454,57 @@ pre{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.8rem;background
 </div>
 </section>
 
+<section id="redesign">
+<h2>重新设计：项目层面检验</h2>
+<h3>原设计的五个问题</h3>
+<p>第七至十部分先后更换因变量、技术数量、时段和约束变量，模型一都没有得到支持。回头看，问题出在大纲给大样本检验安排的角色上。国家—技术—年份面板与理论之间有五处错位，这些在动手前就能看出来：</p>
+<div class="scroll"><table class="wide">
+<thead><tr><th>问题</th><th>表现</th><th>项目层面的处理</th></tr></thead>
+<tbody>
+<tr><td>分析层次不一致</td><td>理论讲具体模仿单位的约束，数据只有国家或部门层面的约束环境，同一部门内的差异在加总中抵消</td><td>分析单位改为模仿项目，约束按项目本身的安排编码</td></tr>
+<tr><td>时间窗口不对</td><td>测的是 1970–2014 年成熟技术的日常运营，而不是引进后的关键几十年</td><td>能力层级在项目开始后约 20 年测量</td></tr>
+<tr><td>只测到基础级</td><td>事故率、损耗率只反映能否正常运行维护；H2 本身就预测低宽容度技术在软约束下也能达到基础级</td><td>按大纲的能力阶梯编码 0–3，区分中间级和高级</td></tr>
+<tr><td>宽容度与外部监督分不开</td><td>民航的失败显现、可归责，很大程度上来自国际标准、保险和外国监管，这些是国家管不到的外部约束</td><td>单独编码“外部观察者”，不并入宽容度或约束</td></tr>
+<tr><td>约束软硬本身是结果</td><td>表现差会引发改革和私有化，约束与之前的表现绑在一起</td><td>约束只按项目开始后前五年的结构性安排编码，早于结果</td></tr>
+</tbody>
+</table></div>
+<h3>数据</h3>
+<p>从二手文献中选取 30 个模仿项目，覆盖中国、日本、韩国、印度、巴西、台湾和埃及，时间从 1818 年到 1987 年，包括大纲案例候选中的江南制造局、轮船招商局、八幡制铁所、浦项制铁、现代汽车等。每个项目编码宽容度三维度、约束硬度五维度（亏损是否补足、需求是否保障、是否有竞争者、支持是否以绩效为条件、负责人去留是否与绩效挂钩）、约束依据、外部观察者、外部安全压力和能力层级，并逐项写明依据与来源。其中 7 项置信度高，16 项中等，7 项较低。关键事实（福州船政局合同条款、八幡 1902 年停炉与 1904 年复产、汉阳铁厂酸性转炉与高磷矿、大阪纺绩、琵琶湖疏水、三角洲拦河坝、招商局 1885 年换人、巴西市场保留的结果等）已通过检索核对。编码手册见 <code>projects/project_codebook.md</code>。</p>
+<figure>
+<div class="fig-body">
+<div class="pgrid"><div class='cell'><h4>约束硬 · 宽容度低</h4><p class='pred'>预测：中间级至高级 · 实际均值 2.00</p><ul><li class='chip lv3'><span class='lv'>高级</span>浦项制铁<span class=ext title=有外部观察者>外</span></li><li class='chip lv3'><span class='lv'>高级</span>台积电<span class=ext title=有外部观察者>外</span></li><li class='chip lv2'><span class='lv'>中间</span>中国钢铁</li><li class='chip lv1'><span class='lv'>基础</span>轮船招商局<span class=ext title=有外部观察者>外</span></li><li class='chip lv1'><span class='lv'>基础</span>富冈制丝场<span class=ext title=有外部观察者>外</span></li></ul></div><div class='cell'><h4>约束硬 · 宽容度高</h4><p class='pred'>预测：基础级至中间级 · 实际均值 1.86</p><ul><li class='chip lv3'><span class='lv'>高级</span>现代重工造船<span class=ext title=有外部观察者>外</span></li><li class='chip lv2'><span class='lv'>中间</span>大阪纺绩<span class=ext title=有外部观察者>外</span></li><li class='chip lv2'><span class='lv'>中间</span>京张铁路<span class=ext title=有外部观察者>外</span></li><li class='chip lv2'><span class='lv'>中间</span>现代汽车<span class=ext title=有外部观察者>外</span></li><li class='chip lv2'><span class='lv'>中间</span>马鲁蒂（与铃木合资）<span class=ext title=有外部观察者>外</span></li><li class='chip lv1'><span class='lv'>基础</span>二千锤纺绩所（官营与官贷）<span class=ext title=有外部观察者>外</span></li><li class='chip lv1'><span class='lv'>基础</span>中国电报局<span class=ext title=有外部观察者>外</span></li></ul></div><div class='cell'><h4>约束软 · 宽容度低</h4><p class='pred'>预测：基础级 · 实际均值 2.00</p><ul><li class='chip lv3'><span class='lv'>高级</span>官设铁道机车制造<span class=ext title=有外部观察者>外</span></li><li class='chip lv3'><span class='lv'>高级</span>巴西航空工业（Embraer）<span class=ext title=有外部观察者>外</span></li><li class='chip lv2'><span class='lv'>中间</span>印度斯坦机床（HMT）</li><li class='chip lv2'><span class='lv'>中间</span>官营八幡制铁所</li><li class='chip lv2'><span class='lv'>中间</span>印度斯坦航空HF-24</li><li class='chip lv2'><span class='lv'>中间</span>国家钢铁公司（沃尔塔雷东达）</li><li class='chip lv1'><span class='lv'>基础</span>印度斯坦钢铁（比莱）</li><li class='chip lv1'><span class='lv'>基础</span>信息产业市场保留（Cobra等）</li></ul></div><div class='cell'><h4>约束软 · 宽容度高</h4><p class='pred'>预测：仅完成引进 · 实际均值 1.40</p><ul><li class='chip lv2'><span class='lv'>中间</span>福州船政局</li><li class='chip lv2'><span class='lv'>中间</span>横须贺海军工厂</li><li class='chip lv2'><span class='lv'>中间</span>第一汽车制造厂</li><li class='chip lv2'><span class='lv'>中间</span>琵琶湖疏水</li><li class='chip lv2'><span class='lv'>中间</span>昌原重型机械（现代洋行→韩国重工业）</li><li class='chip lv1'><span class='lv'>基础</span>江南制造局</li><li class='chip lv1'><span class='lv'>基础</span>穆罕默德·阿里官营纺织厂</li><li class='chip lv1'><span class='lv'>基础</span>汉阳铁厂</li><li class='chip lv1'><span class='lv'>基础</span>印度斯坦汽车（大使牌）</li><li class='chip lv0'><span class='lv'>仅引进</span>尼罗河三角洲拦河坝</li></ul></div></div>
+</div>
+<figcaption><b>图7</b>30 个项目在大纲 2×2 类型中的分布。约束硬指五个维度中至少两项为硬，宽容度低指总分不超过 1。每个项目前标注实际达到的能力层级，“外”表示有外部观察者。每格的预测来自大纲图 5。</figcaption>
+</figure>
+<p>与大纲的预测相比：约束软、宽容度高的一格平均层级最低（1.40），唯一停在“仅完成引进”的尼罗河三角洲拦河坝就在这一格，符合预测。但约束软、宽容度低的一格（2.00）与约束硬、宽容度低的一格（2.00）并无差别，约束硬、宽容度高的一格（1.86）也高于大纲的预测。差别主要沿宽容度出现，而不是沿约束硬度出现。</p>
+<h3>有序 logit</h3>
+<div class="scroll"><table class="wide"><thead><tr><th>样本</th><th>变量</th><th class="num">系数</th><th class="num">SE</th><th class="num">p</th><th class="num">N</th></tr></thead><tbody>
+<tr><td>全部30项</td><td>约束硬度（0–5）</td><td class='num'>+0.49</td><td class='num'>0.37</td><td class='num'>0.19</td><td class='num'>30</td></tr>
+<tr><td>全部30项</td><td>宽容度（0–6）</td><td class='num'>-0.80</td><td class='num'>0.36</td><td class='num'>0.03</td><td class='num'>30</td></tr>
+<tr><td>全部30项</td><td>外部观察者</td><td class='num'>+0.48</td><td class='num'>1.16</td><td class='num'>0.68</td><td class='num'>30</td></tr>
+<tr><td>全部30项</td><td>外部安全压力</td><td class='num'>+0.84</td><td class='num'>0.80</td><td class='num'>0.29</td><td class='num'>30</td></tr>
+<tr><td>剔除低置信度</td><td>约束硬度（0–5）</td><td class='num'>+0.29</td><td class='num'>0.37</td><td class='num'>0.43</td><td class='num'>23</td></tr>
+<tr><td>剔除低置信度</td><td>宽容度（0–6）</td><td class='num'>-0.64</td><td class='num'>0.37</td><td class='num'>0.09</td><td class='num'>23</td></tr>
+<tr><td>剔除低置信度</td><td>外部观察者</td><td class='num'>+1.69</td><td class='num'>1.28</td><td class='num'>0.19</td><td class='num'>23</td></tr>
+<tr><td>剔除低置信度</td><td>外部安全压力</td><td class='num'>+0.99</td><td class='num'>0.91</td><td class='num'>0.27</td><td class='num'>23</td></tr>
+</tbody></table></div>
+<p>宽容度的系数为负且显著：宽容度每高一分，达到更高层级的对数几率下降 0.80。剔除低置信度项目后，系数为 −0.64，p = 0.09。约束硬度的系数为正但不显著。外部观察者与约束硬度高度相关（相关系数 0.73），回归中难以分开。</p>
+<h3>定性比较分析</h3>
+<div class="scroll"><table class="wide"><thead><tr><th>条件</th><th class="num">达到中间级以上的必要性</th><th class="num">达到高级的必要性</th></tr></thead><tbody>
+<tr><td>约束硬（≥2）</td><td class='num'>0.42</td><td class='num'>0.60</td></tr>
+<tr><td>宽容度低（≤1）</td><td class='num'>0.47</td><td class='num'>0.80</td></tr>
+<tr><td>外部观察者</td><td class='num'>0.47</td><td class='num'>1.00</td></tr>
+<tr><td>外部安全压力</td><td class='num'>0.74</td><td class='num'>0.80</td></tr>
+</tbody></table></div>
+<p>必要性指结果为正的项目中具备该条件的比例。5 个达到高级的项目（官设铁道机车制造、浦项制铁、现代重工造船、巴西航空工业、台积电）全都有外部观察者，必要性为 1.00；其中两项（官设铁道机车、巴西航空工业）的国内约束并不硬。达到中间级以上则没有必要条件：11 个约束软的项目达到了中间级，其中 73% 处于外部安全压力之下，多为兵工、造船、钢铁等国家主导的战略项目，但它们没有一个到达高级。</p>
+<h3>H4</h3>
+<p>处于外部安全压力下的 20 个项目，约束硬度均值为 1.6；没有安全压力的 10 个项目为 1.3。压力之下的项目并没有更软，大纲“安全压力通过保护动机软化约束”的命题在项目层面没有得到支持。</p>
+<div class="callout">
+<p><b>判断。</b>项目层面的结果与大样本不同，也与大纲原来的预测不完全一致。一是宽容度的作用得到支持，这是 H2 的核心。二是国内约束硬度（H1）的作用不明显：国家主导的战略项目在软约束下也常能达到中间级，安全压力可能起到了类似约束的督促作用。三是跨过中间级到达高级的项目，共同点是存在国家保护管不到的外部观察者，而不是国内约束更硬。这支持在理论中补入“失败被谁看见”这一概念：约束的关键或许不是国家是否收紧，而是有没有国家无法替模仿单位挡住的检验。</p>
+<p><b>需要保留的地方。</b>第三点正是在上一轮讨论中先提出、再编码的，而编码者编码约束和外部观察者时已知道各项目的结果，存在确认偏误的风险。30 个项目由单一编码者依据二手文献编码，选择也不是随机抽样。这些结果只能算试探性证据。要成为论文证据，需要不知道结果的第二编码者独立编码约束与外部观察者，并用编码规则事先确定、没有参与提出假说的新项目检验“外部观察者”这一推论。</p>
+</div>
+</section>
+
 <section id="m2">
 <h2>模型二检验：外部安全压力与约束软化</h2>
 <p>设定为 <i>Soft</i><sub>ct</sub> = θ<i>Pressure</i><sub>ct</sub> + <i>X</i><sub>ct</sub> + λ<sub>c</sub> + τ<sub>t</sub> + <i>u</i><sub>ct</sub>，控制变量为人均 GDP 对数和选举民主指数，标准误按国家聚类，样本为 1816–2014 年的 195 个国家。</p>
@@ -455,7 +519,7 @@ pre{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.8rem;background
 <p>事件研究以各国首次进入持久对抗的年份为事件，要求事件前至少有 10 年观测，得到 67 个处理国和 114 个从未处理的对照国。</p>
 <figure>
 <div class="fig-body scroll"><svg viewBox="0 0 680 300" role="img" aria-label="首次持久对抗出现前后国有化程度的事件研究系数：之前平稳，十年后逐步上升"><line class="grid" x1="56" y1="218.9" x2="660" y2="218.9"/><text x="48" y="222.9" font-size="12" text-anchor="end" class="muted">-0.2</text><line class="axis" x1="56" y1="174.7" x2="660" y2="174.7"/><text x="48" y="178.7" font-size="12" text-anchor="end" class="muted">0.0</text><line class="grid" x1="56" y1="130.5" x2="660" y2="130.5"/><text x="48" y="134.5" font-size="12" text-anchor="end" class="muted">0.2</text><line class="grid" x1="56" y1="86.3" x2="660" y2="86.3"/><text x="48" y="90.3" font-size="12" text-anchor="end" class="muted">0.4</text><line class="grid" x1="56" y1="42.1" x2="660" y2="42.1"/><text x="48" y="46.1" font-size="12" text-anchor="end" class="muted">0.6</text><line x1="257.3" y1="20" x2="257.3" y2="252" stroke-dasharray="4 4" style="stroke:var(--pressure)"/><text x="263.3" y="32" font-size="12" style="fill:var(--ink)">持久对抗出现</text><polygon points="56.0,112.9 76.1,149.5 96.3,148.5 116.4,150.0 136.5,144.9 156.7,148.6 176.8,146.7 196.9,139.8 217.1,153.5 237.2,174.7 257.3,170.9 277.5,169.7 297.6,168.4 317.7,162.6 337.9,165.7 358.0,164.9 378.1,154.6 398.3,151.3 418.4,146.5 438.5,146.2 458.7,142.7 478.8,135.2 498.9,127.7 519.1,128.3 539.2,128.9 559.3,116.2 579.5,114.3 599.6,118.4 619.7,109.5 639.9,106.0 660.0,29.3 660.0,136.8 639.9,177.8 619.7,180.6 599.6,188.1 579.5,180.2 559.3,177.7 539.2,183.9 519.1,180.6 498.9,179.7 478.8,183.5 458.7,188.7 438.5,192.6 418.4,188.3 398.3,185.6 378.1,188.1 358.0,195.9 337.9,191.7 317.7,187.9 297.6,192.7 277.5,192.2 257.3,184.4 237.2,174.7 217.1,194.6 196.9,193.5 176.8,204.9 156.7,207.4 136.5,207.2 116.4,213.9 96.3,212.4 76.1,212.6 56.0,207.2" style="fill:var(--hl-p);stroke:none"/><polyline fill="none" stroke-width="2" style="stroke:var(--pressure)" points="56.0,160.1 76.1,181.1 96.3,180.5 116.4,181.9 136.5,176.0 156.7,178.0 176.8,175.8 196.9,166.7 217.1,174.1 237.2,174.7 257.3,177.6 277.5,181.0 297.6,180.5 317.7,175.2 337.9,178.7 358.0,180.4 378.1,171.3 398.3,168.5 418.4,167.4 438.5,169.4 458.7,165.7 478.8,159.4 498.9,153.7 519.1,154.4 539.2,156.4 559.3,147.0 579.5,147.3 599.6,153.2 619.7,145.1 639.9,141.9 660.0,83.0"/><g class="hit"><title>第 -10 年：+0.066（95% CI -0.147 至 +0.280）</title><rect x="47.0" y="20" width="18" height="232" fill="transparent"/><circle cx="56.0" cy="160.1" r="3.5" stroke-width="1.5" style="fill:var(--pressure);stroke:var(--panel)"/></g><g class="hit"><title>第 -9 年：-0.029（95% CI -0.172 至 +0.114）</title><rect x="67.1" y="20" width="18" height="232" fill="transparent"/><circle cx="76.1" cy="181.1" r="3.5" stroke-width="1.5" style="fill:var(--pressure);stroke:var(--panel)"/></g><g class="hit"><title>第 -8 年：-0.026（95% CI -0.171 至 +0.118）</title><rect x="87.3" y="20" width="18" height="232" fill="transparent"/><circle cx="96.3" cy="180.5" r="3.5" stroke-width="1.5" style="fill:var(--pressure);stroke:var(--panel)"/></g><g class="hit"><title>第 -7 年：-0.033（95% CI -0.178 至 +0.112）</title><rect x="107.4" y="20" width="18" height="232" fill="transparent"/><circle cx="116.4" cy="181.9" r="3.5" stroke-width="1.5" style="fill:var(--pressure);stroke:var(--panel)"/></g><g class="hit"><title>第 -6 年：-0.006（95% CI -0.147 至 +0.135）</title><rect x="127.5" y="20" width="18" height="232" fill="transparent"/><circle cx="136.5" cy="176.0" r="3.5" stroke-width="1.5" style="fill:var(--pressure);stroke:var(--panel)"/></g><g class="hit"><title>第 -5 年：-0.015（95% CI -0.148 至 +0.118）</title><rect x="147.7" y="20" width="18" height="232" fill="transparent"/><circle cx="156.7" cy="178.0" r="3.5" stroke-width="1.5" style="fill:var(--pressure);stroke:var(--panel)"/></g><g class="hit"><title>第 -4 年：-0.005（95% CI -0.137 至 +0.127）</title><rect x="167.8" y="20" width="18" height="232" fill="transparent"/><circle cx="176.8" cy="175.8" r="3.5" stroke-width="1.5" style="fill:var(--pressure);stroke:var(--panel)"/></g><g class="hit"><title>第 -3 年：+0.036（95% CI -0.085 至 +0.158）</title><rect x="187.9" y="20" width="18" height="232" fill="transparent"/><circle cx="196.9" cy="166.7" r="3.5" stroke-width="1.5" style="fill:var(--pressure);stroke:var(--panel)"/></g><g class="hit"><title>第 -2 年：+0.003（95% CI -0.090 至 +0.096）</title><rect x="208.1" y="20" width="18" height="232" fill="transparent"/><circle cx="217.1" cy="174.1" r="3.5" stroke-width="1.5" style="fill:var(--pressure);stroke:var(--panel)"/></g><g class="hit"><title>第 −1 年：参照期</title><rect x="228.2" y="20" width="18" height="232" fill="transparent"/><circle cx="237.2" cy="174.7" r="3.5" stroke-width="1.5" style="fill:var(--pressure);stroke:var(--panel)"/></g><g class="hit"><title>第 0 年：-0.013（95% CI -0.044 至 +0.017）</title><rect x="248.3" y="20" width="18" height="232" fill="transparent"/><circle cx="257.3" cy="177.6" r="3.5" stroke-width="1.5" style="fill:var(--pressure);stroke:var(--panel)"/></g><g class="hit"><title>第 1 年：-0.028（95% CI -0.079 至 +0.023）</title><rect x="268.5" y="20" width="18" height="232" fill="transparent"/><circle cx="277.5" cy="181.0" r="3.5" stroke-width="1.5" style="fill:var(--pressure);stroke:var(--panel)"/></g><g class="hit"><title>第 2 年：-0.026（95% CI -0.081 至 +0.029）</title><rect x="288.6" y="20" width="18" height="232" fill="transparent"/><circle cx="297.6" cy="180.5" r="3.5" stroke-width="1.5" style="fill:var(--pressure);stroke:var(--panel)"/></g><g class="hit"><title>第 3 年：-0.003（95% CI -0.060 至 +0.055）</title><rect x="308.7" y="20" width="18" height="232" fill="transparent"/><circle cx="317.7" cy="175.2" r="3.5" stroke-width="1.5" style="fill:var(--pressure);stroke:var(--panel)"/></g><g class="hit"><title>第 4 年：-0.018（95% CI -0.077 至 +0.041）</title><rect x="328.9" y="20" width="18" height="232" fill="transparent"/><circle cx="337.9" cy="178.7" r="3.5" stroke-width="1.5" style="fill:var(--pressure);stroke:var(--panel)"/></g><g class="hit"><title>第 5 年：-0.026（95% CI -0.096 至 +0.044）</title><rect x="349.0" y="20" width="18" height="232" fill="transparent"/><circle cx="358.0" cy="180.4" r="3.5" stroke-width="1.5" style="fill:var(--pressure);stroke:var(--panel)"/></g><g class="hit"><title>第 6 年：+0.015（95% CI -0.061 至 +0.091）</title><rect x="369.1" y="20" width="18" height="232" fill="transparent"/><circle cx="378.1" cy="171.3" r="3.5" stroke-width="1.5" style="fill:var(--pressure);stroke:var(--panel)"/></g><g class="hit"><title>第 7 年：+0.028（95% CI -0.049 至 +0.106）</title><rect x="389.3" y="20" width="18" height="232" fill="transparent"/><circle cx="398.3" cy="168.5" r="3.5" stroke-width="1.5" style="fill:var(--pressure);stroke:var(--panel)"/></g><g class="hit"><title>第 8 年：+0.033（95% CI -0.062 至 +0.127）</title><rect x="409.4" y="20" width="18" height="232" fill="transparent"/><circle cx="418.4" cy="167.4" r="3.5" stroke-width="1.5" style="fill:var(--pressure);stroke:var(--panel)"/></g><g class="hit"><title>第 9 年：+0.024（95% CI -0.081 至 +0.129）</title><rect x="429.5" y="20" width="18" height="232" fill="transparent"/><circle cx="438.5" cy="169.4" r="3.5" stroke-width="1.5" style="fill:var(--pressure);stroke:var(--panel)"/></g><g class="hit"><title>第 10 年：+0.041（95% CI -0.064 至 +0.145）</title><rect x="449.7" y="20" width="18" height="232" fill="transparent"/><circle cx="458.7" cy="165.7" r="3.5" stroke-width="1.5" style="fill:var(--pressure);stroke:var(--panel)"/></g><g class="hit"><title>第 11 年：+0.069（95% CI -0.040 至 +0.178）</title><rect x="469.8" y="20" width="18" height="232" fill="transparent"/><circle cx="478.8" cy="159.4" r="3.5" stroke-width="1.5" style="fill:var(--pressure);stroke:var(--panel)"/></g><g class="hit"><title>第 12 年：+0.095（95% CI -0.023 至 +0.212）</title><rect x="489.9" y="20" width="18" height="232" fill="transparent"/><circle cx="498.9" cy="153.7" r="3.5" stroke-width="1.5" style="fill:var(--pressure);stroke:var(--panel)"/></g><g class="hit"><title>第 13 年：+0.092（95% CI -0.027 至 +0.210）</title><rect x="510.1" y="20" width="18" height="232" fill="transparent"/><circle cx="519.1" cy="154.4" r="3.5" stroke-width="1.5" style="fill:var(--pressure);stroke:var(--panel)"/></g><g class="hit"><title>第 14 年：+0.083（95% CI -0.042 至 +0.207）</title><rect x="530.2" y="20" width="18" height="232" fill="transparent"/><circle cx="539.2" cy="156.4" r="3.5" stroke-width="1.5" style="fill:var(--pressure);stroke:var(--panel)"/></g><g class="hit"><title>第 15 年：+0.125（95% CI -0.014 至 +0.265）</title><rect x="550.3" y="20" width="18" height="232" fill="transparent"/><circle cx="559.3" cy="147.0" r="3.5" stroke-width="1.5" style="fill:var(--pressure);stroke:var(--panel)"/></g><g class="hit"><title>第 16 年：+0.124（95% CI -0.025 至 +0.273）</title><rect x="570.5" y="20" width="18" height="232" fill="transparent"/><circle cx="579.5" cy="147.3" r="3.5" stroke-width="1.5" style="fill:var(--pressure);stroke:var(--panel)"/></g><g class="hit"><title>第 17 年：+0.097（95% CI -0.061 至 +0.255）</title><rect x="590.6" y="20" width="18" height="232" fill="transparent"/><circle cx="599.6" cy="153.2" r="3.5" stroke-width="1.5" style="fill:var(--pressure);stroke:var(--panel)"/></g><g class="hit"><title>第 18 年：+0.134（95% CI -0.027 至 +0.295）</title><rect x="610.7" y="20" width="18" height="232" fill="transparent"/><circle cx="619.7" cy="145.1" r="3.5" stroke-width="1.5" style="fill:var(--pressure);stroke:var(--panel)"/></g><g class="hit"><title>第 19 年：+0.148（95% CI -0.014 至 +0.311）</title><rect x="630.9" y="20" width="18" height="232" fill="transparent"/><circle cx="639.9" cy="141.9" r="3.5" stroke-width="1.5" style="fill:var(--pressure);stroke:var(--panel)"/></g><g class="hit"><title>第 ≥20 年：+0.415（95% CI +0.172 至 +0.658）</title><rect x="651.0" y="20" width="18" height="232" fill="transparent"/><circle cx="660.0" cy="83.0" r="3.5" stroke-width="1.5" style="fill:var(--pressure);stroke:var(--panel)"/></g><text x="56.0" y="270" font-size="12" text-anchor="middle" class="muted">-10</text><text x="156.7" y="270" font-size="12" text-anchor="middle" class="muted">-5</text><text x="257.3" y="270" font-size="12" text-anchor="middle" class="muted">0</text><text x="358.0" y="270" font-size="12" text-anchor="middle" class="muted">5</text><text x="458.7" y="270" font-size="12" text-anchor="middle" class="muted">10</text><text x="559.3" y="270" font-size="12" text-anchor="middle" class="muted">15</text><text x="660.0" y="270" font-size="12" text-anchor="middle" class="muted">≥20</text><text x="358.0" y="292" font-size="12.5" text-anchor="middle">相对首次持久对抗出现的年份（参照期为 −1）</text></svg></div>
-<figcaption><b>图7</b>首次持久对抗出现前后，国有化程度（标准化，越高越软）的变化。阴影为 95% 置信区间，第 20 年及以后合并为一组，悬停可查看各年数值。</figcaption>
+<figcaption><b>图8</b>首次持久对抗出现前后，国有化程度（标准化，越高越软）的变化。阴影为 95% 置信区间，第 20 年及以后合并为一组，悬停可查看各年数值。</figcaption>
 </figure>
 <p>事件前的系数都在 ±0.07 之内，没有预先趋势。事件发生后的前五年没有变化，第 10 年起逐步上升，第 15 年约为 0.13 个标准差，20 年及以后为 0.42 个标准差且显著。事件前后合并比较的系数为 0.19（SE 0.12，p = 0.12）。</p>
 <p>这一结果与 H4 的方向一致，但有三点保留。第一，效应出现得很慢，更像长期对抗中逐步形成的战时经济体制，而不是大纲所设想的对战略性模仿单位的直接保护。第二，国有化程度是全经济的指标，不能区分战略部门和一般部门，而 H4 讨论的是战略性模仿单位。第三，处理时点交错时，双向固定效应估计可能有偏，正式分析应换用 Callaway &amp; Sant'Anna（2021）或 Sun &amp; Abraham（2021）的估计量。</p>
@@ -510,6 +574,7 @@ pre{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.8rem;background
 <li><b>第二编码者独立编码。</b>使用空白编码表，完成后运行信度脚本。任一维度 α 低于 0.8 时修订定义。</li>
 <li><b>获取 Colaresi、Rasler 和 Thompson 的战略竞争名单</b>（书中附录），替换本轮基于 MID 的替代规则，并换用适合交错处理的事件研究估计量。</li>
 <li><b>把部门层面的约束测量扩展到后发国家。</b>OECD 部门指标（第十部分）已经用过，结论不变，但它只覆盖 34 个 OECD 国家。三项技术的结果显示，问题更可能出在约束变量而不是因变量上：全经济的国有化程度无法区分钢厂、电力公司和航空公司各自面临的约束。可以考虑按部门的所有制与改革数据，例如电力行业的拆分、私有化和独立监管时间表，钢铁行业的国有产能比重，航空公司的国有持股，把 <i>Soft</i><sub>ct</sub> 换成 <i>Soft</i><sub>ckt</sub>。对后发国家，可以从世界银行私人参与基础设施（PPI）数据库和电力部门改革研究中手工编码电力公司拆分、私有化和独立监管机构成立的年份，并手工编码国家航空公司的国有持股比例。</li>
+<li><b>项目数据集的信度与样本外检验。</b>请第二编码者在不看结果的情况下独立编码 30 个项目的约束与外部观察者，核对标注“待核”的来源；再按事先确定的选择规则补充 10–20 个新项目，专门检验“外部观察者是到达高级的必要条件”。</li>
 <li><b>调整大样本在论文中的分量。</b>先后换了能力型指标、三项技术、延长时段和部门层面约束变量，模型一都没有得到支持。建议第三章以描述和数量与能力背离的推论为主，H1 与 H2 的检验主要交给第四、五章的案例比较。</li>
 <li><b>民航数据。</b>ASN 设有反爬验证，ICAO 的数据接口在当前环境中被网络策略拦截，且需要注册。如能通过学校图书馆或直接联系 ASN 获得包括事故征候在内的完整数据，可以替换 Plane Crash Info。</li>
 <li><b>补入科尔奈投资饥渴的论证</b>，写成第二章中数量与能力背离的推论。</li>
@@ -535,6 +600,9 @@ pre{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.8rem;background
   scripts/09_aviation_interaction.py   民航事故率与电力组成两技术面板，恢复交互项
   scripts/10_three_tech.py             加入钢铁工艺结构、延长到 1970–2014 年的三技术面板
   scripts/11_sector_constraint.py      以 OECD 部门监管指标作为部门层面约束变量
+  scripts/12_projects.py               项目层面重新设计：2×2 类型、有序 logit、定性比较分析
+  projects/project_codebook.md         项目数据集编码手册
+  projects/projects_coderA.csv         30 个模仿项目的编码（编码者 A）
   output/                              全部结果表</pre>
 <h3>本报告新增的参考文献</h3>
 <ul class="refs">

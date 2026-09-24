@@ -17,6 +17,7 @@ python3 scripts/08_electricity.py            # -> output/electricity_*.csv
 python3 scripts/09_aviation_interaction.py   # -> output/interaction_*.csv
 python3 scripts/10_three_tech.py              # -> output/three_tech_*.csv
 python3 scripts/11_sector_constraint.py       # -> output/sector_constraint_*.csv
+python3 scripts/12_projects.py                # -> output/projects_*.csv
 python3 scripts/07_report.py                 # -> report/index.html
 ```
 
