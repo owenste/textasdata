@@ -51,6 +51,7 @@
 | `rcep_data.py` | 第九轮公共模块 | 登记中的常量、样本规则、RCEP 处理变量、NEW/D2021/CROSS 分组 | —— |
 | `45_rcep_staggered.py` | 登记九 + Holm 第九族 | RCEP 分批生效的 PPML（H1–H4）、事件研究、七项稳健性 | `tab33`、`rcep_fig1_event.png`、`data/clean/prereg9_family9.csv` |
 | `46_rcep_exploratory.py` | 探索性（不在登记中） | H3 的安慰剂与交互事件研究、H3 与 H4 同时放入、深度三分位、H4 的安慰剂 | `tab34` |
+| `47_rcep_buffer_ddd.py` | 登记十 + Holm 第十族 | RCEP 三重差分：成员跨侧对 vs 非成员跨侧对（缓冲）、跨侧 × 2022 年后（分化）、中国专项；按年事件研究、六项稳健性 | `tab35`、`rcep_fig2_buffer.png`、`data/clean/prereg10_family10.csv` |
 | `39_separation_tests.py` | 登记六 N1–N3 + Holm 第六族 | 承诺与约束分离的系统检验（AC/LE 编码、服务生效滞后、领域选择） | `tab29`、`cn_fig6_separation.png`、`data/clean/prereg6_family6.csv` |
 | `35_ratification_expectations.py` | 登记五 H1–H4 + Holm 第五族 | 否决者、失败协定、等待时长、协定深度与待生效效应；探索性诊断（约 8 分钟） | `tab25`、`data/clean/prereg5_family5.csv` |
 
