@@ -47,6 +47,10 @@
 | `41_download_imts_trade.py` | 数据下载 | IMF IMTS 双边进出口（1990–2025，美元，约 25 分钟） | `data/raw/geo/imts_trade_1990_2025.csv` |
 | `42_geo_new_measures.py` | 登记七 | 新地缘变量（CONN、BRIDGE、GeoV_F、DIST）构造与效度检验 | `tab31`、`audit_fig2_new_geo.png`、`data/clean/geo_new_cy.csv` |
 | `43_authors_framework_tests.py` | 登记八 + Holm 第八族 | 原作者方程中复制「投资 × 连接度 / 国家能力」、双循环与制度型开放假设、新旧地缘变量样本外比较 | `tab32`、`data/clean/prereg8_family8.csv` |
+| `44_download_imts_monthly.py` | 第九轮数据 | IMF IMTS 月度双边进出口，2017-01 至 2026-05，207 个报告方 | `data/raw/geo/imts_monthly_2017_2026.csv` |
+| `rcep_data.py` | 第九轮公共模块 | 登记中的常量、样本规则、RCEP 处理变量、NEW/D2021/CROSS 分组 | —— |
+| `45_rcep_staggered.py` | 登记九 + Holm 第九族 | RCEP 分批生效的 PPML（H1–H4）、事件研究、七项稳健性 | `tab33`、`rcep_fig1_event.png`、`data/clean/prereg9_family9.csv` |
+| `46_rcep_exploratory.py` | 探索性（不在登记中） | H3 的安慰剂与交互事件研究、H3 与 H4 同时放入、深度三分位、H4 的安慰剂 | `tab34` |
 | `39_separation_tests.py` | 登记六 N1–N3 + Holm 第六族 | 承诺与约束分离的系统检验（AC/LE 编码、服务生效滞后、领域选择） | `tab29`、`cn_fig6_separation.png`、`data/clean/prereg6_family6.csv` |
 | `35_ratification_expectations.py` | 登记五 H1–H4 + Holm 第五族 | 否决者、失败协定、等待时长、协定深度与待生效效应；探索性诊断（约 8 分钟） | `tab25`、`data/clean/prereg5_family5.csv` |
 
