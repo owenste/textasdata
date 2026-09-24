@@ -86,6 +86,10 @@ FILES = [
     # 10) 外资净流入占 GDP 比重（世界银行 WDI API）—— 第二轮登记 P5 的结果变量（脚本 23）
     ("wdi/BX.KLT.DINV.WD.GD.ZS.json",
      "https://api.worldbank.org/v2/country/all/indicator/BX.KLT.DINV.WD.GD.ZS?format=json&per_page=20000&date=1960:2024"),
+    # 13) IMF 公共与私人投资、资本存量数据库（ICSD，2019 版）—— 变量审查（脚本 40）
+    ("imf/ICSD_data080219.xlsx", "https://www.imf.org/external/np/fad/publicinvestment/data/data080219.xlsx"),
+    # 14) 私人固定资本形成占 GDP（WDI）—— 变量审查（脚本 40）
+    ("wdi/NE.GDI.FPRV.ZS.json", "https://api.worldbank.org/v2/country/all/indicator/NE.GDI.FPRV.ZS?format=json&per_page=20000&date=1960:2024"),
     # 12) Henisz 政治约束指数 POLCON（2025 版）—— 第五轮登记 H1 的否决者指标（脚本 35）
     ("polcon/POLCON_2025_FINALPOSTED.xlsx", "https://mgmt.wharton.upenn.edu/wp-content/uploads/2026/03/POLCON_2025_FINALPOSTED.xlsx"),
     # 11) 加权平均实施关税（世界银行 WDI API）—— 第三轮登记 B3b 的结果变量（脚本 29）

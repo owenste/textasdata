@@ -43,17 +43,18 @@
 | `36_cn_paper_robustness.py` | 中文论文数据支撑 | 图谱事实在六种口径下的稳健性、编码溯源、与世行约束性条款数对照（约 3 分钟） | `tab26`、`tab27` |
 | `37_cn_corrections.py` | 中文论文：核对修正 | 中国—冰岛采购编码、南方共同市场议定书生效年、服务生效日修正；V0–V4 敏感性（约 5 分钟） | `tab28`、`data/clean/atlas_corrected_cy.csv` |
 | `38_cn_figures.py` | 中文论文：图 1–5 | 基于修正口径 V2 的图表 | `cn_fig1`–`cn_fig5` |
+| `40_variable_audit.py` | 原作者变量审查 | GeoV/GeoC 的效度、跨阵营平衡度、协定数与约束性深度、覆盖（不涉及增长回归） | `tab30`、`audit_fig1_geo.png`、`data/clean/geo_balance_cy.csv` |
 | `39_separation_tests.py` | 登记六 N1–N3 + Holm 第六族 | 承诺与约束分离的系统检验（AC/LE 编码、服务生效滞后、领域选择） | `tab29`、`cn_fig6_separation.png`、`data/clean/prereg6_family6.csv` |
 | `35_ratification_expectations.py` | 登记五 H1–H4 + Holm 第五族 | 否决者、失败协定、等待时长、协定深度与待生效效应；探索性诊断（约 8 分钟） | `tab25`、`data/clean/prereg5_family5.csv` |
 
 ```bash
 pip install -r code/requirements.txt
-for s in 00 01 02 03 04 05 06 07 08 09 10 11 12 13 14 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39; do python code/${s}_*.py; done
+for s in 00 01 02 03 04 05 06 07 08 09 10 11 12 13 14 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40; do python code/${s}_*.py; done
 # 系统 GMM 需要 numpy<2 的独立环境：
 python -m venv .venv_gmm && .venv_gmm/bin/pip install "numpy<2" "pandas<2.2" scipy pydynpd prettytable tabulate pycountry
 .venv_gmm/bin/python code/15_system_gmm.py
 ```
 
 每个脚本的运行日志在 `output/logs/`。`utils.py` 是公用路径与日志工具。
-说明文档：`docs/data_dictionary.md`（数据字典）、`docs/progress_stageA.md`、`docs/progress_stageB.md`、`docs/progress_stageC.md`、`docs/progress_stageDE.md`（各阶段小结）；`docs/falsification_log.md`（证伪条件逐条核对）；`docs/theory_calibration.md`（承诺校准理论）、`docs/preregistration.md`（事前登记）、`docs/results_vs_prereg.md`（结果与登记对照）、`docs/preregistration2.md`（第二轮登记）、`docs/results_vs_prereg2.md`（第二轮结果对照）、`docs/progress_prereg2.md`（第二轮小结）、`docs/preregistration3.md` 与 `docs/results_vs_prereg3.md`（第三轮）、`docs/preregistration4.md` 与 `docs/results_vs_prereg4.md`（第四轮）、`docs/paper_intro_draft.md`（重新定位后的引言草稿）、`docs/progress_gs_atlas.md`（全球南方图谱与事实复核小结）、`docs/theory_OPE_OEP.md`（开放政治经济学与开放经济政治学的对话框架）、`docs/preregistration5.md` 与 `docs/results_vs_prereg5.md`（第五轮）、`docs/cn_paper_evidence.md`（中文论文证据清单）、`docs/cn_paper_verification.md`（人工核对记录）、`docs/cn_paper_outline.md`（中文论文研究大纲，第二版）、`docs/cn_paper_theory_core.md`（理论主线：承诺与约束的分离，含第六轮修订与政策含义）、`docs/preregistration6.md` 与 `docs/results_vs_prereg6.md`（第六轮）；`docs/C2_data_survey.md`（C2 数据可得性调研）。
+说明文档：`docs/data_dictionary.md`（数据字典）、`docs/progress_stageA.md`、`docs/progress_stageB.md`、`docs/progress_stageC.md`、`docs/progress_stageDE.md`（各阶段小结）；`docs/falsification_log.md`（证伪条件逐条核对）；`docs/theory_calibration.md`（承诺校准理论）、`docs/preregistration.md`（事前登记）、`docs/results_vs_prereg.md`（结果与登记对照）、`docs/preregistration2.md`（第二轮登记）、`docs/results_vs_prereg2.md`（第二轮结果对照）、`docs/progress_prereg2.md`（第二轮小结）、`docs/preregistration3.md` 与 `docs/results_vs_prereg3.md`（第三轮）、`docs/preregistration4.md` 与 `docs/results_vs_prereg4.md`（第四轮）、`docs/paper_intro_draft.md`（重新定位后的引言草稿）、`docs/progress_gs_atlas.md`（全球南方图谱与事实复核小结）、`docs/theory_OPE_OEP.md`（开放政治经济学与开放经济政治学的对话框架）、`docs/preregistration5.md` 与 `docs/results_vs_prereg5.md`（第五轮）、`docs/cn_paper_evidence.md`（中文论文证据清单）、`docs/cn_paper_verification.md`（人工核对记录）、`docs/cn_paper_outline.md`（中文论文研究大纲，第二版）、`docs/cn_paper_theory_core.md`（理论主线：承诺与约束的分离，含第六轮修订与政策含义）、`docs/preregistration6.md` 与 `docs/results_vs_prereg6.md`（第六轮）、`docs/variable_audit.md`（原作者变量审查）；`docs/C2_data_survey.md`（C2 数据可得性调研）。
 阶段 B 需要原文 PDF 放在 `data/raw/papers/`（NBER 网站拒绝脚本下载）；附录 A 国家名单已抽取到 `data/clean/aizenman_appendixA_countries.json`。
