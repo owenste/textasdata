@@ -169,6 +169,31 @@ def three_slopes():
                      f"<td class='num'>{x.se:.3f}</td><td class='num'>{x.p:.2f}</td></tr>" for x in r.itertuples())
 
 
+# ---------- chart G: sector-level constraint ----------
+def sector_plot():
+    r = pd.read_csv(O / "sector_constraint_results.csv")
+    b = r[r.term == "lat:etcr"].reset_index(drop=True)
+    svg = hcoef(b, -0.4, 0.3, [-0.4, -0.2, 0, 0.2], "left", "预测方向（β＜0）",
+                "β（能力，技术内标准差 / 宽容度一分 × 部门约束指标一分），95% 置信区间",
+                "以部门层面约束指标重跑模型一的β及95%置信区间，多数为负但均跨越零", fmt="β = {:+.3f}", left=260)
+    return svg
+
+
+def sector_rows():
+    r = pd.read_csv(O / "sector_constraint_results.csv")
+    out = []
+    for m, g in r.groupby("model", sort=False):
+        cell = {x.term: f"{x.coef:+.3f}（{x.se:.3f}）" for x in g.itertuples()}
+        n = int(g.nobs.iloc[0])
+        out.append(f"<tr><td>{esc(m.split(' ',1)[1])}</td><td class='num'>{cell.get('lat:etcr', '—')}</td>"
+                   f"<td class='num'>{cell.get('etcr', '—')}</td><td class='num'>{cell.get('lat:soft_nat', '—')}</td>"
+                   f"<td class='num'>{n:,}</td></tr>")
+    s1 = pd.read_csv(O / "sector_constraint_single.csv")
+    single = "\n".join(f"<tr><td>{esc(x.model.split(' ',1)[1])}</td><td class='num'>{x.coef:+.3f}</td><td class='num'>{x.se:.3f}</td>"
+                        f"<td class='num'>{x.p:.2f}</td><td class='num'>{x.nobs:,}</td></tr>" for x in s1.itertuples())
+    return "\n".join(out), single
+
+
 def interact_tables():
     r = pd.read_csv(O / "interaction_results.csv")
     other = r[~r.model.str.startswith("S")]
@@ -238,6 +263,7 @@ def main():
     t_rows = "\n".join(
         f"<tr><td>{esc(x.model.split(' ',1)[1])}</td><td class='num'>{x.coef:+.3f}</td><td class='num'>{x.se:.3f}</td>"
         f"<td class='num'>{x.p:.3f}</td><td class='num'>{x.nobs:,}</td><td class='num'>{x.countries}</td></tr>" for x in th.itertuples())
+    sec_rows, sec_single = sector_rows()
     tpl = (ROOT / "report" / "template.html").read_text()
     page = (tpl.replace("{{COEF_SVG}}", coef_svg).replace("{{M1_ROWS}}", m1_rows)
             .replace("{{EVENT_SVG}}", event_plot()).replace("{{STEEL_SVG}}", steel_plot())
@@ -246,7 +272,9 @@ def main():
             .replace("{{ELEC_SVG}}", elec_svg).replace("{{ELEC_ROWS}}", e_rows).replace("{{ELEC_Q_ROWS}}", elec_q_rows())
             .replace("{{INT_SVG}}", int_svg).replace("{{INT_ROWS}}", i_rows)
             .replace("{{INT_OTHER_ROWS}}", i_other).replace("{{INT_THR_ROWS}}", i_thr)
-            .replace("{{THREE_SVG}}", three_svg).replace("{{THREE_ROWS}}", t_rows).replace("{{THREE_SLOPES}}", three_slopes()))
+            .replace("{{THREE_SVG}}", three_svg).replace("{{THREE_ROWS}}", t_rows).replace("{{THREE_SLOPES}}", three_slopes())
+            .replace("{{SECTOR_SVG}}", sector_plot()).replace("{{SECTOR_ROWS}}", sec_rows)
+            .replace("{{SECTOR_SINGLE}}", sec_single))
     (ROOT / "report" / "index.html").write_text(page)
     print("wrote report/index.html", len(page))
 

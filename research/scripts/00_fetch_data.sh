@@ -26,3 +26,6 @@ curl -sSL -o planecrashinfo.csv \
 # WDI Database Archives, July 2018 vintage: country-level T&D losses 1960-2014
 curl -sSL "https://api.worldbank.org/v2/sources/57/country/all/series/EG.ELC.LOSS.ZS/version/201807/time/all?format=json&per_page=30000" \
   -o arch_201807.json
+# OECD ETCR sector regulation indicators, 1975-2023
+curl -sSL -A "Mozilla/5.0" -o etcr.xlsx \
+  "https://www.oecd.org/content/dam/oecd/en/topics/policy-sub-issues/product-market-regulation/ETCR%20indicator%20values.xlsx"
