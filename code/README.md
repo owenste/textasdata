@@ -54,6 +54,8 @@
 | `47_rcep_buffer_ddd.py` | 登记十 + Holm 第十族 | RCEP 三重差分：成员跨侧对 vs 非成员跨侧对（缓冲）、跨侧 × 2022 年后（分化）、中国专项；按年事件研究、六项稳健性 | `tab35`、`rcep_fig2_buffer.png`、`data/clean/prereg10_family10.csv` |
 | `48_depth_era_bloc.py` | 登记十一 + Holm 第十一族 | 协定深度的贸易效应：2017 年前后、同侧与跨侧；前趋势、五年分段、九项稳健性 | `tab36`、`era_fig1_depth_by_period.png`、`data/clean/prereg11_family11.csv` |
 | `49_depth_bloc_exploratory.py` | 探索性（不在登记中） | 全时期同侧与跨侧深度效应之差 | `tab37` |
+| `50_growth_linkage.py` | 登记十二 + Holm 第十二族 | 原作者方程 1 + 伙伴增长：联动存在、开放度调节、时期变化、南南联动、中国带动；置换检验、六项稳健性 | `tab38`、`data/clean/prereg12_family12.csv`、`data/clean/linkage_cy.csv` |
+| `51_linkage_decomposition.py` | 描述性（不在登记中） | 联动贡献的南北来源分解（1991–2000、2001–2010、2011–2023） | `tab39` |
 | `39_separation_tests.py` | 登记六 N1–N3 + Holm 第六族 | 承诺与约束分离的系统检验（AC/LE 编码、服务生效滞后、领域选择） | `tab29`、`cn_fig6_separation.png`、`data/clean/prereg6_family6.csv` |
 | `35_ratification_expectations.py` | 登记五 H1–H4 + Holm 第五族 | 否决者、失败协定、等待时长、协定深度与待生效效应；探索性诊断（约 8 分钟） | `tab25`、`data/clean/prereg5_family5.csv` |
 
