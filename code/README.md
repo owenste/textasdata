@@ -56,6 +56,7 @@
 | `49_depth_bloc_exploratory.py` | 探索性（不在登记中） | 全时期同侧与跨侧深度效应之差 | `tab37` |
 | `50_growth_linkage.py` | 登记十二 + Holm 第十二族 | 原作者方程 1 + 伙伴增长：联动存在、开放度调节、时期变化、南南联动、中国带动；置换检验、六项稳健性 | `tab38`、`data/clean/prereg12_family12.csv`、`data/clean/linkage_cy.csv` |
 | `51_linkage_decomposition.py` | 描述性（不在登记中） | 联动贡献的南北来源分解（1991–2000、2001–2010、2011–2023） | `tab39` |
+| `52_linkage_paper_figures.py` | 论文图表（不含新检验） | 描述统计、主回归表（列 1–6）、图 1–4（联动来源转变、联动弹性、稳健性、联动的条件） | `tab40`、`tab41`、`lk_fig1`–`lk_fig4`、`data/clean/linkage_robustness.csv` |
 | `39_separation_tests.py` | 登记六 N1–N3 + Holm 第六族 | 承诺与约束分离的系统检验（AC/LE 编码、服务生效滞后、领域选择） | `tab29`、`cn_fig6_separation.png`、`data/clean/prereg6_family6.csv` |
 | `35_ratification_expectations.py` | 登记五 H1–H4 + Holm 第五族 | 否决者、失败协定、等待时长、协定深度与待生效效应；探索性诊断（约 8 分钟） | `tab25`、`data/clean/prereg5_family5.csv` |
 
