@@ -146,11 +146,11 @@ yr["cS"], yr["cN"] = tS * yr.gS * 100, tN * yr.gN * 100
 fig, (a1, a2) = plt.subplots(1, 2, figsize=(10.5, 4.3), gridspec_kw={"width_ratios": [1, 1.15]})
 style(a1)
 PER = [(1991, 2000), (2001, 2010), (2011, 2023)]
-cs = [yr.loc[p0:p1].cS.mean() for p0, p1 in PER]
-cn = [yr.loc[p0:p1].cN.mean() for p0, p1 in PER]
+cs = [dd[dd.year.between(p0, p1)].gS.mean() * 100 for p0, p1 in PER]       # 估计样本（与表 2、表 4 相同）
+cn = [dd[dd.year.between(p0, p1)].gN.mean() * 100 for p0, p1 in PER]
 xs_ = np.arange(len(PER))
-a1.bar(xs_, cs, width=0.55, color=C_S, edgecolor=SURF, linewidth=2, label="来自南方伙伴")
-a1.bar(xs_, cn, width=0.55, bottom=cs, color=C_N, edgecolor=SURF, linewidth=2, label="来自北方伙伴")
+a1.bar(xs_, cs, width=0.55, color=C_S, edgecolor=SURF, linewidth=2, label="南方伙伴")
+a1.bar(xs_, cn, width=0.55, bottom=cs, color=C_N, edgecolor=SURF, linewidth=2, label="北方伙伴")
 for k in range(len(PER)):
     a1.text(xs_[k], cs[k] / 2, f"{cs[k]:.2f}", ha="center", va="center", fontsize=8.5, color="#ffffff")
     a1.text(xs_[k], cs[k] + cn[k] / 2, f"{cn[k]:.2f}", ha="center", va="center", fontsize=8.5, color="#ffffff")
@@ -158,8 +158,8 @@ for k in range(len(PER)):
             fontsize=9, color=INK)
 a1.set_xticks(xs_, [f"{p0}–{p1}" for p0, p1 in PER], fontsize=8.5, color=INK)
 a1.set_ylim(0, max(np.add(cs, cn)) * 1.28)
-a1.set_ylabel("联动贡献（百分点，时期平均）", color=INK2, fontsize=9)
-a1.set_title("(a) 伙伴增长对本国增长的联动贡献", fontsize=9.5, color=INK, loc="left")
+a1.set_ylabel("伙伴加权增长（百分点，时期平均）", color=INK2, fontsize=9)
+a1.set_title("(a) 伙伴加权增长的南北构成", fontsize=9.5, color=INK, loc="left")
 a1.legend(loc="upper right", frameon=False, fontsize=8.5)
 style(a2)
 a2.plot(yr.index, yr.south * 100, color=C_S, lw=2, marker="o", ms=3)
@@ -171,8 +171,8 @@ a2.set_ylim(0, 70)
 a2.set_ylabel("占出口的比重（%）", color=INK2, fontsize=9)
 a2.set_title("(b) 发展中国家的出口伙伴结构", fontsize=9.5, color=INK, loc="left")
 save(fig, "lk_fig1_source_shift.png", "图 1 现代化联动来源的结构转变",
-     f"注：联动贡献 = 弹性 × 伙伴加权增长；弹性取表 2 列（3）：南方 {tS:.2f}、北方 {tN:.2f}，各时期相同。"
-     "描述性分解，不是分时期弹性的估计。数据：GMD、IMF IMTS。")
+     "注：(a) 按南北弹性相同的口径，联动贡献 = θ × 伙伴加权增长，南方占比即图中比例，只要求 θ > 0，与 θ 的水平无关；"
+     "\n用估计弹性的敏感性口径见表 4。估计样本同表 2。描述性分解，不是分时期弹性的估计。数据：GMD、IMF IMTS。")
 
 # ---------------------------------------------------------------------------
 # 三、图 2：联动系数
