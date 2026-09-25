@@ -203,7 +203,7 @@ variants = [("主模型", d),
             ("固定基期权重（1990–94）", with_lk(linkage(SX, isos, base=range(1990, 1995)))),
             ("进出口合计权重", with_lk(linkage(shares("T"), isos))),
             ("剔除 2009、2020 年", d[~d.year.isin([2009, 2020])]),
-            ("剔除中国", d[d.ISO3 != "CHN"]),
+            ("剔除中国（作为样本国）", d[d.ISO3 != "CHN"]),
             ("伙伴增长滞后一期", with_lk(linkage(SX, isos, lag=1)))]
 reg = m.drop_duplicates("ISO3").set_index("ISO3").region
 same = {i: set(reg[reg == reg.get(i)].index) for i in isos}
@@ -214,9 +214,13 @@ for lab, dv in variants:
         xs, w, de = spec(key, dv)
         e, s, p = lin(fit(de, xs), w)
         rb.append({"设定": lab, "检验": key, "估计": e, "SE": s, "p": p})
+# 第十三轮（已登记检验，结果读自 prereg13_family13.csv）：南方伙伴增长中去掉中国 / 去掉每国最大南方伙伴
+f13 = pd.read_csv(CLEAN / "prereg13_family13.csv").set_index("检验")
+for key13, lab13 in [("M1", "南方伙伴中去掉中国"), ("M2", "南方伙伴中去掉最大伙伴")]:
+    rb.append({"设定": lab13, "检验": "L4", "估计": f13.loc[key13, "估计"], "SE": f13.loc[key13, "SE"], "p": f13.loc[key13, "原始p"]})
 rb = pd.DataFrame(rb)
 rb.to_csv(CLEAN / "linkage_robustness.csv", index=False)
-fig, axes = plt.subplots(1, 2, figsize=(10, 4.2), sharey=True)
+fig, axes = plt.subplots(1, 2, figsize=(10.5, 4.6))
 for ax, key, col, title in [(axes[0], "L1", INK2, "(a) 全部伙伴 θ"), (axes[1], "L4", C_S, "(b) 南方伙伴 θ_S")]:
     style(ax, grid="x")
     s = rb[rb.检验 == key].reset_index(drop=True)
@@ -230,7 +234,8 @@ for ax, key, col, title in [(axes[0], "L1", INK2, "(a) 全部伙伴 θ"), (axes[
     ax.set_title(title, fontsize=9.5, color=INK, loc="left")
     ax.set_yticks(range(len(s)), s.设定[::-1], fontsize=8.5, color=INK)
 save(fig, "lk_fig3_robustness.png", "图 3 稳健性：联动弹性在不同设定下的估计",
-     "注：横线为 95% 置信区间；实心点为主模型。*** p<0.01，** p<0.05，* p<0.1。国家 + 年份 FE。")
+     "注：横线为 95% 置信区间；实心点为主模型。*** p<0.01，** p<0.05，* p<0.1。国家 + 年份 FE。(b) 最后两行为第十三轮："
+     "把中国或每国最大的南方伙伴从南方伙伴增长中拆出后，其余南方伙伴的联动系数。")
 
 # ---------------------------------------------------------------------------
 # 五、图 4：联动的条件（读取第十、十一轮已登记检验的结果表，不做新估计）
