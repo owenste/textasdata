@@ -57,7 +57,7 @@ def style(ax, grid="y"):
 def save(fig, name, title, note):
     fig.suptitle(title, fontsize=12, color=INK, x=0.01, ha="left")
     fig.text(0.01, 0.01, note, fontsize=7.5, color=INK2, ha="left", va="bottom")
-    fig.tight_layout(rect=(0, 0.05, 1, 0.94))
+    fig.tight_layout(rect=(0, 0.07 if "\n" in note else 0.05, 1, 0.94))
     fig.savefig(FIG / name, dpi=160, facecolor=SURF)
     plt.close(fig)
 
@@ -234,8 +234,8 @@ for ax, key, col, title in [(axes[0], "L1", INK2, "(a) 全部伙伴 θ"), (axes[
     ax.set_title(title, fontsize=9.5, color=INK, loc="left")
     ax.set_yticks(range(len(s)), s.设定[::-1], fontsize=8.5, color=INK)
 save(fig, "lk_fig3_robustness.png", "图 3 稳健性：联动弹性在不同设定下的估计",
-     "注：横线为 95% 置信区间；实心点为主模型。*** p<0.01，** p<0.05，* p<0.1。国家 + 年份 FE。(b) 最后两行为第十三轮："
-     "把中国或每国最大的南方伙伴从南方伙伴增长中拆出后，其余南方伙伴的联动系数。")
+     "注：横线为 95% 置信区间；实心点为主模型。*** p<0.01，** p<0.05，* p<0.1。国家 + 年份 FE。\n(b) 最后两行为第十三轮："
+     "把中国或每国最大的南方伙伴从南方伙伴增长中拆出后，其余南方伙伴的联动系数；只说明联动仍存在，系数大小不宜相互比较。")
 
 # ---------------------------------------------------------------------------
 # 五、图 4：联动的条件（读取第十、十一轮已登记检验的结果表，不做新估计）
