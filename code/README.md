@@ -60,6 +60,7 @@
 | `53_south_multisource.py` | 登记十三 + Holm 第十三族 | 南方伙伴增长中拆出中国（M1）、拆出每国最大南方伙伴（M2）；稳健性与北方 / 其他南方 / 中国的描述性分解 | `tab42`、`data/clean/prereg13_family13.csv`、`data/clean/linkage_split_cy.csv` |
 | `54_hierarchy_common_shocks.py` | 登记十四 + Holm 第十四族 | 加入大宗商品贸易条件冲击（IMF CTOT）与全球金融周期 × 资本开放度（VIX、美国利率）后的 θ_S − θ_N、θ_S、θ | `tab43`、`data/clean/prereg14_family14.csv`；下载 `data/raw/geo/imf_ctot_annual.csv`、`cboe_vix_history.csv` |
 | `55_linkage_sample_diagnostic.py` | 探索性（不在登记中） | 联动系数对冲突国家、转型经济体 1991–96 年、1997 年以后样本的敏感性 | `tab44` |
+| `56_conservative_linkage.py` | 登记十五（单项） | 区域外伙伴、1997–2023 年、区域×年份 FE 下的保守联动量级 θ_OUT | `tab45`、`data/clean/prereg15_c1.csv` |
 | `39_separation_tests.py` | 登记六 N1–N3 + Holm 第六族 | 承诺与约束分离的系统检验（AC/LE 编码、服务生效滞后、领域选择） | `tab29`、`cn_fig6_separation.png`、`data/clean/prereg6_family6.csv` |
 | `35_ratification_expectations.py` | 登记五 H1–H4 + Holm 第五族 | 否决者、失败协定、等待时长、协定深度与待生效效应；探索性诊断（约 8 分钟） | `tab25`、`data/clean/prereg5_family5.csv` |
 

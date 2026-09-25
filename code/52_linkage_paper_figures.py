@@ -177,24 +177,34 @@ save(fig, "lk_fig1_source_shift.png", "图 1 现代化联动来源的结构转�
 # ---------------------------------------------------------------------------
 # 三、图 2：联动系数
 # ---------------------------------------------------------------------------
-items = [("全部伙伴 θ", "(1)", "(2)", "gP", INK2), ("南方伙伴 θ_S", "(3)", "(4)", "gS", C_S), ("北方伙伴 θ_N", "(3)", "(4)", "gN", C_N)]
-fig, ax = plt.subplots(figsize=(8, 3.8))
+c1 = pd.read_csv(CLEAN / "prereg15_c1.csv").iloc[0]          # 第十五轮登记检验 C1（脚本 56）
+rows2 = [("全部伙伴 θ", [(fits["(1)"].params["gP"], fits["(1)"].std_errors["gP"], "o", INK2, INK2),
+                         (fits["(2)"].params["gP"], fits["(2)"].std_errors["gP"], "D", INK2, SURF)]),
+         ("保守估计 θ_OUT\n（区域外伙伴，1997–2023，\n区域×年份 FE）", [(c1.估计, c1.SE, "s", INK2, INK2)]),
+         ("南方伙伴 θ_S", [(fits["(3)"].params["gS"], fits["(3)"].std_errors["gS"], "o", C_S, C_S),
+                          (fits["(4)"].params["gS"], fits["(4)"].std_errors["gS"], "D", C_S, SURF)]),
+         ("北方伙伴 θ_N", [(fits["(3)"].params["gN"], fits["(3)"].std_errors["gN"], "o", C_N, C_N),
+                          (fits["(4)"].params["gN"], fits["(4)"].std_errors["gN"], "D", C_N, SURF)])]
+fig, ax = plt.subplots(figsize=(8.5, 4.6))
 style(ax, grid="x")
-for k, (lab, m1, m2, v, col) in enumerate(items):
-    for off, mm, mk, fl in [(-0.13, m1, "o", col), (0.13, m2, "D", SURF)]:
-        e, s = fits[mm].params[v], fits[mm].std_errors[v]
-        y = len(items) - 1 - k + off
-        ax.plot([e - 1.96 * s, e + 1.96 * s], [y, y], color=col, lw=2, solid_capstyle="round")
+for k, (lab, pts) in enumerate(rows2):
+    base_y = len(rows2) - 1 - k
+    offs = [-0.14, 0.14] if len(pts) == 2 else [0.0]
+    for off, (e, s_, mk, col, fl) in zip(offs, pts):
+        y = base_y + off
+        ax.plot([e - 1.96 * s_, e + 1.96 * s_], [y, y], color=col, lw=2, solid_capstyle="round")
         ax.plot(e, y, marker=mk, ms=8, color=col, markerfacecolor=fl, markeredgewidth=1.8, zorder=3)
-        ax.text(e + 1.96 * s + 0.04, y, f"{e:.2f}", va="center", fontsize=8, color=INK2)
+        ax.text(e + 1.96 * s_ + 0.04, y, f"{e:.2f}", va="center", fontsize=8, color=INK2)
 ax.axvline(0, color="#8a8983", lw=0.8)
-ax.set_yticks(range(len(items)), [i[0] for i in items][::-1], fontsize=9, color=INK)
+ax.set_yticks(range(len(rows2)), [r_[0] for r_ in rows2][::-1], fontsize=8.5, color=INK)
 ax.set_xlabel("伙伴增长提高 1 个百分点，本国增长提高的百分点", color=INK2, fontsize=9)
-ax.plot([], [], marker="o", ms=7, color=INK2, lw=0, label="国家 + 年份 FE")
+ax.plot([], [], marker="o", ms=7, color=INK2, lw=0, label="国家 + 年份 FE（上限）")
 ax.plot([], [], marker="D", ms=7, color=INK2, markerfacecolor=SURF, markeredgewidth=1.8, lw=0, label="国家 + 区域×年份 FE")
-ax.legend(loc="upper right", frameon=False, fontsize=8.5)
-save(fig, "lk_fig2_coefficients.png", "图 2 增长联动的弹性：全部伙伴、南方伙伴与北方伙伴",
-     "注：横线为 95% 置信区间（国家聚类）。控制变量同原作者方程 1。对应表 2 列（1）—（4）。")
+ax.plot([], [], marker="s", ms=7, color=INK2, lw=0, label="保守估计（第十五轮登记检验）")
+ax.legend(loc="upper right", frameon=False, fontsize=8)
+save(fig, "lk_fig2_coefficients.png", "图 2 增长联动的弹性：上限与保守估计",
+     "注：横线为 95% 置信区间（国家聚类）。控制变量同原作者方程 1。全部、南方、北方伙伴对应表 2 列（1）—（4）；\n"
+     "保守估计只用区域外伙伴、1997–2023 年、区域×年份 FE，同时排除区域共同冲击与转型初期。南北系数大小不作比较。")
 
 # ---------------------------------------------------------------------------
 # 四、图 3：稳健性
